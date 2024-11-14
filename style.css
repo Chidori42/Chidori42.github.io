@@ -11,7 +11,7 @@
 #dark-mode-toggle {
     border-radius: 50%;
     width: 45px;
-    height: 35px;
+    height: 45px;
     position: fixed;
     top: 20px;
     right: 20px;
@@ -33,7 +33,7 @@
 }
 
 body.dark-mode {
-    background-image: url('texters/dark_mode.png');
+    background-image: url('texters/dark_back.jpeg');
 }
 
 body {
