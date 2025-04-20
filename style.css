@@ -507,7 +507,21 @@ button img {
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
-/* Media Queries for Responsiveness */
+/* Enhanced Media Queries for Better Responsiveness */
+@media (max-width: 992px) {
+    .skills-section {
+        padding: 2.5rem 1.5rem;
+    }
+    
+    .skill-content {
+        gap: 1.5rem;
+    }
+    
+    .skills-list {
+        grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
     .skill-content {
         flex-direction: column;
@@ -515,24 +529,93 @@ button img {
     }
     
     .skills-photo {
+        width: 200px;
+        height: 200px;
         margin-bottom: 2rem;
     }
     
     .skills-list {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        width: 100%;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+    
+    .skill-item {
+        padding: 0.9rem;
+    }
+    
+    .skills-section h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1.8rem;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
     .skills-list {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
     }
     
     .skill-item {
         padding: 0.8rem;
     }
+    
+    .skill-item img {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .desc-skills {
+        font-size: 0.9rem;
+    }
+    
+    .skills-photo {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .skills-section h1 {
+        font-size: 2rem;
+    }
 }
 
+@media (max-width: 400px) {
+    .skills-list {
+        display:block;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .skill-item {
+        padding: 0.7rem;
+    }
+    
+    .skill-item img {
+        width: 30px;
+        height: 30px;
+        margin-right: 8px;
+    }
+    
+    .desc-skills {
+        font-size: 0.85rem;
+    }
+    
+    .skills-photo {
+        width: 150px;
+        height: 150px;
+        border-width: 4px;
+    }
+    
+    .skills-section h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .skills-section h1::after {
+        width: 60px;
+        height: 3px;
+    }
+}
 
 .timeline {
     display: block;
@@ -1112,40 +1195,6 @@ button img {
         }
 
         
-        #contact {
-            flex-direction: column;
-            align-items: center;
-        }
         
-        #contact img {
-            width: 100%;
-            margin: 0 0 20px 0;
-        }
-        
-        #contact-form {
-            width: 100%;
-        }
-        
-        #contact-form button {
-            width: 50%;
-            align-self: center;
-        }
-        
-        @media (max-width: 480px) {
-            #contact h1 {
-                font-size: 28px;
-            }
-            
-            #contact-form input[type="text"],
-            #contact-form input[type="email"],
-            #contact-form textarea {
-                padding: 8px;
-            }
-            
-            #contact-form button {
-                width: 70%;
-                padding: 8px;
-            }
-            
-        }
+    
 }
