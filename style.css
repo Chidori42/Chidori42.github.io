@@ -29,12 +29,12 @@
 
 
 .dark_back .back_class{
-    background-color: #1a1a1a;
+    background-color: #210F37;
     color: #fff;
 }
 
 body.dark-mode {
-    background-image: url('texters/dark_back.jpeg');
+    background-color: #210F37;
 }
 
 body {
@@ -43,7 +43,7 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     font-family: Arial, sans-serif;
-    background: url('texters/white_back.jpg');
+    background-color: #EFEEEA;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
