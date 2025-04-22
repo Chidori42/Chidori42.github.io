@@ -185,16 +185,31 @@ main {
 }
 
 h1 {
-    font-size: 36px;
-    font-family: fantasy;
-    color: #52a7db;
-    text-align: center;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #0f67bf;
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg, #22d3ee, #0ea5e9 50%, transparent 50%);
+    background-size: 200% 100%;
+    animation: gradientSlide 3s ease infinite;
 }
 
 .description {
     background-color: #fff;
-    border-radius: 10px;
+    text-align: center;
+    border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
     transition: 0.6s all;
@@ -224,19 +239,7 @@ h1 {
     line-height: 1.5em;
 }
 
-
-.projects-container h1 {
-    font-size: 36px;
-    font-family: fantasy;
-    color: #52a7db;
-    text-align: center;
-    margin-bottom: 20px;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
 .projects {
-    display: flex;
     align-items: center;
     padding: 10px;
     padding-left: 5%;
@@ -363,7 +366,7 @@ button img {
 .learned-skills {
     display: flex;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .learned-skills img {
@@ -406,27 +409,6 @@ button img {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
     color: white;
     margin: 3rem 0;
-}
-
-.skills-section h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    position: relative;
-    padding-bottom: 15px;
-    font-weight: 700;
-}
-
-.skills-section h1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background-color: #ff7e5f;
-    border-radius: 2px;
 }
 
 .skill-content {
@@ -534,10 +516,6 @@ button img {
         padding: 0.9rem;
     }
     
-    .skills-section h1 {
-        font-size: 2.2rem;
-        margin-bottom: 1.8rem;
-    }
 }
 
 @media (max-width: 576px) {
@@ -564,9 +542,6 @@ button img {
         height: 180px;
     }
     
-    .skills-section h1 {
-        font-size: 2rem;
-    }
 }
 
 @media (max-width: 400px) {
@@ -595,16 +570,7 @@ button img {
         height: 150px;
         border-width: 4px;
     }
-    
-    .skills-section h1 {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .skills-section h1::after {
-        width: 60px;
-        height: 3px;
-    }
+
 }
 
 .timeline {
@@ -816,28 +782,6 @@ button img {
     z-index: 0;
 }
 
-#contact h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: #0f67bf;
-    position: relative;
-    display: inline-block;
-    z-index: 1;
-}
-
-#contact h1::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    height: 3px;
-    width: 100%;
-    background: linear-gradient(90deg, #22d3ee, #0ea5e9 50%, transparent 50%);
-    background-size: 200% 100%;
-    animation: gradientSlide 3s ease infinite;
-}
-
 @keyframes gradientSlide {
     0% { background-position: 100% 0; }
     50% { background-position: 0 0; }
@@ -1004,10 +948,6 @@ button img {
         margin: 0 auto 1.5rem;
     }
     
-    #contact h1 {
-        text-align: center;
-        display: block;
-    }
 }
 
 /* ================ Media Queries ================ */
@@ -1024,9 +964,6 @@ button img {
         padding: 15px;
     }
 
-    .description h1 {
-        font-size: 30px;
-    }
 
     .intro {
         font-size: 16px;
@@ -1041,9 +978,6 @@ button img {
             padding: 10px;
         }
         
-        .description h1 {
-            font-size: 26px;
-        }
         
         .intro {
             font-size: 14px;
