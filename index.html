@@ -289,18 +289,25 @@
             <div id="contact">
                 <h1>Contact</h1>
                 <img src="texters/contact.png" id="img" alt="Contact Image">
-                <form id="contact-form">
+                <form id="contact-form" action="https://formsubmit.co/rcabdw@gmail.com" method="POST" target="_blank">
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required  placeholder="Name">
-
+                    <input type="text" id="name" name="name" required placeholder="Name">
+                  
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required  placeholder="Email">
-
+                    <input type="email" id="email" name="email" required placeholder="Email">
+                  
                     <label for="message">Message:</label>
-                    <textarea id="message" name="message" required  placeholder="Message"></textarea>
+                    <textarea id="message" name="message" required placeholder="Message"></textarea>
 
+                    <input type="hidden" name="_next" value="#">
+                
+                    <input type="text" name="_honey" style="display:none">
+
+                    <input type="hidden" name="_captcha" value="false">
+                  
                     <button type="submit">Send</button>
-                </form>
+                  </form>
+                  
             </div>
 
 
@@ -311,7 +318,7 @@
 
     </main>
     <script src="node.js"></script>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <!-- <script src="https://smtpjs.com/v3/smtp.js"></script> -->
 </body>
 
 </html>
