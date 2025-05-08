@@ -240,30 +240,32 @@ h1::after {
 }
 .project-section {
     background: none;
-    padding: 2rem 2rem;
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
     color: white;
-    margin: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 .projects-container {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    justify-content: flex-start;
-    align-items: flex-start;
+    /* justify-content: flex-start; */
+    align-items: center;
+    
 }
 
 .project {
-    width: 300px;
-    height: 400px;
-    margin: 20px;
+    width: 250px;
+    height: 350px;
+    margin: 30px;
     background: none;
     border-radius: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: 0.4s ease;
     will-change: transform, box-shadow;
+    padding: 10px;
 }
 
 .project:hover {
@@ -337,7 +339,7 @@ button img {
 
 .project-info p {
     font-style: italic;
-    font-size: 16px;
+    font-size: 13px;
     color: #382e2e;
     margin-bottom: 20px;
     line-height: 1.5;
@@ -1072,24 +1074,23 @@ button img {
     }
 }
 
-@media (max-width: 479px) {
-    #contact #img {
-        float: none;
-        display: block;
-        margin: 0 auto 1.5rem;
+@media (max-width: 400px) {
+   #img {
+        display: none;
     }
-    
+    #name{
+       width: 150px; 
+    }
+    #email{
+        width: 150px; 
+    }
+    #message{
+        width: 150px; 
+    }
 }
 
 /* ================ Media Queries ================ */
 @media screen and (max-width: 660px) {
-
-    #header-video video {
-        width: 100%;
-        /* Adjust width for screens up to 768px */
-        height: auto;
-        /* Set height to auto to maintain aspect ratio */
-    }
 
     .description {
         padding: 15px;
@@ -1098,10 +1099,6 @@ button img {
 
     .intro {
         font-size: 16px;
-    }
-
-    .skills, .interests, .impact, .future {
-        font-size: 14px;
     }
     
     @media (max-width: 480px) {
@@ -1112,43 +1109,6 @@ button img {
         
         .intro {
             font-size: 14px;
-        }
-        
-        .skills, .interests, .impact, .future {
-            font-size: 12px;
-        }
-        
-        .skills-photo {
-            width: 100%;
-            height: auto;
-            margin: 0 0 20px 0;
-        }
-        
-        .skill-content {
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .skill-item {
-            width: 100%;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .skills-section {
-            padding: 20px;
-        }
-        
-        .desc-skills {
-            font-size: 16px;
-        }
-        
-        .skill-item {
-            padding: 10px;
-        }
-        
-        .skill-item img {
-            width: 50px;
         }
     }
         
@@ -1249,8 +1209,4 @@ button img {
             
             z-index: 15;
         }
-
-        
-        
-    
 }
