@@ -491,10 +491,9 @@ button img {
 
     .project img {
         width: 100%;
-        height: 100%;
-        background-size: cover;
-        height: auto; 
-        border-radius: 2px 2px 0 0;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 20px;
     }
 
     .project-info {
@@ -513,6 +512,7 @@ button img {
     }
 
     .learned-skills img {
+
         width: 25px;
         height: 25px;
     }
@@ -521,6 +521,7 @@ button img {
         padding: 8px 15px;
         font-size: 13px;
     }
+    
 }
 
 .skills-section {
@@ -681,7 +682,7 @@ button img {
         align-content: center;
         padding: 0;
         margin: 0;
-        width: 150px;
+        width: 160px;
         height: 50px;
     }
 
