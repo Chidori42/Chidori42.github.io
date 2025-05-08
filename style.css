@@ -282,6 +282,9 @@ button img {
     transition: 0.6s all;
     overflow: hidden;
 }
+.dark-mode h2{
+    color:#210F37;
+}
 
 .project:hover {
     transform: translateY(-5px);
@@ -460,8 +463,12 @@ button img {
 @media (max-width: 400px) {
 
     .project-section {
-        display: flex;
-        flex-direction: column; /* Use flex-direction to stack items */
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        display:grid;
+        flex-direction: column; 
         align-items: center;
         gap: 10px;
     }
@@ -473,32 +480,33 @@ button img {
     }
 
     .project {
-        width: 90%; /* Responsive width instead of fixed px */
-        max-width: 300px;
-        height: auto;
+        width: 80%; 
+        height: 200px;
         margin: 10px 0;
-        border-radius: 15px;
+        border-radius: 2px;
         overflow: hidden;
     }
 
     .project img {
         width: 100%;
-        height: auto; /* Keep image aspect ratio */
-        border-radius: 15px 15px 0 0;
+        height: 100%;
+        background-size: cover;
+        height: auto; 
+        border-radius: 2px 2px 0 0;
     }
 
     .project-info {
         padding: 10px;
-        font-size: 13px;
+        font-size: 10px;
     }
 
     .project-info p {
-        font-size: 10px;
+        font-size: 8px;
         margin-bottom: 10px;
     }
 
     .project-title {
-        font-size: 16px;
+        font-size: 10px;
         text-align: center;
     }
 
@@ -657,36 +665,44 @@ button img {
 
 @media (max-width: 400px) {
     .skills-list {
-        display:block;
-        grid-template-columns: 0.5fr 0.5fr;
-        padding :30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        border: none;
+        margin: 0;
+        padding: 0;
     }
-    
+
     .skill-item {
-        padding: 0.5rem;
-    }
-    
-    .skills-photo {
+        align-items: center;
+        align-content: center;
+        padding: 0;
+        margin: 0;
         width: 150px;
-        height: 150px;
-        border-width: 3px;
+        height: 50px;
+    }
+
+    .skills-photo {
+        width: 100px;
+        height: 100px;
+        border-width: 2px;
     }
 
     .skill-item img {
-        width: 40px;
-        height: 40px;
-        margin-right: 12px;
+        width: 30px;
+        height: 30px;
+        margin-right: 8px;
         transition: transform 0.3s ease;
     }
-    
-    
+
     .desc-skills {
-        color:#333;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        font-size: 1rem;
+        font-size: 0.9rem;
+        letter-spacing: 0.3px;
     }
 }
+
+
 
 .timeline {
     display: block;
