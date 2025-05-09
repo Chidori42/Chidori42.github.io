@@ -257,15 +257,16 @@ h1::after {
 }
 
 .project {
-    width: 250px;
+    grid-template-columns: repeat(3, 1fr);
+    width: 350px;
     height: 350px;
-    margin: 30px;
     background: none;
     border-radius: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: 0.4s ease;
     will-change: transform, box-shadow;
-    padding: 10px;
+    margin: 10px;
+    padding: 0;
 }
 
 .project:hover {
@@ -387,40 +388,50 @@ button img {
 
 @media (max-width: 992px) {
     .project {
-        width: 280px;
-        height: 380px;
-        margin: 16px;
-        border-radius: 26px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        width: 170px;
+        height: 170px;
+        margin: 5px;
+        border-radius: 25px;
         box-shadow: 0 3px 13px rgba(0, 0, 0, 0.2);
     }
     .project img {
         width: 100%;
-        height: 310px;
-        border-radius: 16px;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
     }
     
     .project-title {
-        font-size: 19px;
+        font-size: 5px;
         margin: 10px 0;
     }
     .project-info {
-        padding: 19px;
-        border-radius: 16px;
+        padding: 10px;
+        font-style: italic;
+        border-radius: 10px;
     }
     
     .project-info p {
+        font-size: 8px;
+        font-style: normal;
+        font-weight: 100;
+        margin-bottom: 10px;
+    }
+    .project-info h2{
         font-size: 13px;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
     }
     
     .learned-skills {
         gap: 8px;
-        margin-top: 15px;
+        margin-top: 8px;
     }
     
     .learned-skills img {
-        width: 40px;
-        height: 40px;
+        width: 25px;
+        height: 25px;
     }
     
 }
