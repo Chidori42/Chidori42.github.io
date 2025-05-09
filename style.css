@@ -643,20 +643,26 @@ button img {
 @media (max-width: 576px) {
     .skills-list {
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+        gap: 1rem;
+        margin: 0;
+        padding: 0;
     }
     
     .skill-item {
-        padding: 0.8rem;
+        width: 115px;
+        height: 70px;
+        padding: 10px;
+        margin: 0;
+        padding: 0;
     }
     
     .skill-item img {
-        width: 30px;
-        height: 40px;
+        width: 25px;
+        height: 25px;
     }
     
     .desc-skills {
-        font-size: 0.9rem;
+        font-size: 15px;
     }
     
     .skills-photo {
