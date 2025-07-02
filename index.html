@@ -1,338 +1,698 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abdellatif El Fagrouch | Web Developer</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
-    <header>
-        <div class="header-photo">
-            <img src="texters/ael-fagr.jpeg" alt="my photo" id="head-photo">
+    <header id="header" class="header">
+        <div class="container">
+            <h1 class="logo">Abdellatif El Fagrouch</h1>
+            
+            <nav class="nav desktop-nav">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="social-links desktop-social">
+                <a href="https://x.com/Abdellatif_El_0" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://github.com/Chidori42" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/abdellatif-el-fagrouch/" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <h2 id="Name">Abdellatif El Fagrouch</h2>
-        <nav>
-            <ul>
-                <li>
-                    <a href="https://x.com/Abdellatif_El_0" target="_blank"><i class="fa fa-twitter icon" ></i></a>
-                </li>
-                <li>
-                    <a href="https://github.com/Chidori42" target="_blank"><i class="fa fa-github icon" ></i></a>
-                </li>
-                <li>
-                    <a href="https://www.linkedin.com/in/abdellatif-el-fagrouch/" target="_blank"><i class="fa fa-linkedin icon" ></i></a>
-                </li>
-            </ul>
-        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#about" class="mobile-nav-link">About</a>
+            <a href="#projects" class="mobile-nav-link">Projects</a>
+            <a href="#skills" class="mobile-nav-link">Skills</a>
+            <a href="#education" class="mobile-nav-link">Education</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+            <div class="mobile-social">
+                <a href="https://x.com/Abdellatif_El_0" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://github.com/Chidori42" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/abdellatif-el-fagrouch/" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <div class="description">
-            <h1>About Me</h1>
-            <p class="intro">
-                I’m a passionate web developer and hands-on training from 1337 Coding School in Morocco. With a bachelor's degree and a drive for innovation, I’ve developed expertise in both front-end and back-end development.
-            </p>
-            <p class="skills">
-                My experience at 1337 immersed me in real-world projects and modern technologies like React, Node.js, and database systems. Through collaborative learning, I gained the skills to build dynamic, user-friendly web applications.
-            </p>
-            <p class="interests">
-                Always curious and eager to grow, I stay up to date with the latest tech trends and tools. I enjoy solving complex problems, exploring new frameworks, and crafting clean, efficient code that delivers real impact.
-            </p>
-            <p class="impact">
-                I bring a blend of creativity and technical know-how to every project—from concept to launch. Whether working solo or with a team, I focus on creating seamless, engaging digital experiences.
-            </p>
-            <p class="future">
-                I’m excited to continue building innovative web solutions that contribute meaningfully to the ever-evolving world of technology.
-            </p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="bg-element bg-element-1"></div>
+            <div class="bg-element bg-element-2"></div>
         </div>
         
-
- 
-        <div class="project-section">
-                <h1>My Projects</h1>
-                <div class="projects-container">
-                    <div class="project">
-                        <img src="texters/portfolio.jpeg" alt="Project 2">
-                        <h2 class="project-title">Portfolio</h2>
-                        <div class="project-info info">
-                            <h2>Portfolio</h2>
-                            <p>The Portfolio project represents a culmination of my skills in web development, showcasing an efficient algorithm for sorting a stack of integers using a limited set of operations.</p>
-                            <div class="learned-skills">
-                                <img src="texters/html5.png" alt="Html" title="Html">
-                                <img src="texters/css3.png" alt="C Programming" title="C Programming">
-                                <img src="texters/js.png" alt="JavaScript" title="JavaScript">
-                            </div>
-                            <div class="btn-container">
-                                <a href="https://github.com/Chidori42/Minishell" class="btn" target="_blank">View Project</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project">
-                        <img src="texters/Minishell.jpg" alt="Project 1">
-                        <h2 class="project-title">Minishell</h2>
-                        <div class="project-info info">
-                            <h2>Minishell</h2>
-                            <p>The Minishell project at 42 School is a fundamental exercise in understanding and implementing a basic Unix shell.</p>
-                            <div class="learned-skills">
-                                <img src="texters/unix.png" alt="Unix Shell Programming" title="Unix Shell Programming">
-                                <img src="texters/c.png" alt="C Programming" title="C Programming">
-                            </div>
-                            <div class="btn-container">
-                                <a href="https://github.com/Chidori42/Minishell" class="btn" target="_blank">View Project</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project">
-                        <img src="texters/ft_irc.jpg" alt="Project 1">
-                        <h2 class="project-title">IRC</h2>
-                        <div class="project-info info">
-                            <h2>IRC</h2>
-                            <p>Developed a basic IRC server in C++ adhering to RFC 2812, supporting multiple client connections, core commands (JOIN, PRIVMSG, etc.), 
-                                    and real-time communication using sockets and multithreading."</p>
-                            <div class="learned-skills">
-                                <img src="texters/cpp.png" alt="C++ Programming" title="C++ Programming">
-                            </div>
-                            <div class="btn-container">
-                                <a href="https://github.com/Chidori42/Minishell" class="btn" target="_blank">View Project</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project">
-                            <img src="texters/BFS.jpg" alt="Project 3">
-                            <h2 class="project-title">Path Finding</h2>
-                            <div class="project-info info">
-                                <h2>bfs/floodfill</h2>
-                                <p>This project is a visual simulation of pathfinding algorithms (floodfill, BFS) using c++</p>
-                                <div class="learned-skills">
-                                        <img src="texters/complexity.png" alt="complexityg" title="complexity">
-                                        <img src="texters/cpp.png" alt="C++ Programming" title="C++ Programming">
-                                </div>
-                                <div class="btn-container">
-                                        <a href="https://github.com/Chidori42/Floodfill" class="btn" target="_blank">View Project</a>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="project">
-                        <img src="texters/Cub3D.jpeg" alt="Project 1">
-                        <h2 class="project-title">Cub3D</h2>
-                        <div class="project-info info">
-                            <h2>Cub3D</h2>
-                            <p>Cub3D is a retro-inspired 3D game engine developed as part of the 42 coding school curriculum. This project showcases core concepts in raycasting, graphics rendering, and first-person perspective, built using MiniLibX.</p>
-                            <div class="learned-skills">
-                                <img src="texters/game.png" alt="3D" title="3D">
-                                <img src="texters/c.png" alt="C Programming" title="C Programming">
-                            </div>
-                            <div class="btn-container">
-                                <a href="https://github.com/Chidori42/Cube_3d" class="btn" target="_blank">View Project</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project">
-                        <img src="texters/push_swap.jpg" alt="Project 2">
-                        <h2 class="project-title">Push_Swap</h2>
-                        <div class="project-info info">
-                            <h2>Push_Swap</h2>
-                            <p>The Push Swap project challenges students to devise an efficient algorithm for sorting a stack of integers using a limited set of operations. With an emphasis on algorithmic optimization and problem-solving skills.</p>
-                            <div class="learned-skills">
-                                <img src="texters/complexity.png" alt="complexityg" title="complexity">
-                                <img src="texters/c.png" alt="C Programming" title="C Programming">
-                            </div>
-                            <div class="btn-container">
-                                <a href="https://github.com/Chidori42/Push_swap" class="btn" target="_blank">View Project</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project">
-                        <img src="texters/solong.jpg" alt="Project 3">
-                        <h2 class="project-title">So_Long</h2>
-                        <div class="project-info info">
-                            <h2>So_Long</h2>
-                            <p>The So_Long project at 42 School is a graphics-related project that focuses on creating a simple 2D game using the
-                                MiniLibX, a graphics library provided by the school.</p>
-                                <div class="learned-skills">
-                                    <img src="texters/game.png" alt="2D" title="2D">
-                                    <img src="texters/c.png" alt="C Programming" title="Unix Shell Programming">
-                                </div>
-                                <div class="btn-container">
-                                    <a href="https://github.com/Chidori42/So_Long" class="btn" target="_blank">View Project</a>
-                                </div>
-                        </div>
-                    </div>
-                    <div class="project">
-                            <img src="texters/philo_back.jpeg" alt="Project 1">
-                            <h2 class="project-title">Philosopher</h2>
-                            <div class="project-info info">
-                                <h2>Philosopher</h2>
-                                <p>The Philosopher Project at 42 School is an innovative and collaborative effort focused on understanding and implementing multi-threading in software development.</p>
-                                <div class="learned-skills">
-                                    <img src="texters/c.png" alt="C Programming" title="Unix Shell Programming">
-                                </div>
-                                <div class="btn-container">
-                                    <a href="https://github.com/Chidori42/Minishell" class="btn" target="_blank">View Project</a>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="project">
-                            <img src="texters/libft.jpeg" alt="Project 3">
-                            <h2 class="project-title">Libft</h2>
-                            <div class="project-info info">
-                                <h2>Libft</h2>
-                                <p>The Libft project at 42 School requires creating a custom C library, reimplementing standard functions to enhance C programming and memory management skills.</p>
-                                <div class="learned-skills">
-                                        <img src="texters/c.png" alt="C Programming" title="Unix Shell Programming">
-                                </div>
-                                <div class="btn-container">
-                                        <a href="https://github.com/Chidori42/So_Long" class="btn" target="_blank">View Project</a>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                        
-            </div>
-
-
-
-                        <div class="skills-section">
-                            <h1>Skills</h1>
-                            <div class="skill-content">
-                                <img src="texters/skills_photo.png" alt="Your Photo" class="skills-photo ">
-                                <ul class="skills-list">
-                                    <li>
-                                        <div class="skill-item">
-                                            <img src="texters/python.png" alt="Python">
-                                            <span class="desc-skills">Python</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                            <div class="skill-item">
-                                <img src="texters/c.png" alt="C">
-                                <span class="desc-skills">C</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="skill-item">
-                                <img src="texters/cpp.png" alt="CPP">
-                                <span class="desc-skills">CPP</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="skill-item">
-                                <img src="texters/unix.png" alt="Unix">
-                                <span class="desc-skills">Unix Shell</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="skill-item">
-                                <img src="texters/html5.png" alt="HTML5">
-                                <span class="desc-skills">HTML5</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="skill-item">
-                                <img src="texters/css3.png" alt="CSS3">
-                                <span class="desc-skills">CSS3</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="skill-item">
-                                <img src="texters/blender.png" alt="blander">
-                                <span class="desc-skills">Blander</span>
-                            </div>
-                        </li>
-                    </ul>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="text-white">Hello, I'm</span><br>
+                    <span class="text-yellow">Abdellatif</span>
+                </h1>
+                
+                <p class="hero-description">
+                    Passionate Web Developer from 1337 Coding School, crafting innovative 
+                    digital experiences with modern technologies
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
                 </div>
             </div>
-            
-            
-           
+        </div>
         
-        <div id="content" class="hidden">
-            <h1>Education</h1>
-            <ul class="timeline">
-                <li>
-                    <div class="direction-r">
-                        <div class="flag-wrapper">
-                            <span class="flag">1337</span>
-                            <span class="time-wrapper"><span class="time">Nov 2023 - Dec 2026</span></span>
-                        </div>
-                        <div class="desc">My journey into the world of web development began on October 29, 2023, when I started my studies
-                            at 1337 Coding School in Morocco. This marked the start of an exciting new chapter in my life, as I immersed myself
-                            in the dynamic and ever-evolving field of technology. At 1337 Coding School, I have been honing my skills in various
-                            programming languages, frameworks, and technologies, equipping myself with the tools necessary to create innovative
-                            and user-friendly web applications. This rigorous training has not only sharpened my technical skills but also
-                            fostered a deep appreciation for the art of coding. As I continue my studies, I look forward to further expanding my
-                            knowledge and pushing the boundaries of what I can achieve in the realm of web development.</div>
-                    </div>
-                </li>
-            
-                <li>
-                    <div class="direction-l">
-                        <div class="flag-wrapper">
-                            <span class="flag">Faculty</span>
-                            <span class="time-wrapper"><span class="time">Jan 2020 - Jun 2022</span></span>
-                        </div>
-                        <div class="desc">In 2022, I received my law degree(DEUG) from the Faculty of Law in Agadir. This rigorous program
-                            provided me with a comprehensive understanding of legal principles and practices. The analytical skills and
-                            attention to detail required in law studies have been invaluable in my coding career, particularly when it comes
-                            to understanding complex systems and ensuring accuracy in my work.</div>
-                    </div>
-                </li>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
 
-                <li>
-                    <div class="direction-r">
-                        <div class="flag-wrapper">
-                            <span class="flag">Bacaloria</span>
-                            <span class="time-wrapper"><span class="time">Nov 2018 - Jun 2019</span></span>
-                        </div>
-                        <div class="desc">In 2019, I earned my Bachelor's degree in Humanities from a renowned institution in Tata City.
-                            This educational journey was a crucial stepping stone, providing me with a broad understanding of various
-                            disciplines and fostering critical thinking skills. Although my career path eventually led me to web
-                            development, the analytical and communication skills I gained during my humanities studies have proven
-                            invaluable in understanding user needs and creating user-friendly digital solutions.</div>
-                    </div>
-                </li>
-            
-            </ul>
-    </div>
-                
-                
-            <div id="contact">
-                <h1>Contact</h1>
-                <img src="texters/contact.png" id="img" alt="Contact Image">
-                <form id="contact-form" action="https://formsubmit.co/rcabdw@gmail.com" method="POST" target="_blank">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required placeholder="Name">
-                  
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required placeholder="Email">
-                  
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" required placeholder="Message"></textarea>
-
-                    <input type="hidden" name="_next" value="https://abdellatifelfagrouch.netlify.app/">
-                
-                    <input type="text" name="_honey" style="display:none">
-
-                    <input type="hidden" name="_captcha" value="false">
-                  
-                    <button type="submit">Send</button>
-                  </form>
-                  
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About <span class="text-yellow">Me</span></h2>
+                <div class="section-line"></div>
             </div>
 
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I'm a passionate web developer with hands-on training from <span class="text-yellow">1337 Coding School</span> in Morocco. 
+                        With a bachelor's degree and a drive for innovation, I've developed expertise in both front-end and back-end development.
+                    </p>
+                    
+                    <p>
+                        My experience at 1337 immersed me in real-world projects and modern technologies. Through collaborative learning, 
+                        I gained the skills to build dynamic, user-friendly web applications.
+                    </p>
+                    
+                    <p>
+                        I bring a blend of <span class="text-yellow">creativity and technical know-how</span> to every project—from concept to launch. 
+                        Whether working solo or with a team, I focus on creating meaningful contributions to the ever-evolving world of technology.
+                    </p>
+                </div>
 
-        <button id="dark-mode-toggle">
-            <img src="texters/night.png" alt="Dark Mode Toggle" id="dark-icon">
-        </button>
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Technical Expertise</h3>
+                        <p>Proficient in modern web technologies including React, Node.js, and database systems</p>
+                    </div>
+                    
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Problem Solving</h3>
+                        <p>Passionate about solving complex problems and crafting clean, efficient code</p>
+                    </div>
+                    
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>User-Focused</h3>
+                        <p>Creating seamless, engaging digital experiences that deliver real impact</p>
+                    </div>
+                    
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>Always exploring new frameworks and staying up to date with tech trends</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My <span class="text-yellow">Projects</span></h2>
+                <div class="section-line"></div>
+                <p class="section-description">
+                    Here are some of my featured projects that showcase my skills and expertise in various technologies
+                </p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">PO</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Portfolio</h3>
+                        <p>A comprehensive portfolio showcasing efficient algorithms for sorting a stack of integers using limited operations.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Chidori42/Minishell" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
 
-    </main>
-    <script src="node.js"></script>
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">UX</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>UX/UI</h3>
+                        <p>Designed a clean, responsive interface in Figma with a focus on usability, modern visuals, and intuitive navigation.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Figma</span>
+                            <span class="tech-tag">design</span>
+                            <span class="tech-tag">Prototyping & Interactions</span>
+                        </div>
+                        <div class="project-links">
+                            <a>
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                             <a href="https://www.figma.com/design/2b3h26EovwrELGCIpREFcc/Untitled?node-id=0-1&p=f&t=9q4DODCyTFasDGoa-0" target="_blank" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">MI</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Minishell</h3>
+                        <p>A fundamental exercise in understanding and implementing a basic Unix shell with modern features.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">C</span>
+                            <span class="tech-tag">Unix Shell</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Chidori42/Minishell" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">IR</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>IRC Server</h3>
+                        <p>Developed a basic IRC server in C++ adhering to RFC 2812, supporting multiple client connections and real-time communication.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">C++</span>
+                            <span class="tech-tag">Networking</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Chidori42/Minishell" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">PF</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Path Finding Visualizer</h3>
+                        <p>A visual simulation of pathfinding algorithms (floodfill, BFS) with interactive demonstrations.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">C++</span>
+                            <span class="tech-tag">Algorithms</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Chidori42/Floodfill" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">CU</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Cub3D</h3>
+                        <p>A retro-inspired 3D game engine showcasing raycasting, graphics rendering, and first-person perspective.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">C</span>
+                            <span class="tech-tag">Graphics</span>
+                            <span class="tech-tag">Game Dev</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Chidori42/Cube_3d" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">PS</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Push Swap</h3>
+                        <p>An efficient algorithm for sorting a stack of integers using a limited set of operations with optimal complexity.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">C</span>
+                            <span class="tech-tag">Algorithms</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Chidori42/Push_swap" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">SO</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>So_Long</h3>
+                        <p>The So_Long project at 42 School is a graphics-related project that focuses on creating a simple 2D game using the
+                                MiniLibX, a graphics library provided by the school.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">C</span>
+                            <span class="tech-tag">Graphics</span>
+                            <span class="tech-tag">Game Dev</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Chidori42/So_Long" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">PH</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Philosopher</h3>
+                        <p>The Philosopher Project at 42 School is an innovative and collaborative effort focused on understanding and
+                             implementing multi-threading in software development.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">C</span>
+                            <span class="tech-tag">Threads</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Chidori42/philosopher" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">LI</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Libft</h3>
+                        <p>The Libft project at 42 School requires creating a custom C library, reimplementing standard functions to enhance C programming and memory management skills.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">C</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Chidori42/libft1337" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My <span class="text-yellow">Skills</span></h2>
+                <div class="section-line"></div>
+                <p class="section-description">
+                    Technologies and programming languages I work with
+                </p>
+            </div>
+
+            <div class="skills-content">
+                <div class="skills-bars">
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h3>C</h3>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95" style="background: linear-gradient(to right, #1e40af, #3b82f6);"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h3>C++</h3>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85" style="background: linear-gradient(to right, #1e3a8a, #7c3aed);"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h3>JavaScript</h3>
+                            <span>60%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="60" style="background: linear-gradient(to right, #eab308, #facc15);"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h3>HTML5</h3>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90" style="background: linear-gradient(to right, #f97316, #ef4444);"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h3>CSS3</h3>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80" style="background: linear-gradient(to right, #3b82f6, #1d4ed8);"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h3>React</h3>
+                            <span>50%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="50" style="background: linear-gradient(to right, #22d3ee, #3b82f6);"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h3>Unix Shell</h3>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80" style="background: linear-gradient(to right, #10b981, #16a34a);"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h3>Python</h3>
+                            <span>10%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="10" style="background: linear-gradient(to right, #3b82f6, #eab308);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-info">
+                    <div class="skills-card">
+                        <h3>Always Learning</h3>
+                        <p>I'm constantly expanding my skillset and exploring new technologies to stay at the forefront of web development.</p>
+                        <div class="stats">
+                            <div class="stat">
+                                <div class="stat-number">30+</div>
+                                <div class="stat-label">Projects</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">3+</div>
+                                <div class="stat-label">Years Learning</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="education">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My <span class="text-yellow">Education</span></h2>
+                <div class="section-line"></div>
+                <p class="section-description">
+                    My educational journey that shaped my skills and perspective
+                </p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="education-card highlight">
+                            <div class="education-header">
+                                <div class="education-date">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Nov 2023 - Dec 2026</span>
+                                </div>
+                            </div>
+                            <h3>1337 Coding School</h3>
+                            <div class="education-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Morocco</span>
+                            </div>
+                            <p>Immersive coding education focusing on modern web technologies, collaborative learning, and real-world project development. Gaining expertise in various programming languages, frameworks, and development methodologies.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="education-card">
+                            <div class="education-header">
+                                <div class="education-date">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Jan 2020 - Jun 2022</span>
+                                </div>
+                            </div>
+                            <h3>Faculty of Law</h3>
+                            <div class="education-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Agadir</span>
+                            </div>
+                            <p>Received law degree (DEUG) with comprehensive understanding of legal principles. Developed strong analytical skills and attention to detail that complement my coding career.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="education-card">
+                            <div class="education-header">
+                                <div class="education-date">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Nov 2018 - Jun 2019</span>
+                                </div>
+                            </div>
+                            <h3>Bachelor's in Humanities</h3>
+                            <div class="education-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Tata City</span>
+                            </div>
+                            <p>Earned Bachelor's degree providing broad understanding of various disciplines and fostering critical thinking skills valuable for understanding user needs in digital solutions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In <span class="text-yellow">Touch</span></h2>
+                <div class="section-line"></div>
+                <p class="section-description">
+                    Let's work together to bring your ideas to life. I'm always open to discussing new opportunities.
+                </p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-text">
+                        <h3>Let's Talk</h3>
+                        <p>
+                            I'm always interested in hearing about new projects and opportunities. 
+                            Whether you're a company looking to hire, or you're someone looking to collaborate, 
+                            I'd love to hear from you.
+                        </p>
+                    </div>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>rcabdw@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Morocco</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="availability-card">
+                        <h4>Available for Work</h4>
+                        <p>
+                            I'm currently open to new opportunities and collaborations. 
+                            Let's create something amazing together!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contact-form" action="https://formsubmit.co/rcabdw@gmail.com" method="POST" target="_blank">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Your Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Feel free to share your ideas, goals, or any questions you have."></textarea>
+                        </div>
+
+                        <input type="hidden" name="_next" value="https://abdellatifelfagrouch.netlify.app/">
+                        <input type="text" name="_honey" style="display:none">
+                        <input type="hidden" name="_captcha" value="false">
+
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
-
 </html>
