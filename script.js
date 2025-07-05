@@ -210,14 +210,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Theme functions
 function initializeTheme() {
-  const savedTheme = localStorage.getItem("theme")
+  const savedTheme = localStorage.getItem("theme");
+
   if (savedTheme) {
-    isDarkMode = savedTheme === "dark"
+    isDarkMode = savedTheme === "dark";
   } else {
-    isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+    isDarkMode = true;
+    localStorage.setItem("theme", "dark");
   }
-  applyTheme()
+
+  applyTheme();
 }
+
 
 function toggleTheme() {
   isDarkMode = !isDarkMode
