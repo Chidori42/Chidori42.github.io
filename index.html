@@ -1,89 +1,83 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abdellatif El Fagrouch | Web Developer</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="/texters/letter-a.png" type="image">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Header -->
     <header id="header" class="header">
         <div class="container">
             <h1 class="logo">Abdellatif El Fagrouch</h1>
             
             <nav class="nav desktop-nav">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#education" class="nav-link">Education</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#about" class="nav-link" data-en="About" data-fr="À Propos">About</a>
+                <a href="#projects" class="nav-link" data-en="Projects" data-fr="Projets">Projects</a>
+                <a href="#skills" class="nav-link" data-en="Skills" data-fr="Compétences">Skills</a>
+                <a href="#education" class="nav-link" data-en="Education" data-fr="Formation">Education</a>
+                <a href="#contact" class="nav-link" data-en="Contact" data-fr="Contact">Contact</a>
             </nav>
-
-            <div class="social-links desktop-social">
-                <a href="https://x.com/Abdellatif_El_0" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://github.com/Chidori42" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/abdellatif-el-fagrouch/" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <i class="fab fa-linkedin"></i>
-                </a>
+            
+            <div class="header-controls">
+                <!-- Language Toggle -->
+                <button class="control-btn" id="lang-toggle">
+                    <i class="fas fa-globe"></i>
+                    <span id="lang-text">EN</span>
+                </button>
+                
+                <!-- Dark Mode Toggle -->
+                <button class="control-btn" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-
-            <!-- Mobile Menu Button -->
-            <button class="mobile-menu-btn" id="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
-
+        
         <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobile-menu">
-            <a href="#about" class="mobile-nav-link">About</a>
-            <a href="#projects" class="mobile-nav-link">Projects</a>
-            <a href="#skills" class="mobile-nav-link">Skills</a>
-            <a href="#education" class="mobile-nav-link">Education</a>
-            <a href="#contact" class="mobile-nav-link">Contact</a>
-            <div class="mobile-social">
-                <a href="https://x.com/Abdellatif_El_0" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://github.com/Chidori42" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/abdellatif-el-fagrouch/" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-            </div>
+            <a href="#about" class="mobile-nav-link" data-en="About" data-fr="À Propos">About</a>
+            <a href="#projects" class="mobile-nav-link" data-en="Projects" data-fr="Projets">Projects</a>
+            <a href="#skills" class="mobile-nav-link" data-en="Skills" data-fr="Compétences">Skills</a>
+            <a href="#education" class="mobile-nav-link" data-en="Education" data-fr="Formation">Education</a>
+            <a href="#contact" class="mobile-nav-link" data-en="Contact" data-fr="Contact">Contact</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="hero-bg">
             <div class="bg-element bg-element-1"></div>
             <div class="bg-element bg-element-2"></div>
+            <div class="bg-element bg-element-3"></div>
         </div>
         
         <div class="container hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    <span class="text-white">Hello, I'm</span><br>
-                    <span class="text-yellow">Abdellatif</span>
+                    <span class="greeting" data-en="Hello, I'm" data-fr="Bonjour, je suis">Hello, I'm</span><br>
+                    <span class="name">Abdellatif</span>
                 </h1>
                 
-                <p class="hero-description">
-                    Passionate Web Developer from 1337 Coding School, crafting innovative 
-                    digital experiences with modern technologies
+                <p class="hero-description" data-en="Passionate Web Developer from 1337 Coding School, crafting innovative digital experiences with modern technologies" data-fr="Développeur Web passionné de l'École de Codage 1337, créant des expériences numériques innovantes avec des technologies modernes">
+                    Passionate Web Developer from 1337 Coding School, crafting innovative digital experiences with modern technologies
                 </p>
                 
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                    <a href="#projects" class="btn btn-primary">
+                        <span data-en="View My Work" data-fr="Voir Mon Travail">View My Work</span>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <span data-en="Get In Touch" data-fr="Me Contacter">Get In Touch</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -97,60 +91,98 @@
     <section id="about" class="about">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">About <span class="text-yellow">Me</span></h2>
+                <h2 class="section-title">
+                    <span data-en="About" data-fr="À Propos">About</span> 
+                    <span class="text-yellow" data-en="Me" data-fr="Moi">Me</span>
+                </h2>
                 <div class="section-line"></div>
             </div>
 
             <div class="about-content">
+                <div class="about-left">
+                    <!-- Personal Photo -->
+                    <div class="photo-section">
+                        <div class="photo-frame">
+                            <div class="photo-placeholder">
+                                <!-- <span>AE</span> -->
+                                <img src="/data/1335856.png" alt="Profile Photo" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CV Section -->
+                    <div class="cv-section">
+                        <a href="/data/cv.pdf" download class="btn btn-cv-download">
+                            <i class="fas fa-download"></i>
+                            <span data-en="Download CV" data-fr="Télécharger CV">Download CV</span>
+                        </a>
+                        <a href="/data/cv.pdf" target="_blank" class="btn btn-cv-view">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span data-en="View CV" data-fr="Voir CV">View CV</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="social-links">
+                        <a href="https://x.com/Abdellatif_El_0" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://github.com/Chidori42" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/abdellatif-el-fagrouch/" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                
                 <div class="about-text">
-                    <p>
-                        I'm a passionate web developer with hands-on training from <span class="text-yellow">1337 Coding School</span> in Morocco. 
-                        With a bachelor's degree and a drive for innovation, I've developed expertise in both front-end and back-end development.
+                    <p data-en="I'm a passionate web developer with hands-on training from 1337 Coding School in Morocco. With a bachelor's degree and a drive for innovation, I've developed expertise in both front-end and back-end development." data-fr="Je suis un développeur web passionné avec une formation pratique de l'École de Codage 1337 au Maroc. Avec un diplôme de licence et une passion pour l'innovation, j'ai développé une expertise en développement front-end et back-end.">
+                        I'm a passionate web developer with hands-on training from <span class="text-yellow">1337 Coding School</span> in Morocco. With a bachelor's degree and a drive for innovation, I've developed expertise in both front-end and back-end development.
                     </p>
                     
-                    <p>
-                        My experience at 1337 immersed me in real-world projects and modern technologies. Through collaborative learning, 
-                        I gained the skills to build dynamic, user-friendly web applications.
+                    <p data-en="My experience at 1337 immersed me in real-world projects and modern technologies. Through collaborative learning, I gained the skills to build dynamic, user-friendly web applications." data-fr="Mon expérience à 1337 m'a immergé dans des projets du monde réel et des technologies modernes. Grâce à l'apprentissage collaboratif, j'ai acquis les compétences pour créer des applications web dynamiques et conviviales.">
+                        My experience at 1337 immersed me in real-world projects and modern technologies. Through collaborative learning, I gained the skills to build dynamic, user-friendly web applications.
                     </p>
                     
-                    <p>
-                        I bring a blend of <span class="text-yellow">creativity and technical know-how</span> to every project—from concept to launch. 
-                        Whether working solo or with a team, I focus on creating meaningful contributions to the ever-evolving world of technology.
+                    <p data-en="I bring a blend of creativity and technical know-how to every project—from concept to launch. Whether working solo or with a team, I focus on creating meaningful contributions to the ever-evolving world of technology." data-fr="J'apporte un mélange de créativité et de savoir-faire technique à chaque projet—du concept au lancement. Que ce soit en travaillant seul ou en équipe, je me concentre sur la création de contributions significatives au monde en constante évolution de la technologie.">
+                        I bring a blend of <span class="text-yellow">creativity and technical know-how</span> to every project—from concept to launch. Whether working solo or with a team, I focus on creating meaningful contributions to the ever-evolving world of technology.
                     </p>
                 </div>
-
-                <div class="about-highlights">
-                    <div class="highlight-card">
-                        <div class="highlight-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Technical Expertise</h3>
-                        <p>Proficient in modern web technologies including React, Node.js, and database systems</p>
+            </div>
+            
+            <!-- Highlights -->
+            <div class="about-highlights">
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-code"></i>
                     </div>
-                    
-                    <div class="highlight-card">
-                        <div class="highlight-icon">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <h3>Problem Solving</h3>
-                        <p>Passionate about solving complex problems and crafting clean, efficient code</p>
+                    <h3 data-en="Technical Expertise" data-fr="Expertise Technique">Technical Expertise</h3>
+                    <p data-en="Proficient in modern web technologies including React, Node.js, and database systems" data-fr="Compétent dans les technologies web modernes incluant React, Node.js, et les systèmes de base de données">Proficient in modern web technologies including React, Node.js, and database systems</p>
+                </div>
+                
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-lightbulb"></i>
                     </div>
-                    
-                    <div class="highlight-card">
-                        <div class="highlight-icon">
-                            <i class="fas fa-bullseye"></i>
-                        </div>
-                        <h3>User-Focused</h3>
-                        <p>Creating seamless, engaging digital experiences that deliver real impact</p>
+                    <h3 data-en="Problem Solving" data-fr="Résolution de Problèmes">Problem Solving</h3>
+                    <p data-en="Passionate about solving complex problems and crafting clean, efficient code" data-fr="Passionné par la résolution de problèmes complexes et la création de code propre et efficace">Passionate about solving complex problems and crafting clean, efficient code</p>
+                </div>
+                
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-bullseye"></i>
                     </div>
-                    
-                    <div class="highlight-card">
-                        <div class="highlight-icon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <h3>Innovation</h3>
-                        <p>Always exploring new frameworks and staying up to date with tech trends</p>
+                    <h3 data-en="User-Focused" data-fr="Centré sur l'Utilisateur">User-Focused</h3>
+                    <p data-en="Creating seamless, engaging digital experiences that deliver real impact" data-fr="Création d'expériences numériques fluides et engageantes qui ont un impact réel">Creating seamless, engaging digital experiences that deliver real impact</p>
+                </div>
+                
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-rocket"></i>
                     </div>
+                    <h3 data-en="Innovation" data-fr="Innovation">Innovation</h3>
+                    <p data-en="Always exploring new frameworks and staying up to date with tech trends" data-fr="Toujours en train d'explorer de nouveaux frameworks et de rester à jour avec les tendances technologiques">Always exploring new frameworks and staying up to date with tech trends</p>
                 </div>
             </div>
         </div>
@@ -160,9 +192,12 @@
     <section id="projects" class="projects">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">My <span class="text-yellow">Projects</span></h2>
+                <h2 class="section-title">
+                    <span data-en="My" data-fr="Mes">My</span> 
+                    <span class="text-yellow" data-en="Projects" data-fr="Projets">Projects</span>
+                </h2>
                 <div class="section-line"></div>
-                <p class="section-description">
+                <p class="section-description" data-en="Here are some of my featured projects that showcase my skills and expertise in various technologies" data-fr="Voici quelques-uns de mes projets phares qui démontrent mes compétences et mon expertise dans diverses technologies">
                     Here are some of my featured projects that showcase my skills and expertise in various technologies
                 </p>
             </div>
@@ -193,7 +228,6 @@
                     </div>
                 </div>
 
-
                 <div class="project-card">
                     <div class="project-image">
                         <div class="project-placeholder">UX</div>
@@ -203,15 +237,11 @@
                         <p>Designed a clean, responsive interface in Figma with a focus on usability, modern visuals, and intuitive navigation.</p>
                         <div class="project-tech">
                             <span class="tech-tag">Figma</span>
-                            <span class="tech-tag">design</span>
-                            <span class="tech-tag">Prototyping & Interactions</span>
+                            <span class="tech-tag">Design</span>
+                            <span class="tech-tag">Prototyping</span>
                         </div>
                         <div class="project-links">
-                            <a>
-                                <i class="fab fa-github"></i>
-                                <span>Code</span>
-                            </a>
-                             <a href="https://www.figma.com/design/2b3h26EovwrELGCIpREFcc/Untitled?node-id=0-1&p=f&t=9q4DODCyTFasDGoa-0" target="_blank" class="project-link">
+                            <a href="https://www.figma.com/design/2b3h26EovwrELGCIpREFcc/Untitled?node-id=0-1&p=f&t=9q4DODCyTFasDGoa-0" target="_blank" class="project-link">
                                 <i class="fas fa-external-link-alt"></i>
                                 <span>Demo</span>
                             </a>
@@ -235,10 +265,6 @@
                                 <i class="fab fa-github"></i>
                                 <span>Code</span>
                             </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>Demo</span>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -258,34 +284,6 @@
                             <a href="https://github.com/Chidori42/Minishell" target="_blank" class="project-link">
                                 <i class="fab fa-github"></i>
                                 <span>Code</span>
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>Demo</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">PF</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Path Finding Visualizer</h3>
-                        <p>A visual simulation of pathfinding algorithms (floodfill, BFS) with interactive demonstrations.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">C++</span>
-                            <span class="tech-tag">Algorithms</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/Chidori42/Floodfill" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                                <span>Code</span>
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>Demo</span>
                             </a>
                         </div>
                     </div>
@@ -308,137 +306,56 @@
                                 <i class="fab fa-github"></i>
                                 <span>Code</span>
                             </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>Demo</span>
-                            </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-image">
-                        <div class="project-placeholder">PS</div>
+                        <div class="project-placeholder">PF</div>
                     </div>
                     <div class="project-content">
-                        <h3>Push Swap</h3>
-                        <p>An efficient algorithm for sorting a stack of integers using a limited set of operations with optimal complexity.</p>
+                        <h3>Path Finding Visualizer</h3>
+                        <p>A visual simulation of pathfinding algorithms (floodfill, BFS) with interactive demonstrations.</p>
                         <div class="project-tech">
-                            <span class="tech-tag">C</span>
+                            <span class="tech-tag">C++</span>
                             <span class="tech-tag">Algorithms</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/Chidori42/Push_swap" target="_blank" class="project-link">
+                            <a href="https://github.com/Chidori42/Floodfill" target="_blank" class="project-link">
                                 <i class="fab fa-github"></i>
                                 <span>Code</span>
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>Demo</span>
                             </a>
                         </div>
                     </div>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">SO</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>So_Long</h3>
-                        <p>The So_Long project at 42 School is a graphics-related project that focuses on creating a simple 2D game using the
-                                MiniLibX, a graphics library provided by the school.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">C</span>
-                            <span class="tech-tag">Graphics</span>
-                            <span class="tech-tag">Game Dev</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/Chidori42/So_Long" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                                <span>Code</span>
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>Demo</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">PH</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Philosopher</h3>
-                        <p>The Philosopher Project at 42 School is an innovative and collaborative effort focused on understanding and
-                             implementing multi-threading in software development.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">C</span>
-                            <span class="tech-tag">Threads</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/Chidori42/philosopher" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                                <span>Code</span>
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>Demo</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">LI</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Libft</h3>
-                        <p>The Libft project at 42 School requires creating a custom C library, reimplementing standard functions to enhance C programming and memory management skills.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">C</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/Chidori42/libft1337" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                                <span>Code</span>
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>Demo</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </section>
+
     <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">My <span class="text-yellow">Skills</span></h2>
+                <h2 class="section-title">
+                    <span data-en="My" data-fr="Mes">My</span> 
+                    <span class="text-yellow" data-en="Skills" data-fr="Compétences">Skills</span>
+                </h2>
                 <div class="section-line"></div>
-                <p class="section-description">
+                <p class="section-description" data-en="Technologies and programming languages I work with" data-fr="Technologies et langages de programmation avec lesquels je travaille">
                     Technologies and programming languages I work with
                 </p>
             </div>
 
             <div class="skills-content">
                 <div class="skills-bars">
-
                     <div class="skill-item">
                         <div class="skill-header">
                             <h3>C</h3>
                             <span>95%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" data-width="95" style="background: linear-gradient(to right, #1e40af, #3b82f6);"></div>
+                            <div class="skill-progress" data-width="95"></div>
                         </div>
                     </div>
 
@@ -448,7 +365,7 @@
                             <span>85%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" data-width="85" style="background: linear-gradient(to right, #1e3a8a, #7c3aed);"></div>
+                            <div class="skill-progress" data-width="85"></div>
                         </div>
                     </div>
 
@@ -458,7 +375,7 @@
                             <span>60%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" data-width="60" style="background: linear-gradient(to right, #eab308, #facc15);"></div>
+                            <div class="skill-progress" data-width="60"></div>
                         </div>
                     </div>
 
@@ -468,7 +385,7 @@
                             <span>90%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" data-width="90" style="background: linear-gradient(to right, #f97316, #ef4444);"></div>
+                            <div class="skill-progress" data-width="90"></div>
                         </div>
                     </div>
 
@@ -478,7 +395,7 @@
                             <span>80%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" data-width="80" style="background: linear-gradient(to right, #3b82f6, #1d4ed8);"></div>
+                            <div class="skill-progress" data-width="80"></div>
                         </div>
                     </div>
 
@@ -488,43 +405,23 @@
                             <span>50%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" data-width="50" style="background: linear-gradient(to right, #22d3ee, #3b82f6);"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <h3>Unix Shell</h3>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="80" style="background: linear-gradient(to right, #10b981, #16a34a);"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <h3>Python</h3>
-                            <span>10%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="10" style="background: linear-gradient(to right, #3b82f6, #eab308);"></div>
+                            <div class="skill-progress" data-width="50"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="skills-info">
                     <div class="skills-card">
-                        <h3>Always Learning</h3>
-                        <p>I'm constantly expanding my skillset and exploring new technologies to stay at the forefront of web development.</p>
+                        <h3 data-en="Always Learning" data-fr="Toujours en Apprentissage">Always Learning</h3>
+                        <p data-en="I'm constantly expanding my skillset and exploring new technologies to stay at the forefront of web development." data-fr="J'élargis constamment mes compétences et j'explore de nouvelles technologies pour rester à la pointe du développement web.">I'm constantly expanding my skillset and exploring new technologies to stay at the forefront of web development.</p>
                         <div class="stats">
                             <div class="stat">
                                 <div class="stat-number">30+</div>
-                                <div class="stat-label">Projects</div>
+                                <div class="stat-label" data-en="Projects" data-fr="Projets">Projects</div>
                             </div>
                             <div class="stat">
                                 <div class="stat-number">3+</div>
-                                <div class="stat-label">Years Learning</div>
+                                <div class="stat-label" data-en="Years Learning" data-fr="Années d'Apprentissage">Years Learning</div>
                             </div>
                         </div>
                     </div>
@@ -537,9 +434,12 @@
     <section id="education" class="education">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">My <span class="text-yellow">Education</span></h2>
+                <h2 class="section-title">
+                    <span data-en="My" data-fr="Ma">My</span> 
+                    <span class="text-yellow" data-en="Education" data-fr="Formation">Education</span>
+                </h2>
                 <div class="section-line"></div>
-                <p class="section-description">
+                <p class="section-description" data-en="My educational journey that shaped my skills and perspective" data-fr="Mon parcours éducatif qui a façonné mes compétences et ma perspective">
                     My educational journey that shaped my skills and perspective
                 </p>
             </div>
@@ -562,7 +462,7 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>Morocco</span>
                             </div>
-                            <p>Immersive coding education focusing on modern web technologies, collaborative learning, and real-world project development. Gaining expertise in various programming languages, frameworks, and development methodologies.</p>
+                            <p>Immersive coding education focusing on modern web technologies, collaborative learning, and real-world project development.</p>
                         </div>
                     </div>
                 </div>
@@ -582,7 +482,7 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>Agadir</span>
                             </div>
-                            <p>Received law degree (DEUG) with comprehensive understanding of legal principles. Developed strong analytical skills and attention to detail that complement my coding career.</p>
+                            <p>Received law degree (DEUG) with comprehensive understanding of legal principles.</p>
                         </div>
                     </div>
                 </div>
@@ -602,7 +502,7 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>Tata City</span>
                             </div>
-                            <p>Earned Bachelor's degree providing broad understanding of various disciplines and fostering critical thinking skills valuable for understanding user needs in digital solutions.</p>
+                            <p>Earned Bachelor's degree providing broad understanding of various disciplines.</p>
                         </div>
                     </div>
                 </div>
@@ -614,9 +514,12 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Get In <span class="text-yellow">Touch</span></h2>
+                <h2 class="section-title">
+                    <span data-en="Get In" data-fr="Entrer en">Get In</span> 
+                    <span class="text-yellow" data-en="Touch" data-fr="Contact">Touch</span>
+                </h2>
                 <div class="section-line"></div>
-                <p class="section-description">
+                <p class="section-description" data-en="Let's work together to bring your ideas to life. I'm always open to discussing new opportunities." data-fr="Travaillons ensemble pour donner vie à vos idées. Je suis toujours ouvert à discuter de nouvelles opportunités.">
                     Let's work together to bring your ideas to life. I'm always open to discussing new opportunities.
                 </p>
             </div>
@@ -624,11 +527,9 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-text">
-                        <h3>Let's Talk</h3>
-                        <p>
-                            I'm always interested in hearing about new projects and opportunities. 
-                            Whether you're a company looking to hire, or you're someone looking to collaborate, 
-                            I'd love to hear from you.
+                        <h3 data-en="Let's Talk" data-fr="Parlons">Let's Talk</h3>
+                        <p data-en="I'm always interested in hearing about new projects and opportunities. Whether you're a company looking to hire, or you're someone looking to collaborate, I'd love to hear from you." data-fr="Je suis toujours intéressé d'entendre parler de nouveaux projets et opportunités. Que vous soyez une entreprise cherchant à embaucher, ou quelqu'un cherchant à collaborer, j'aimerais avoir de vos nouvelles.">
+                            I'm always interested in hearing about new projects and opportunities. Whether you're a company looking to hire, or you're someone looking to collaborate, I'd love to hear from you.
                         </p>
                     </div>
 
@@ -638,7 +539,7 @@
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div>
-                                <h4>Email</h4>
+                                <h4 data-en="Email" data-fr="Email">Email</h4>
                                 <p>rcabdw@gmail.com</p>
                             </div>
                         </div>
@@ -648,17 +549,16 @@
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div>
-                                <h4>Location</h4>
+                                <h4 data-en="Location" data-fr="Localisation">Location</h4>
                                 <p>Morocco</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="availability-card">
-                        <h4>Available for Work</h4>
-                        <p>
-                            I'm currently open to new opportunities and collaborations. 
-                            Let's create something amazing together!
+                        <h4 data-en="Available for Work" data-fr="Disponible pour le Travail">Available for Work</h4>
+                        <p data-en="I'm currently open to new opportunities and collaborations. Let's create something amazing together!" data-fr="Je suis actuellement ouvert à de nouvelles opportunités et collaborations. Créons quelque chose d'incroyable ensemble!">
+                            I'm currently open to new opportunities and collaborations. Let's create something amazing together!
                         </p>
                     </div>
                 </div>
@@ -666,18 +566,18 @@
                 <div class="contact-form-container">
                     <form class="contact-form" id="contact-form" action="https://formsubmit.co/rcabdw@gmail.com" method="POST" target="_blank">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required placeholder="Your Name">
+                            <label for="name" data-en="Name" data-fr="Nom">Name</label>
+                            <input type="text" id="name" name="name" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                            <label for="email" data-en="Email" data-fr="Email">Email</label>
+                            <input type="email" id="email" name="email" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="6" required placeholder="Feel free to share your ideas, goals, or any questions you have."></textarea>
+                            <label for="message" data-en="Message" data-fr="Message">Message</label>
+                            <textarea id="message" name="message" rows="6" required></textarea>
                         </div>
 
                         <input type="hidden" name="_next" value="https://abdellatifelfagrouch.netlify.app/">
@@ -686,7 +586,7 @@
 
                         <button type="submit" class="btn btn-primary btn-full">
                             <i class="fas fa-paper-plane"></i>
-                            <span>Send Message</span>
+                            <span data-en="Send Message" data-fr="Envoyer le Message">Send Message</span>
                         </button>
                     </form>
                 </div>
