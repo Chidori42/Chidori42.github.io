@@ -392,7 +392,7 @@ section {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 3rem;
-  align-items: start;
+  align-items: center;
   margin-bottom: 3rem;
 }
 
@@ -401,22 +401,23 @@ section {
 }
 
 .photo-section {
-  margin-bottom: 2rem;
+  border-radius: 50%;
+  width: 210px;
+  height: 210px;
+  overflow: hidden;
+  margin-left: 70px;
+  margin-bottom: 1.8rem;
 }
 
 .photo-frame {
-  width: 200px;
-  height: 200px;
   margin: 0 auto 1rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  /* border-radius: 50%; */
+  /* background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); */
   padding: 4px;
 }
 
 .photo-placeholder {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   background-color: var(--bg-color);
   display: flex;
   align-items: center;
@@ -1014,9 +1015,9 @@ section {
     font-size: 1.8rem;
   }
 
-  .photo-frame {
-    width: 150px;
-    height: 150px;
+  .about-content {
+
+    align-items: center;
   }
 
   .highlight-card,
