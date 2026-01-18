@@ -35,8 +35,7 @@ export const ProjectCard = ({
       <div className="aspect-video bg-secondary mb-4 overflow-hidden flex items-center justify-center">
         {title === "Portfolio" ? (
           <iframe 
-            src="/" 
-            scrolling="no"
+            src="/"
             className="w-full h-full border-none"
             title="Portfolio Preview"
           />
@@ -44,7 +43,7 @@ export const ProjectCard = ({
           <img 
             src={abbrev} 
             alt={title} 
-            className="max-h-full object-contain" 
+            className="w-full h-full border-none" 
           />
         )}
       </div>
