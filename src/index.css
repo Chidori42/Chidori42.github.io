@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light mode - clean and professional */
+    --background: 220 20% 97%;
+    --foreground: 220 20% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+
+    --primary: 270 60% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 90%;
+    --secondary-foreground: 220 20% 20%;
+
+    --muted: 220 15% 92%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 270 60% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 85%;
+    --input: 220 15% 85%;
+    --ring: 270 60% 50%;
+
+    --radius: 0.25rem;
+
+    /* Custom colors */
+    --terminal-green: 120 60% 50%;
+    --neon-purple: 270 100% 70%;
+    --grid-color: 220 15% 80%;
+  }
+
+  .dark {
+    --background: 240 10% 8%;
+    --foreground: 220 15% 85%;
+
+    --card: 240 10% 12%;
+    --card-foreground: 220 15% 85%;
+
+    --popover: 240 10% 12%;
+    --popover-foreground: 220 15% 85%;
+
+    --primary: 270 100% 70%;
+    --primary-foreground: 240 10% 8%;
+
+    --secondary: 240 10% 18%;
+    --secondary-foreground: 220 15% 85%;
+
+    --muted: 240 10% 18%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 270 100% 70%;
+    --accent-foreground: 240 10% 8%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 20%;
+    --input: 240 10% 20%;
+    --ring: 270 100% 70%;
+
+    /* Custom colors */
+    --terminal-green: 120 80% 60%;
+    --neon-purple: 270 100% 70%;
+    --grid-color: 240 10% 20%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* RTL support */
+  [dir="rtl"] {
+    font-family: 'Inter', 'Fira Code', monospace;
+  }
+}
+
+@layer components {
+  .hash-title {
+    @apply text-primary font-mono font-semibold;
+  }
+
+  .terminal-border {
+    @apply border border-border;
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(circle, hsl(var(--grid-color)) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.5), 0 0 20px hsl(var(--primary) / 0.3);
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+  }
+
+  .geometric-decoration {
+    @apply absolute pointer-events-none;
+  }
+
+  .tag-badge {
+    @apply inline-block px-2 py-0.5 text-xs border border-muted-foreground/30 text-muted-foreground rounded-sm;
+  }
+
+  .project-card {
+    @apply border border-border bg-card p-4 transition-all duration-300 hover:border-primary;
+  }
+
+  .skill-box {
+    @apply border border-border p-4 bg-card;
+  }
+
+  .fun-fact-tag {
+    @apply inline-block px-3 py-1.5 border border-border text-sm bg-card;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  .animate-typing {
+    animation: typing 3s steps(30) infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes typing {
+    0%, 100% { width: 0; }
+    50% { width: 100%; }
+  }
+}
