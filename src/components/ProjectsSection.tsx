@@ -17,7 +17,7 @@ const featuredProjects = [
     title: 'Portfolio',
     abbrev: '/assets/portfolio.png',
     description: 'A comprehensive portfolio showcasing efficient algorithms for sorting a stack of integers using limited operations.',
-    tags: ['Nextjs', 'Tailwind', 'Typescript'],
+    tags: ['React', 'Tailwind', 'Typescript'],
     githubUrl: "https://github.com/Chidori42/Chidori42.github.io",
     hasLive: true,
   },
