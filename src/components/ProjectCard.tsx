@@ -35,7 +35,7 @@ export const ProjectCard = ({
       <div className="aspect-video bg-secondary mb-4 overflow-hidden flex items-center justify-center">
         {title === "Portfolio" ? (
           <iframe 
-            src="http://localhost:5173/" 
+            src="http://abdellatifelfagrouch.me/" 
             scrolling="no"
             className="w-full h-full border-none"
             title="Portfolio Preview"

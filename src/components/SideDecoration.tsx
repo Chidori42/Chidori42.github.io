@@ -12,7 +12,7 @@ export const SideDecoration = () => {
         <a target="_blank" href="https://www.linkedin.com/in/abdellatifelfagrouch/" className="p-2 text-muted-foreground hover:text-primary transition-colors">
           <Linkedin className="w-5 h-5" />
         </a>
-        <a href="http://localhost:5173/#contacts" className="p-2 text-muted-foreground hover:text-primary transition-colors">
+        <a href="http://abdellatifelfagrouch.me/#contacts" className="p-2 text-muted-foreground hover:text-primary transition-colors">
           <MessageCircle className="w-5 h-5" />
         </a>
         <div className="w-px h-16 bg-border" />
