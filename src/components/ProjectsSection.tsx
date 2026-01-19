@@ -7,7 +7,7 @@ const onProgress = [
     title: 'E-RH Connect',
     abbrev: '/assets/ERH-connect.png',
     description: 'Smart Applicant Tracking System A modern hiring platform designed to bridge the gap between recruiters and candidates',
-    githubUrl: "#",
+    // githubUrl: "#",
     tags: ['React', 'Express.js', 'Mysql', 'JavaScript', 'TypeScript'],
   },
 ];
@@ -97,7 +97,6 @@ export const ProjectsSection = () => {
                 description={project.description}
                 tags={project.tags}
                 abbrev={project.abbrev}
-                githubUrl={project.githubUrl}
                 liveLabel={t.projects.live}
                 cachedLabel={t.projects.cached}
                 githubLabel={t.projects.github}
