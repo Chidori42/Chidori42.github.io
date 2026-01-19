@@ -19,14 +19,12 @@ const featuredProjects = [
     description: 'A comprehensive portfolio showcasing efficient algorithms for sorting a stack of integers using limited operations.',
     tags: ['React', 'Tailwind', 'Typescript'],
     githubUrl: "https://github.com/Chidori42/Chidori42.github.io",
-    hasLive: true,
   },
   {
     title: 'UX/UI Design',
     abbrev: '/assets/ux_ui.jpg',
     description: 'Designed a clean, responsive interface in Figma with a focus on usability, modern visuals, and intuitive navigation.',
     tags: ['Figma', 'Design', 'Prototyping'],
-    hasLive: true,
     figmaUrl: 'https://www.figma.com/design/uENBWm0X7VeAsydvQnV25A/ft_trancendance--Copy-?m=auto&t=WnjTdGSlO6i3vwVD-1',
   },
   {
@@ -120,7 +118,6 @@ export const ProjectsSection = () => {
                 description={project.description}
                 tags={project.tags}
                 abbrev={project.abbrev}
-                liveUrl={project.hasLive ? '#' : undefined}
                 githubUrl={project.githubUrl}
                 figmaUrl={project.figmaUrl}
                 liveLabel={t.projects.live}
