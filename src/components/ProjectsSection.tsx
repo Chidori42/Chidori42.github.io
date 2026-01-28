@@ -14,13 +14,6 @@ const onProgress = [
 
 const featuredProjects = [
   {
-    title: 'Portfolio',
-    abbrev: '/assets/portfolio.png',
-    description: 'A comprehensive portfolio showcasing efficient algorithms for sorting a stack of integers using limited operations.',
-    tags: ['React', 'Tailwind', 'Typescript'],
-    githubUrl: "https://github.com/Chidori42/Chidori42.github.io",
-  },
-  {
     title: 'UX/UI Design',
     abbrev: '/assets/ux_ui.jpg',
     description: 'Designed a clean, responsive interface in Figma with a focus on usability, modern visuals, and intuitive navigation.',

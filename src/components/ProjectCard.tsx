@@ -33,19 +33,11 @@ export const ProjectCard = ({
     <div className="project-card group">
       {/* Project Abbreviation Header */}
       <div className="aspect-video bg-secondary mb-4 overflow-hidden flex items-center justify-center">
-        {title === "Portfolio" ? (
-          <iframe 
-            src="/"
-            className="w-full h-full border-none "
-            title="Portfolio Preview"
-          />
-        ) : (
           <img 
             src={abbrev} 
             alt={title} 
             className="w-full h-full object-cover object-center" 
           />
-        )}
       </div>
 
       {/* Tags */}
