@@ -92,12 +92,6 @@ export const translations = {
           location: 'Agadir',
           description: 'Received law degree (DEUG) with comprehensive understanding of legal principles.',
         },
-        {
-          period: 'Nov 2018 - Jun 2019',
-          school: 'Bachelor\'s in Humanities',
-          location: 'Tata City',
-          description: 'Earned Bachelor\'s degree providing broad understanding of various disciplines.',
-        },
       ],
     },
     funFacts: {
