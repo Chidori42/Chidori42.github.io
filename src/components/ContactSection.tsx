@@ -45,7 +45,7 @@ const onSubmit = async (data: ContactFormData) => {
         name: data.name,
         form_email: data.email,
         message: data.message,
-        to_email: 'rcabdw@gmail.com',
+        to_email: 'elfagrouch9@gmail.com',
       },
       'jwQ412fY7boTSNPQH'
     );
@@ -93,7 +93,7 @@ const onSubmit = async (data: ContactFormData) => {
                   </div>
                   <div>
                     <p className="text-muted-foreground font-mono text-sm">Email</p>
-                    <p className="text-foreground font-mono">rcabdw@gmail.com</p>
+                    <p className="text-foreground font-mono">elfagrouch9@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">

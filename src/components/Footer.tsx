@@ -16,7 +16,7 @@ export const Footer = () => {
               <span className="text-primary">{'/>'}</span>
             </a>
             <span className="text-muted-foreground font-mono text-sm">
-              rcabdw@gmail.com
+              elfagrouch9@gmail.com
             </span>
           </div>
 
@@ -35,7 +35,7 @@ export const Footer = () => {
               <a href="https://linkedin.com/in/abdellatifelfagrouch/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="mailto:rcabdw@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="mailto:elfagrouch9@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
                 <Mail className="w-5 h-5" />
               </a>
             </div>
