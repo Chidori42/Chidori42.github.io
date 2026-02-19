@@ -7,7 +7,12 @@ const onProgress = [
     title: 'E-RH Connect',
     abbrev: '/assets/ERH-connect.png',
     description: 'Smart Applicant Tracking System A modern hiring platform designed to bridge the gap between recruiters and candidates',
-    // githubUrl: "#",
+    team: [
+      {profilePng:'/team/eaboudi.jpg', name:'EL HOUSSAINE ABOUDI', githubUrl:'https://github.com/eaboudi'},
+      {profilePng:'/team/sessarhi.jpg', name:'سفيان الصغير', githubUrl:'https://github.com/soufianeessarhir'},
+      {profilePng:'/team/ibes-sed.jpg', name:'Ibrahim Es.seddyq', githubUrl:'https://github.com/ibrahimesseddyq'},
+      {profilePng:'/team/aachalla.jpg', name:'Abdelmajid Achallah', githubUrl:'https://github.com/AM9-push'},
+    ],
     tags: ['React', 'Express.js', 'Mysql', 'JavaScript', 'TypeScript'],
   },
 ];
@@ -24,6 +29,9 @@ const featuredProjects = [
     title: 'SimpleShell',
     abbrev: '/assets/Bash-Script.jpg',
     description: 'A fundamental exercise in understanding and implementing a basic Unix shell with modern features.',
+    team: [
+      {profilePng:'/team/bramzil.jpg', name:'Amzil Brahim', githubUrl:'https://github.com/bramzil'},
+    ],
     tags: ['C', 'Unix Shell'],
     githubUrl: "https://github.com/Chidori42/Minishell",
   },
@@ -35,6 +43,10 @@ const otherProjects = [
     abbrev: '/assets/irc-server.png',
     description: 'Developed a basic IRC server in C++ adhering to RFC 2812, supporting multiple client connections and real-time communication.',
     githubUrl: "https://github.com/Chidori42/Irc",
+    team: [
+      {profilePng:'/team/yakazdao.jpg', name:'Younes Akazdaou', githubUrl:'https://github.com/Younes-AK'},
+      {profilePng:'/team/ezahiri.jpg', name:'El Mustapha Zahiri', githubUrl:'https://github.com/ezahiri10'},
+    ],
     tags: ['C++', 'Networking'],
   },
   {
@@ -86,6 +98,7 @@ export const ProjectsSection = () => {
                 key={index}
                 title={project.title}
                 description={project.description}
+                {...project}
                 tags={project.tags}
                 abbrev={project.abbrev}
                 liveLabel={t.projects.live}
@@ -109,6 +122,7 @@ export const ProjectsSection = () => {
                 key={index}
                 title={project.title}
                 description={project.description}
+                {...project}
                 tags={project.tags}
                 abbrev={project.abbrev}
                 githubUrl={project.githubUrl}
@@ -134,6 +148,7 @@ export const ProjectsSection = () => {
                 key={index}
                 title={project.title}
                 description={project.description}
+                {...project}
                 tags={project.tags}
                 abbrev={project.abbrev}
                 githubUrl={project.githubUrl}
