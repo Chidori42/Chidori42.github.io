@@ -4,8 +4,8 @@ import { DotGrid } from './DotGrid';
 
 const onProgress = [
   {
-    title: 'E-RH Connect',
-    abbrev: '/assets/ERH-connect.png',
+    title: 'Hirefy',
+    abbrev: '/assets/Hirefy.png',
     description: 'Smart Applicant Tracking System A modern hiring platform designed to bridge the gap between recruiters and candidates',
     team: [
       {profilePng:'/team/eaboudi.jpg', name:'EL HOUSSAINE ABOUDI', githubUrl:'https://github.com/eaboudi'},
