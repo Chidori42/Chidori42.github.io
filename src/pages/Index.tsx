@@ -8,13 +8,17 @@ import { FunFactsSection } from '@/components/FunFactsSection';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
 import { SideDecoration } from '@/components/SideDecoration';
+import { CustomCursor } from '@/components/CustomCursor';
+import { motion } from 'framer-motion';
+import { pageFade } from '@/lib/motion';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background duration-500">
+    <motion.div className="min-h-screen bg-background duration-500" initial="hidden" animate="visible" variants={pageFade}>
+      <CustomCursor />
       <Header />
       <SideDecoration />
-      <main className='duration-1000'>
+      <motion.main className='duration-1000' variants={pageFade}>
         <HeroSection />
         <ProjectsSection />
         <SkillsSection />
@@ -22,9 +26,9 @@ const Index = () => {
         <EducationSection />
         <FunFactsSection />
         <ContactSection />
-      </main>
+      </motion.main>
       <Footer />
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,5 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { DotGrid } from './DotGrid';
+import { motion } from 'framer-motion';
+import { sectionTitle, staggerContainer, staggerItem } from '@/lib/motion';
 
 const categorizedSkills = {
   languages: ['C', 'C++', 'JavaScript', 'TypeScript'],
@@ -22,57 +24,57 @@ export const SkillsSection = () => {
 
   return (
     <section className="py-20 relative">
-      <div className="absolute top-10 left-8 opacity-30">
+      <motion.div className="absolute top-10 left-8 opacity-30" animate={{ y: [0, -6, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}>
         <DotGrid rows={4} cols={4} />
-      </div>
-      <div className="absolute bottom-20 right-16 opacity-30">
+      </motion.div>
+      <motion.div className="absolute bottom-20 right-16 opacity-30" animate={{ y: [0, 8, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}>
         <DotGrid rows={6} cols={6} />
-      </div>
+      </motion.div>
 
       <div className="container mx-auto px-4 ">
-        <h2 className="text-3xl font-mono mb-12">
+        <motion.h2 className="text-3xl font-mono mb-12" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} variants={sectionTitle}>
           <span className="text-primary">#</span>
           <span className="text-foreground">{t.skills.title.replace('#', '')}</span>
-        </h2>
+        </motion.h2>
 
-        <div className="grid lg:grid-cols-1 w-full lg:w-[600px] mx-auto">
+        <motion.div className="grid lg:grid-cols-1 w-full lg:w-[600px] mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.35 }} variants={staggerContainer}>
 
           {/* Learning Card */}
-          <div className="border border-border bg-card p-6">
-            <h3 className="text-xl font-mono font-semibold text-primary mb-4">
+          <motion.div className="border border-border bg-card p-6" variants={staggerItem} whileHover={{ y: -4 }}>
+            <motion.h3 className="text-xl font-mono font-semibold text-primary mb-4" variants={staggerItem}>
               {t.skills.learning}
-            </h3>
-            <p className="text-muted-foreground font-mono mb-6">
+            </motion.h3>
+            <motion.p className="text-muted-foreground font-mono mb-6" variants={staggerItem}>
               {t.skills.learningDesc}
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-4 border border-border">
+            </motion.p>
+            <motion.div className="grid grid-cols-2 gap-4" variants={staggerContainer}>
+              <motion.div className="text-center p-4 border border-border" variants={staggerItem} whileHover={{ scale: 1.02 }}>
                 <span className="text-3xl font-mono font-bold text-primary block">
                   {t.skills.projects}
                 </span>
                 <span className="text-muted-foreground font-mono text-sm">
                   {t.skills.projectsLabel}
                 </span>
-              </div>
-              <div className="text-center p-4 border border-border">
+              </motion.div>
+              <motion.div className="text-center p-4 border border-border" variants={staggerItem} whileHover={{ scale: 1.02 }}>
                 <span className="text-3xl font-mono font-bold text-primary block">
                   {t.skills.years}
                 </span>
                 <span className="text-muted-foreground font-mono text-sm">
                   {t.skills.yearsLabel}
                 </span>
-              </div>
-            </div>
-          </div>
-        </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Categories Grid */}
-        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 mt-12">
+        <motion.div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 mt-12" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
           {categories.map((category) => (
-            <div key={category.key} className="skill-box">
-              <h3 className="text-foreground font-mono font-semibold mb-4 border-b border-border pb-2">
+            <motion.div key={category.key} className="skill-box" variants={staggerItem} whileHover={{ y: -5 }}>
+              <motion.h3 className="text-foreground font-mono font-semibold mb-4 border-b border-border pb-2" variants={staggerItem}>
                 {category.title}
-              </h3>
+              </motion.h3>
               <ul className="space-y-2">
                 {category.data.map((skill, index) => (
                   <li key={index} className="text-muted-foreground font-mono text-sm">
@@ -80,9 +82,9 @@ export const SkillsSection = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

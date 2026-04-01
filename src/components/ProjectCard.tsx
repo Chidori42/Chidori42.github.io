@@ -1,4 +1,7 @@
 import { ExternalLink, Github, Users } from 'lucide-react';
+import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
+import { hoverLift } from '@/lib/motion';
 
 interface TeamMember {
   name: string;
@@ -20,6 +23,9 @@ interface ProjectCardProps {
   cachedLabel: string;
   githubLabel: string;
   figmaLabel: string;
+  motionProps?: {
+    variants?: Variants;
+  };
 }
 
 export const ProjectCard = ({
@@ -36,9 +42,14 @@ export const ProjectCard = ({
   cachedLabel,
   githubLabel,
   figmaLabel,
+  motionProps,
 }: ProjectCardProps) => {
   return (
-    <div className="project-card group border border-border p-4 hover:border-primary transition-all flex flex-col h-full">
+    <motion.div
+      className="project-card group border border-border p-4 hover:border-primary transition-all flex flex-col h-full"
+      variants={motionProps?.variants}
+      whileHover={hoverLift}
+    >
       {/* Project Abbreviation Header */}
       <div className="aspect-video bg-secondary mb-4 overflow-hidden flex items-center justify-center">
         <img 
@@ -138,6 +149,6 @@ export const ProjectCard = ({
           </span>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };

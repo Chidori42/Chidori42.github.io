@@ -1,36 +1,39 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { DotGrid } from './DotGrid';
 import { Calendar, MapPin } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { sectionTitle, staggerContainer, staggerItem } from '@/lib/motion';
 
 export const EducationSection = () => {
   const { t, direction } = useLanguage();
 
   return (
     <section className="py-20 relative">
-      <div className="absolute top-10 left-8 opacity-30">
+      <motion.div className="absolute top-10 left-8 opacity-30" animate={{ y: [0, -6, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}>
         <DotGrid rows={4} cols={4} />
-      </div>
+      </motion.div>
 
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-mono mb-4">
+        <motion.h2 className="text-3xl font-mono mb-4" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} variants={sectionTitle}>
           <span className="text-primary">#</span>
           <span className="text-foreground">{t.education.title.replace('#', '')}</span>
-        </h2>
-        <p className="text-muted-foreground font-mono mb-12">{t.education.subtitle}</p>
+        </motion.h2>
+        <motion.p className="text-muted-foreground font-mono mb-12" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5 }}>{t.education.subtitle}</motion.p>
 
-        <div className="relative">
+        <motion.div className="relative" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
           {/* Timeline line */}
           <div className={`absolute top-0 bottom-0 w-px bg-border ${direction === 'rtl' ? 'right-4 md:right-1/2' : 'left-4 md:left-1/2'}`} />
 
           <div className="space-y-12">
             {t.education.items.map((item, index) => (
-              <div 
+              <motion.div 
                 key={index}
                 className={`relative flex flex-col md:flex-row gap-8 ${
                   direction === 'rtl' 
                     ? index % 2 === 0 ? 'md:flex-row-reverse' : ''
                     : index % 2 === 0 ? '' : 'md:flex-row-reverse'
                 }`}
+                variants={staggerItem}
               >
                 {/* Timeline dot */}
                 <div className={`absolute w-3 h-3 rounded-full bg-primary border-4 border-background ${
@@ -43,7 +46,7 @@ export const EducationSection = () => {
                     ? index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'
                     : index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
                 }`}>
-                  <div className="border border-border bg-card p-6 hover:border-primary transition-colors">
+                  <motion.div className="border border-border bg-card p-6 hover:border-primary transition-colors" whileHover={{ y: -4 }}>
                     <div className="flex items-center gap-2 text-primary font-mono text-sm mb-2">
                       <Calendar className="w-4 h-4" />
                       {item.period}
@@ -58,15 +61,15 @@ export const EducationSection = () => {
                     <p className="text-muted-foreground font-mono text-sm">
                       {item.description}
                     </p>
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Spacer for the other side */}
                 <div className="hidden md:block flex-1" />
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

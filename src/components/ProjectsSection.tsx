@@ -1,6 +1,8 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ProjectCard } from './ProjectCard';
 import { DotGrid } from './DotGrid';
+import { motion } from 'framer-motion';
+import { sectionTitle, staggerContainer, staggerItem } from '@/lib/motion';
 
 const onProgress = [
   {
@@ -70,29 +72,29 @@ export const ProjectsSection = () => {
 
   return (
     <section id="projects" className="py-20 relative">
-      <div className="absolute top-20 right-8 opacity-30">
+      <motion.div className="absolute top-20 right-8 opacity-30" animate={{ y: [0, -6, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}>
         <DotGrid rows={5} cols={5} />
-      </div>
+      </motion.div>
 
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="flex items-center justify-between mb-12">
-          <h2 className="text-3xl font-mono">
+        <motion.div className="flex items-center justify-between mb-12" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} variants={staggerContainer}>
+          <motion.h2 className="text-3xl font-mono" variants={sectionTitle}>
             <span className="text-primary">#</span>
             <span className="text-foreground">{t.projects.title.replace('#', '')}</span>
-          </h2>
-          <a href="https://github.com/Chidori42" className="text-muted-foreground hover:text-[#171d8baa] font-mono text-sm transition-colors">
+          </motion.h2>
+          <motion.a href="https://github.com/Chidori42" className="text-muted-foreground hover:text-[#171d8baa] font-mono text-sm transition-colors" variants={sectionTitle} whileHover={{ y: -2 }}>
             {t.projects.viewAll}
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
 
         {/* OnProgress Projects */}
         <div className="mb-16">
-          <h3 className="text-xl font-mono mb-8">
+          <motion.h3 className="text-xl font-mono mb-8" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5 }}>
             <span className="text-primary">#</span>
             <span className="text-foreground">{t.projects.onProgress.replace('#', '')}</span>
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          </motion.h3>
+          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
             {onProgress.map((project, index) => (
               <ProjectCard
                 key={index}
@@ -105,18 +107,19 @@ export const ProjectsSection = () => {
                 cachedLabel={t.projects.cached}
                 githubLabel={t.projects.github}
                 figmaLabel={t.projects.figma}
+                motionProps={{ variants: staggerItem }}
               />
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Featured Projects */}
         <div className="mb-16">
-          <h3 className="text-xl font-mono mb-8">
+          <motion.h3 className="text-xl font-mono mb-8" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5 }}>
             <span className="text-primary">#</span>
             <span className="text-foreground">{t.projects.completeApps.replace('#', '')}</span>
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          </motion.h3>
+          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
             {featuredProjects.map((project, index) => (
               <ProjectCard
                 key={index}
@@ -131,18 +134,19 @@ export const ProjectsSection = () => {
                 cachedLabel={t.projects.cached}
                 githubLabel={t.projects.github}
                 figmaLabel={t.projects.figma}
+                motionProps={{ variants: staggerItem }}
               />
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Small Projects */}
         <div>
-          <h3 className="text-xl font-mono mb-8">
+          <motion.h3 className="text-xl font-mono mb-8" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5 }}>
             <span className="text-primary">#</span>
             <span className="text-foreground">{t.projects.smallProjects.replace('#', '')}</span>
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          </motion.h3>
+          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
             {otherProjects.map((project, index) => (
               <ProjectCard
                 key={index}
@@ -156,9 +160,10 @@ export const ProjectsSection = () => {
                 cachedLabel={t.projects.cached}
                 githubLabel={t.projects.github}
                 figmaLabel={t.projects.figma}
+                motionProps={{ variants: staggerItem }}
               />
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
