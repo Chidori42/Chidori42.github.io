@@ -15,7 +15,7 @@ import { pageFade } from '@/lib/motion';
 const Index = () => {
   return (
     <motion.div className="min-h-screen bg-background duration-500" initial="hidden" animate="visible" variants={pageFade}>
-      <CustomCursor />
+      <CustomCursor hideDefaultCursor={false}/>
       <Header />
       <SideDecoration />
       <motion.main className='duration-1000' variants={pageFade}>

@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
-export const CustomCursor = () => {
+interface CustomCursorProps {
+  hideDefaultCursor?: boolean;
+}
+
+export const CustomCursor = ({ hideDefaultCursor = true }: CustomCursorProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isPointerFine, setIsPointerFine] = useState(false);
@@ -38,13 +42,20 @@ export const CustomCursor = () => {
     window.addEventListener('mousemove', handleMove);
     window.addEventListener('mouseleave', handleLeave);
 
+    if (hideDefaultCursor) {
+      document.documentElement.style.cursor = 'none';
+    }
+
     return () => {
+      if (hideDefaultCursor) {
+        document.documentElement.style.cursor = 'auto';
+      }
       finePointer.removeEventListener('change', updatePointerMode);
       reducedMotion.removeEventListener('change', updatePointerMode);
       window.removeEventListener('mousemove', handleMove);
       window.removeEventListener('mouseleave', handleLeave);
     };
-  }, [x, y]);
+  }, [x, y, hideDefaultCursor]);
 
   if (!isPointerFine) {
     return null;
@@ -64,8 +75,8 @@ export const CustomCursor = () => {
       <motion.div
         className="relative -translate-x-1/2 -translate-y-1/2 rounded-full border backdrop-blur-sm"
         animate={{
-          width: isHovering ? 34 : 26,
-          height: isHovering ? 34 : 26,
+          width: isHovering ? 30 : 20,
+          height: isHovering ? 30 : 20,
           scale: isHovering ? 1.06 : 1,
           rotate: isHovering ? 16 : 0,
           borderColor: isHovering ? 'hsl(var(--primary) / 0.95)' : 'hsl(var(--primary) / 0.65)',
