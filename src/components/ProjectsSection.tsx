@@ -16,6 +16,7 @@ const onProgress = [
       {profilePng:'/team/aachalla.jpg', name:'Abdelmajid Achallah', githubUrl:'https://github.com/AM9-push'},
     ],
     tags: ['React', 'Express.js', 'Mysql', 'JavaScript', 'TypeScript'],
+    githubUrl: "https://github.com/ibrahimesseddyq/ft_transcendance",
   },
 ];
 
@@ -103,6 +104,7 @@ export const ProjectsSection = () => {
                 {...project}
                 tags={project.tags}
                 abbrev={project.abbrev}
+                githubUrl={project.githubUrl}
                 liveLabel={t.projects.live}
                 cachedLabel={t.projects.cached}
                 githubLabel={t.projects.github}
