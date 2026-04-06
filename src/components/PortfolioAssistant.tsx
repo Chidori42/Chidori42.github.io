@@ -245,6 +245,7 @@ function parseSsePayload(raw: string): { content: string; hasErrorEvent: boolean
 
     if (eventName === 'error') {
       hasErrorEvent = true;
+      continue;
     }
 
     if (eventName === 'done' || dataLines.some((line) => line === '[DONE]')) {
@@ -518,8 +519,8 @@ export const PortfolioAssistant = () => {
       )}
 
       {open && (
-        <div className="w-[min(92vw,380px)] overflow-hidden rounded-md border border-border bg-card shadow-2xl">
-          <div className="flex items-center justify-between border-b border-border px-4 py-3">
+        <div className="flex max-h-[calc(100vh-2rem)] w-[min(92vw,380px)] flex-col overflow-hidden rounded-md border border-border bg-card shadow-2xl">
+          <div className="shrink-0 flex items-center justify-between border-b border-border px-4 py-3">
             <div className="flex items-center gap-2 font-mono text-sm text-foreground">
               <Bot className="h-4 w-4 text-primary" />
               Portfolio Assistant
@@ -564,7 +565,7 @@ export const PortfolioAssistant = () => {
           </div>
 
           {adminOpen && (
-            <div className="space-y-2 border-b border-border bg-muted/20 p-3 font-mono text-xs">
+            <div className="shrink-0 space-y-2 border-b border-border bg-muted/20 p-3 font-mono text-xs">
               <div className="flex items-center gap-2">
                 <input
                   value={adminKey}
@@ -593,25 +594,27 @@ export const PortfolioAssistant = () => {
               {adminError && <p className="text-destructive">{adminError}</p>}
 
               {adminStats?.stats && adminStats?.limits && (
-                <div className="grid grid-cols-2 gap-2 text-muted-foreground">
-                  <p>Total: {adminStats.stats.totalRequests}</p>
-                  <p>Success: {adminStats.stats.successfulRequests}</p>
-                  <p>Failed: {adminStats.stats.failedRequests}</p>
-                  <p>Rate hits: {adminStats.stats.rateLimitedRequests}</p>
-                  <p>Daily cap hits: {adminStats.stats.dailyCapHits}</p>
-                  <p>Cache hits: {adminStats.stats.cacheHits}</p>
-                  <p>Cache misses: {adminStats.stats.cacheMisses}</p>
-                  <p>Cache size: {adminStats.limits.cacheSize}</p>
-                  <p>Daily used: {adminStats.limits.dailyCount}</p>
-                  <p>Daily left: {adminStats.limits.dailyRemaining}</p>
-                  <p>Hourly limit: {adminStats.limits.rateLimitPerHour}</p>
-                  <p>Daily cap: {adminStats.limits.dailyCap}</p>
+                <div className="max-h-44 overflow-y-auto rounded-sm border border-border bg-background/60 p-2 text-muted-foreground">
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                    <p className="min-w-0 break-words">Total: {adminStats.stats.totalRequests}</p>
+                    <p className="min-w-0 break-words">Success: {adminStats.stats.successfulRequests}</p>
+                    <p className="min-w-0 break-words">Failed: {adminStats.stats.failedRequests}</p>
+                    <p className="min-w-0 break-words">Rate hits: {adminStats.stats.rateLimitedRequests}</p>
+                    <p className="min-w-0 break-words">Daily cap hits: {adminStats.stats.dailyCapHits}</p>
+                    <p className="min-w-0 break-words">Cache hits: {adminStats.stats.cacheHits}</p>
+                    <p className="min-w-0 break-words">Cache misses: {adminStats.stats.cacheMisses}</p>
+                    <p className="min-w-0 break-words">Cache size: {adminStats.limits.cacheSize}</p>
+                    <p className="min-w-0 break-words">Daily used: {adminStats.limits.dailyCount}</p>
+                    <p className="min-w-0 break-words">Daily left: {adminStats.limits.dailyRemaining}</p>
+                    <p className="min-w-0 break-words">Hourly limit: {adminStats.limits.rateLimitPerHour}</p>
+                    <p className="min-w-0 break-words">Daily cap: {adminStats.limits.dailyCap}</p>
+                  </div>
                 </div>
               )}
             </div>
           )}
 
-          <div className="max-h-[46vh] space-y-3 overflow-y-auto bg-background/40 px-4 py-3">
+          <div className="min-h-0 flex-1 space-y-3 overflow-y-auto bg-background/40 px-4 py-3">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -659,7 +662,7 @@ export const PortfolioAssistant = () => {
             )}
           </div>
 
-          <form onSubmit={onSubmit} className="space-y-2 border-t border-border p-3">
+          <form onSubmit={onSubmit} className="shrink-0 space-y-2 border-t border-border p-3">
             <textarea
               value={input}
               onChange={(event) => setInput(event.target.value)}

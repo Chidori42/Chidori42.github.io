@@ -4,6 +4,7 @@ import { createServer as createViteServer, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import portfolioContext from './data/portfolio-context.json' with { type: 'json' };
+import cvData from './data/cv.json' with { type: 'json' };
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
@@ -17,6 +18,7 @@ const MAX_OUTPUT_TOKENS = Number(process.env.CHAT_MAX_OUTPUT_TOKENS ?? 250);
 const REQUEST_TIMEOUT_MS = Number(process.env.CHAT_TIMEOUT_MS ?? 10_000);
 const CACHE_TTL_MS = Number(process.env.CHAT_CACHE_TTL_MS ?? 6 * 60 * 60 * 1000);
 const SYSTEM_PROMPT_MAX_CHARS = 3500;
+const RELEVANT_CHUNK_LIMIT = 6;
 const ADMIN_KEY = process.env.CHAT_ADMIN_KEY ?? '';
 
 const IP_BUCKETS = new Map();
@@ -56,9 +58,133 @@ function getLanguageInstruction(lang) {
   return 'Respond in English.';
 }
 
-function buildSystemPrompt(lang) {
-  const projectLines = portfolioContext.projects
-    .map((project) => `- ${project.name}: ${project.summary} (${project.stack.join(', ')})`)
+function normalizeText(input) {
+  return input
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function tokenize(input) {
+  return normalizeText(input)
+    .split(' ')
+    .filter((token) => token.length > 2);
+}
+
+function makeChunk(id, title, text) {
+  return {
+    id,
+    title,
+    text,
+    keywords: tokenize(`${title} ${text}`),
+  };
+}
+
+function buildKnowledgeChunks() {
+  const projectChunks = portfolioContext.projects.map((project) =>
+    makeChunk(
+      `portfolio-project-${project.name}`,
+      `Project: ${project.name}`,
+      `${project.summary}. Stack: ${project.stack.join(', ')}.`,
+    ),
+  );
+
+  const portfolioChunks = [
+    makeChunk('portfolio-profile', 'Profile', `${portfolioContext.profile.name}. ${portfolioContext.profile.role}. Location: ${portfolioContext.profile.location}.`),
+    makeChunk('portfolio-about', 'About', portfolioContext.about.join(' ')),
+    makeChunk('portfolio-skills', 'Skills', `Languages: ${portfolioContext.skills.languages.join(', ')}. Frameworks: ${portfolioContext.skills.frameworks.join(', ')}. Tools: ${portfolioContext.skills.tools.join(', ')}. Databases: ${portfolioContext.skills.databases.join(', ')}.`),
+    makeChunk('portfolio-contact', 'Contact', `Email: ${portfolioContext.contact.email}. Availability: ${portfolioContext.contact.available}.`),
+  ];
+
+  const cvChunks = [
+    makeChunk('cv-summary', 'CV Summary', cvData.summary),
+    makeChunk('cv-headline', 'CV Headline', cvData.headline),
+    makeChunk('cv-location', 'CV Location', cvData.location),
+    makeChunk('cv-education', 'CV Education', cvData.education.map((entry) => `${entry.school} (${entry.period}): ${entry.details}`).join(' ')),
+    makeChunk('cv-skills', 'CV Skills', `Languages: ${cvData.skills.languages.join(', ')}. Frameworks: ${cvData.skills.frameworks.join(', ')}. Tools: ${cvData.skills.tools.join(', ')}. Databases: ${cvData.skills.databases.join(', ')}.`),
+    makeChunk('cv-experience', 'CV Experience Notes', cvData.experienceNotes.join(' ')),
+    makeChunk('cv-projects', 'CV Projects', cvData.projects.join(' ')),
+    makeChunk('cv-contact', 'CV Contact', `Email: ${cvData.contact.email}. Status: ${cvData.contact.status}.`),
+    makeChunk('cv-facts', 'CV Facts', cvData.facts.join(' ')),
+  ];
+
+  return [...portfolioChunks, ...projectChunks, ...cvChunks];
+}
+
+function selectRelevantChunks(message, history, lang) {
+  const query = normalizeText([
+    message,
+    ...history.map((entry) => entry.content),
+    lang,
+  ].join(' '));
+  const queryTokens = tokenize(query);
+  const chunks = buildKnowledgeChunks();
+
+  const scored = chunks
+    .map((chunk) => {
+      let score = 0;
+
+      for (const token of queryTokens) {
+        if (chunk.keywords.includes(token)) {
+          score += 2;
+        }
+      }
+
+      if (/where|location|live|based|located|sits|عيش|ساكن|أين|o\u00f9|habite/i.test(query)) {
+        if (chunk.id === 'portfolio-profile' || chunk.id === 'cv-location' || chunk.id === 'cv-facts') {
+          score += 5;
+        }
+      }
+
+      if (/contact|email|reach|hire|collaborat|tواصل|contacto|mail/i.test(query)) {
+        if (chunk.id === 'portfolio-contact' || chunk.id === 'cv-contact') {
+          score += 5;
+        }
+      }
+
+      if (/project|work|portfolio|build|projet|مشروع/i.test(query)) {
+        if (chunk.id.startsWith('portfolio-project-') || chunk.id === 'cv-projects') {
+          score += 4;
+        }
+      }
+
+      if (/skill|tech|stack|language|framework|comp[ée]tence|مهار/i.test(query)) {
+        if (chunk.id === 'portfolio-skills' || chunk.id === 'cv-skills') {
+          score += 4;
+        }
+      }
+
+      if (/education|study|school|background|formation|تعليم|دراسة/i.test(query)) {
+        if (chunk.id === 'portfolio-about' || chunk.id === 'cv-education' || chunk.id === 'cv-summary') {
+          score += 4;
+        }
+      }
+
+      if (/who are you|name|qui es-tu|اسمك/i.test(query)) {
+        if (chunk.id === 'portfolio-profile' || chunk.id === 'cv-summary' || chunk.id === 'cv-headline') {
+          score += 5;
+        }
+      }
+
+      return { chunk, score };
+    })
+    .sort((left, right) => right.score - left.score)
+    .filter((entry) => entry.score > 0)
+    .slice(0, RELEVANT_CHUNK_LIMIT)
+    .map((entry) => entry.chunk);
+
+  if (scored.length > 0) {
+    return scored;
+  }
+
+  return chunks.filter((chunk) => ['portfolio-profile', 'portfolio-about', 'portfolio-skills', 'portfolio-contact', 'cv-summary'].includes(chunk.id)).slice(0, RELEVANT_CHUNK_LIMIT);
+}
+
+function buildSystemPrompt(lang, message, history) {
+  const relevantChunks = selectRelevantChunks(message, history, lang);
+  const evidenceBlock = relevantChunks
+    .map((chunk) => `- ${chunk.title}: ${chunk.text}`)
     .join('\n');
 
   return `
@@ -82,8 +208,13 @@ Contact:
 - Email: ${portfolioContext.contact.email}
 - ${portfolioContext.contact.available}
 
+Relevant evidence from portfolio and CV:
+${evidenceBlock}
+
 Rules:
 ${portfolioContext.rules.map((rule) => `- ${rule}`).join('\n')}
+- If relevant evidence exists, synthesize the answer from it instead of guessing.
+- If the evidence is incomplete, say what is missing.
 - ${getLanguageInstruction(lang)}
 `.trim();
 }
@@ -186,7 +317,7 @@ async function callLlm(message, history, lang, onToken) {
       max_tokens: MAX_OUTPUT_TOKENS,
       stream: Boolean(onToken),
       messages: [
-        { role: 'system', content: buildSystemPrompt(lang).slice(0, SYSTEM_PROMPT_MAX_CHARS) },
+        { role: 'system', content: buildSystemPrompt(lang, message, history).slice(0, SYSTEM_PROMPT_MAX_CHARS) },
         ...history,
         { role: 'user', content: message },
       ],

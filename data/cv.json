@@ -1,0 +1,44 @@
+{
+  "summary": "Abdellatif El Fagrouch is a web developer from Morocco focused on full-stack development, modern web experiences, and problem solving.",
+  "headline": "Web Developer from 1337 Coding School",
+  "location": "Morocco",
+  "education": [
+    {
+      "school": "1337 Coding School",
+      "period": "Nov 2023 - Dec 2026",
+      "details": "Immersive coding education focused on modern web technologies, collaborative learning, and real-world project development."
+    },
+    {
+      "school": "Faculty of Law in Agadir",
+      "period": "Jan 2020 - Jun 2022",
+      "details": "DEUG degree with comprehensive understanding of legal principles."
+    }
+  ],
+  "skills": {
+    "languages": ["C", "C++", "JavaScript", "TypeScript"],
+    "frameworks": ["React", "Express.js", "Node.js", "Fastify.js"],
+    "tools": ["Docker", "Git", "VSCode", "Figma", "Linux", "Vim", "Prisma"],
+    "databases": ["SQLite", "MongoDB", "MariaDB"]
+  },
+  "experienceNotes": [
+    "Builds user-facing web applications and backend services.",
+    "Works with collaborative teams and real-world project constraints.",
+    "Interested in clean code, performance, and practical delivery."
+  ],
+  "projects": [
+    "hirefy: smart applicant tracking system built with React, Express, MySQL, TypeScript, and JavaScript.",
+    "SimpleShell: Unix shell implementation in C.",
+    "IRC Server: RFC 2812 compatible IRC server in C++.",
+    "RayFlow Engine: retro-inspired 3D raycasting engine.",
+    "Path Finding Visualizer: interactive algorithm visualizer."
+  ],
+  "contact": {
+    "email": "elfagrouch9@gmail.com",
+    "status": "Open to new opportunities and collaborations"
+  },
+  "facts": [
+    "Based in Morocco.",
+    "Open to collaborations and new opportunities.",
+    "Works across frontend and backend development."
+  ]
+}
