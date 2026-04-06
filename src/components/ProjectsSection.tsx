@@ -4,11 +4,21 @@ import { DotGrid } from './DotGrid';
 import { motion } from 'framer-motion';
 import { sectionTitle, staggerContainer, staggerItem } from '@/lib/motion';
 
+type LocalizedDescription = {
+  en: string;
+  fr: string;
+  ar: string;
+};
+
 const onProgress = [
   {
     title: 'Hirify',
     abbrev: '/assets/hirify.png',
-    description: 'Smart Applicant Tracking System A modern hiring platform designed to bridge the gap between recruiters and candidates',
+    description: {
+      en: 'Smart Applicant Tracking System. A modern hiring platform designed to bridge the gap between recruiters and candidates.',
+      fr: 'Système intelligent de suivi des candidatures. Une plateforme moderne de recrutement qui relie recruteurs et candidats.',
+      ar: 'نظام ذكي لتتبع طلبات التوظيف. منصة حديثة تربط بين مسؤولي التوظيف والمرشحين.',
+    } as LocalizedDescription,
     team: [
       {profilePng:'/team/eaboudi.jpg', name:'EL HOUSSAINE ABOUDI', githubUrl:'https://github.com/eaboudi'},
       {profilePng:'/team/sessarhi.jpg', name:'سفيان الصغير', githubUrl:'https://github.com/soufianeessarhir'},
@@ -24,14 +34,22 @@ const featuredProjects = [
   {
     title: 'UX/UI Design',
     abbrev: '/assets/ux_ui.jpg',
-    description: 'Designed a clean, responsive interface in Figma with a focus on usability, modern visuals, and intuitive navigation.',
+    description: {
+      en: 'Designed a clean, responsive interface in Figma with a focus on usability, modern visuals, and intuitive navigation.',
+      fr: 'Conception d\'une interface claire et responsive sur Figma, axée sur l\'utilisabilité, un rendu moderne et une navigation intuitive.',
+      ar: 'تصميم واجهة نظيفة ومتجاوبة على Figma مع التركيز على سهولة الاستخدام والمظهر الحديث والتنقل الواضح.',
+    } as LocalizedDescription,
     tags: ['Figma', 'Design', 'Prototyping'],
     figmaUrl: 'https://www.figma.com/design/uENBWm0X7VeAsydvQnV25A/ft_trancendance--Copy-?m=auto&t=WnjTdGSlO6i3vwVD-1',
   },
   {
     title: 'SimpleShell',
     abbrev: '/assets/Bash-Script.jpg',
-    description: 'A fundamental exercise in understanding and implementing a basic Unix shell with modern features.',
+    description: {
+      en: 'A fundamental exercise in understanding and implementing a basic Unix shell with modern features.',
+      fr: 'Un exercice fondamental pour comprendre et implémenter un shell Unix de base avec des fonctionnalités modernes.',
+      ar: 'مشروع أساسي لفهم وتنفيذ shell يونكس بسيط مع ميزات حديثة.',
+    } as LocalizedDescription,
     team: [
       {profilePng:'/team/bramzil.jpg', name:'Amzil Brahim', githubUrl:'https://github.com/bramzil'},
     ],
@@ -44,7 +62,11 @@ const otherProjects = [
   {
     title: 'IRC Server',
     abbrev: '/assets/irc-server.png',
-    description: 'Developed a basic IRC server in C++ adhering to RFC 2812, supporting multiple client connections and real-time communication.',
+    description: {
+      en: 'Developed a basic IRC server in C++ adhering to RFC 2812, supporting multiple client connections and real-time communication.',
+      fr: 'Développement d\'un serveur IRC en C++ conforme à la RFC 2812, avec connexions multiples et communication en temps réel.',
+      ar: 'تطوير خادم IRC أساسي بلغة ++C مطابق لمعيار RFC 2812 ويدعم اتصالات متعددة وتواصلا لحظيا.',
+    } as LocalizedDescription,
     githubUrl: "https://github.com/Chidori42/Irc",
     team: [
       {profilePng:'/team/yakazdao.jpg', name:'Younes Akazdaou', githubUrl:'https://github.com/Younes-AK'},
@@ -55,21 +77,29 @@ const otherProjects = [
   {
     title: 'RayFlow Engine',
     abbrev: '/assets/3dgame.png',
-    description: 'A retro-inspired 3D game engine showcasing raycasting, graphics rendering, and first-person perspective.',
+    description: {
+      en: 'A retro-inspired 3D game engine showcasing raycasting, graphics rendering, and first-person perspective.',
+      fr: 'Un moteur de jeu 3D inspiré du rétro, mettant en avant le raycasting, le rendu graphique et la vue à la première personne.',
+      ar: 'محرك ألعاب ثلاثي الأبعاد بطابع كلاسيكي يستعرض raycasting والرسم والمنظور من منظور الشخص الأول.',
+    } as LocalizedDescription,
     githubUrl: "https://github.com/Chidori42/Cube_3d ",
     tags: ['C', 'Graphics', 'Game Dev'],
   },
   {
     title: 'Path Finding Visualizer',
     abbrev: '/assets/path-finding.png',
-    description: 'A visual simulation of pathfinding algorithms (floodfill, BFS) with interactive demonstrations.',
+    description: {
+      en: 'A visual simulation of pathfinding algorithms (floodfill, BFS) with interactive demonstrations.',
+      fr: 'Une simulation visuelle des algorithmes de recherche de chemin (floodfill, BFS) avec démonstrations interactives.',
+      ar: 'محاكاة بصرية لخوارزميات إيجاد المسار (floodfill و BFS) مع عروض تفاعلية.',
+    } as LocalizedDescription,
     githubUrl: "https://github.com/Chidori42/Floodfill",
     tags: ['C++', 'Algorithms'],
   },
 ];
 
 export const ProjectsSection = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <section id="projects" className="py-20 relative">
@@ -100,8 +130,7 @@ export const ProjectsSection = () => {
               <ProjectCard
                 key={index}
                 title={project.title}
-                description={project.description}
-                {...project}
+                description={project.description[language]}
                 tags={project.tags}
                 abbrev={project.abbrev}
                 githubUrl={project.githubUrl}
@@ -126,8 +155,7 @@ export const ProjectsSection = () => {
               <ProjectCard
                 key={index}
                 title={project.title}
-                description={project.description}
-                {...project}
+                description={project.description[language]}
                 tags={project.tags}
                 abbrev={project.abbrev}
                 githubUrl={project.githubUrl}
@@ -153,8 +181,7 @@ export const ProjectsSection = () => {
               <ProjectCard
                 key={index}
                 title={project.title}
-                description={project.description}
-                {...project}
+                description={project.description[language]}
                 tags={project.tags}
                 abbrev={project.abbrev}
                 githubUrl={project.githubUrl}
