@@ -364,9 +364,8 @@ export default function ThreeJsBackground() {
           createPlanet(config, texture);
         }, 
         undefined, 
-        (error) => {
+        () => {
           // Texture failed to load, use fallback color
-          console.warn(`Failed to load texture for ${config.name}, using fallback color`);
           createPlanet(config);
         }
       );

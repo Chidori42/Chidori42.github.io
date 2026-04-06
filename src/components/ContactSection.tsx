@@ -55,8 +55,7 @@ const onSubmit = async (data: ContactFormData) => {
     setSubmitStatus('success');
     reset();
     setTimeout(() => setSubmitStatus('idle'), 5000);
-  } catch (error) {
-    console.error('Failed:', error);
+  } catch {
     setSubmitStatus('error');
   } finally {
     setIsSubmitting(false);

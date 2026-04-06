@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
 import { ProjectsSection } from '@/components/ProjectsSection';
@@ -14,6 +15,13 @@ import { motion } from 'framer-motion';
 import { pageFade } from '@/lib/motion';
 
 const Index = () => {
+  const [showAssistant, setShowAssistant] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setShowAssistant(true), 1800);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <motion.div className="min-h-screen bg-background duration-500" initial="hidden" animate="visible" variants={pageFade}>
       <CustomCursor hideDefaultCursor={false}/>
@@ -28,7 +36,7 @@ const Index = () => {
         <FunFactsSection />
         <ContactSection />
       </motion.main>
-      <PortfolioAssistant />
+      {showAssistant && <PortfolioAssistant />}
       <Footer />
     </motion.div>
   );

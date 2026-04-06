@@ -191,7 +191,16 @@ async function callLlm(message, history, lang) {
 
     if (!response.ok) {
       const errText = await response.text();
-      throw new Error(`LLM error ${response.status}: ${errText.slice(0, 500)}`);
+
+      if (response.status === 429 && errText.includes('insufficient_quota')) {
+        throw new Error('LLM_QUOTA_EXCEEDED');
+      }
+
+      if (response.status === 401) {
+        throw new Error('LLM_INVALID_API_KEY');
+      }
+
+      throw new Error(`LLM_HTTP_${response.status}: ${errText.slice(0, 500)}`);
     }
 
     const data = await response.json();
@@ -287,6 +296,21 @@ async function handlePortfolioChat(req, res) {
   } catch (error) {
     usageStats.failedRequests += 1;
     const messageText = error instanceof Error ? error.message : 'Unknown AI error';
+
+    if (messageText === 'LLM_QUOTA_EXCEEDED') {
+      sendJson(res, 429, {
+        error: 'OpenAI quota exceeded. Please check your plan and billing, then try again.',
+      });
+      return;
+    }
+
+    if (messageText === 'LLM_INVALID_API_KEY') {
+      sendJson(res, 401, {
+        error: 'Invalid LLM_API_KEY. Update your .env and restart the dev server.',
+      });
+      return;
+    }
+
     sendJson(res, 500, { error: 'AI assistant is currently unavailable. Please try again later.', details: process.env.NODE_ENV === 'development' ? messageText : undefined });
   }
 }
@@ -318,6 +342,4 @@ const server = http.createServer(async (req, res) => {
 });
 
 const port = Number(process.env.PORT ?? 5173);
-server.listen(port, () => {
-  console.log(`Dev server running at http://localhost:${port}`);
-});
+server.listen(port);

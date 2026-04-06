@@ -259,7 +259,16 @@ async function callLlm(message: string, history: ChatMessage[], lang: Lang): Pro
 
     if (!response.ok) {
       const errText = await response.text();
-      throw new Error(`LLM error ${response.status}: ${errText.slice(0, 500)}`);
+
+      if (response.status === 429 && errText.includes('insufficient_quota')) {
+        throw new Error('LLM_QUOTA_EXCEEDED');
+      }
+
+      if (response.status === 401) {
+        throw new Error('LLM_INVALID_API_KEY');
+      }
+
+      throw new Error(`LLM_HTTP_${response.status}: ${errText.slice(0, 500)}`);
     }
 
     const data = (await response.json()) as {
@@ -352,6 +361,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   } catch (error) {
     const messageText = error instanceof Error ? error.message : 'Unknown AI error';
     usageStats.failedRequests += 1;
+
+    if (messageText === 'LLM_QUOTA_EXCEEDED') {
+      res.status(429).json({
+        error: 'OpenAI quota exceeded. Please check your plan and billing, then try again.',
+      });
+      return;
+    }
+
+    if (messageText === 'LLM_INVALID_API_KEY') {
+      res.status(401).json({
+        error: 'Invalid LLM_API_KEY. Update your .env and restart the dev server.',
+      });
+      return;
+    }
+
     res.status(500).json({
       error: 'AI assistant is currently unavailable. Please try again later.',
       details: process.env.NODE_ENV === 'development' ? messageText : undefined,

@@ -55,6 +55,8 @@ export const ProjectCard = ({
         <img 
           src={abbrev} 
           alt={title} 
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover object-center" 
         />
       </div>
@@ -99,6 +101,10 @@ export const ProjectCard = ({
                   <img 
                     src={member.profilePng || '/assets/default-avatar.png'} 
                     alt={member.name} 
+                    loading="lazy"
+                    decoding="async"
+                    width={40}
+                    height={40}
                     className="w-full h-full object-cover"
                   />
                 </div>

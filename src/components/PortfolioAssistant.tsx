@@ -307,10 +307,6 @@ export const PortfolioAssistant = () => {
       const data = (await response.json()) as ApiResponse;
       if (!response.ok || !data.reply) {
         if (!response.ok && response.status >= 500) {
-          if (data.details) {
-            console.error('AI backend details:', data.details);
-          }
-
           const content = getFallbackAnswer(next, language);
           setMessages((prev) => [
             ...prev,
