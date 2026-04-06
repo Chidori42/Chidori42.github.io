@@ -71,7 +71,7 @@ const FALLBACK_KNOWLEDGE = {
     {
       match: /project|work|portfolio|build/i,
       answer:
-        'Featured work includes hirify (ATS platform), SimpleShell, IRC Server, RayFlow Engine, and a Path Finding Visualizer.',
+        'Featured work includes hirefy (ATS platform), SimpleShell, IRC Server, RayFlow Engine, and a Path Finding Visualizer.',
     },
     {
       match: /education|school|study|background/i,
@@ -93,7 +93,7 @@ const FALLBACK_KNOWLEDGE = {
     {
       match: /projet|travail|portfolio|r[ée]alisation/i,
       answer:
-        'Projets principaux : hirify (plateforme ATS), SimpleShell, IRC Server, RayFlow Engine et Path Finding Visualizer.',
+        'Projets principaux : hirefy (plateforme ATS), SimpleShell, IRC Server, RayFlow Engine et Path Finding Visualizer.',
     },
     {
       match: /[ée]tude|formation|school|background/i,
@@ -115,7 +115,7 @@ const FALLBACK_KNOWLEDGE = {
     {
       match: /مشروع|اعمال|عمل|portfolio/i,
       answer:
-        'من أبرز المشاريع: hirify و SimpleShell و IRC Server و RayFlow Engine و Path Finding Visualizer.',
+        'من أبرز المشاريع: hirefy و SimpleShell و IRC Server و RayFlow Engine و Path Finding Visualizer.',
     },
     {
       match: /تعليم|دراسة|دراس|خلفية|مدرسة|مسار|دراسي/i,

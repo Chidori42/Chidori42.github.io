@@ -12,8 +12,8 @@ type LocalizedDescription = {
 
 const onProgress = [
   {
-    title: 'Hirify',
-    abbrev: '/assets/hirify.png',
+    title: 'Hirefy',
+    abbrev: '/assets/hirefy.png',
     description: {
       en: 'Smart Applicant Tracking System. A modern hiring platform designed to bridge the gap between recruiters and candidates.',
       fr: 'Système intelligent de suivi des candidatures. Une plateforme moderne de recrutement qui relie recruteurs et candidats.',
