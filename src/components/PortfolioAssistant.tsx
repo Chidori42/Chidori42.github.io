@@ -263,11 +263,6 @@ export const PortfolioAssistant = () => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [now, setNow] = useState(() => Date.now());
-  const [adminOpen, setAdminOpen] = useState(false);
-  const [adminKey, setAdminKey] = useState('');
-  const [adminLoading, setAdminLoading] = useState(false);
-  const [adminStats, setAdminStats] = useState<AdminResponse | null>(null);
-  const [adminError, setAdminError] = useState<string | null>(null);
   const [messages, setMessages] = useState<UiMessage[]>([
     {
       id: crypto.randomUUID(),
@@ -355,47 +350,6 @@ export const PortfolioAssistant = () => {
     setReplyMode('live');
   }
 
-  async function loadAdminStats() {
-    setAdminLoading(true);
-    setAdminError(null);
-    setAdminStats(null);
-
-    const normalizedAdminKey = adminKey.trim();
-
-    if (!normalizedAdminKey) {
-      setAdminError('Please enter an admin key.');
-      setAdminLoading(false);
-      return;
-    }
-
-    try {
-      const response = await fetch('/api/portfolio-chat', {
-        method: 'GET',
-        headers: {
-          'x-admin-key': normalizedAdminKey,
-        },
-      });
-
-      const data = (await response.json()) as AdminResponse;
-      if (!response.ok || !data.stats || !data.limits) {
-        setAdminStats(null);
-        if (response.status === 401) {
-          setAdminError(data.error || 'Invalid admin key. Set CHAT_ADMIN_KEY on the server and enter the same value here.');
-          return;
-        }
-
-        setAdminError(data.error || 'Unable to load usage stats.');
-        return;
-      }
-
-      setAdminStats(data);
-    } catch {
-      setAdminStats(null);
-      setAdminError('Admin stats are not reachable right now. Make sure the local dev server is running with `npm run dev` and that CHAT_ADMIN_KEY is set.');
-    } finally {
-      setAdminLoading(false);
-    }
-  }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -547,14 +501,6 @@ export const PortfolioAssistant = () => {
               </button>
               <button
                 type="button"
-                onClick={() => setAdminOpen((prev) => !prev)}
-                className="rounded-sm p-1 text-muted-foreground hover:bg-muted"
-                aria-label="Toggle admin panel"
-              >
-                <Shield className="h-4 w-4" />
-              </button>
-              <button
-                type="button"
                 onClick={() => setOpen(false)}
                 className="rounded-sm p-1 text-muted-foreground hover:bg-muted"
                 aria-label="Close AI assistant"
@@ -563,56 +509,6 @@ export const PortfolioAssistant = () => {
               </button>
             </div>
           </div>
-
-          {adminOpen && (
-            <div className="shrink-0 space-y-2 border-b border-border bg-muted/20 p-3 font-mono text-xs">
-              <div className="flex items-center gap-2">
-                <input
-                  value={adminKey}
-                  onChange={(event) => {
-                    setAdminKey(event.target.value);
-                    if (adminError) {
-                      setAdminError(null);
-                    }
-                  }}
-                  placeholder="Admin key"
-                  className={`h-8 flex-1 rounded-sm border bg-background px-2 outline-none focus:border-primary ${
-                    adminError ? 'border-destructive' : 'border-border'
-                  }`}
-                />
-                <button
-                  type="button"
-                  onClick={loadAdminStats}
-                  disabled={adminLoading || !adminKey.trim()}
-                  className="h-8 rounded-sm bg-primary px-3 text-primary-foreground disabled:opacity-50"
-                >
-                  {adminLoading ? 'Loading...' : 'Load'}
-                </button>
-              </div>
-
-              {adminLoading && <p className="text-muted-foreground">Checking admin stats...</p>}
-              {adminError && <p className="text-destructive">{adminError}</p>}
-
-              {adminStats?.stats && adminStats?.limits && (
-                <div className="max-h-44 overflow-y-auto rounded-sm border border-border bg-background/60 p-2 text-muted-foreground">
-                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    <p className="min-w-0 break-words">Total: {adminStats.stats.totalRequests}</p>
-                    <p className="min-w-0 break-words">Success: {adminStats.stats.successfulRequests}</p>
-                    <p className="min-w-0 break-words">Failed: {adminStats.stats.failedRequests}</p>
-                    <p className="min-w-0 break-words">Rate hits: {adminStats.stats.rateLimitedRequests}</p>
-                    <p className="min-w-0 break-words">Daily cap hits: {adminStats.stats.dailyCapHits}</p>
-                    <p className="min-w-0 break-words">Cache hits: {adminStats.stats.cacheHits}</p>
-                    <p className="min-w-0 break-words">Cache misses: {adminStats.stats.cacheMisses}</p>
-                    <p className="min-w-0 break-words">Cache size: {adminStats.limits.cacheSize}</p>
-                    <p className="min-w-0 break-words">Daily used: {adminStats.limits.dailyCount}</p>
-                    <p className="min-w-0 break-words">Daily left: {adminStats.limits.dailyRemaining}</p>
-                    <p className="min-w-0 break-words">Hourly limit: {adminStats.limits.rateLimitPerHour}</p>
-                    <p className="min-w-0 break-words">Daily cap: {adminStats.limits.dailyCap}</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
 
           <div className="min-h-0 flex-1 space-y-3 overflow-y-auto bg-background/40 px-4 py-3">
             {messages.map((message) => (
