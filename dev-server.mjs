@@ -155,7 +155,7 @@ function setCachedAnswer(question, value, lang) {
   QUESTION_CACHE.set(key, { value, expiresAt: Date.now() + CACHE_TTL_MS });
 }
 
-async function callLlm(message, history, lang) {
+async function callLlm(message, history, lang, onToken) {
   const apiUrl = process.env.LLM_API_URL ?? 'https://api.openai.com/v1/chat/completions';
   const model = process.env.LLM_MODEL ?? 'gpt-4o-mini';
   const apiKey = process.env.LLM_API_KEY;
@@ -172,6 +172,7 @@ async function callLlm(message, history, lang) {
       model,
       temperature: 0.2,
       max_tokens: MAX_OUTPUT_TOKENS,
+      stream: Boolean(onToken),
       messages: [
         { role: 'system', content: buildSystemPrompt(lang).slice(0, SYSTEM_PROMPT_MAX_CHARS) },
         ...history,
@@ -201,6 +202,60 @@ async function callLlm(message, history, lang) {
       }
 
       throw new Error(`LLM_HTTP_${response.status}: ${errText.slice(0, 500)}`);
+    }
+
+    if (onToken) {
+      if (!response.body) {
+        throw new Error('LLM_EMPTY_STREAM');
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let fullReply = '';
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) {
+          break;
+        }
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
+
+        for (const rawLine of lines) {
+          const line = rawLine.trim();
+          if (!line.startsWith('data:')) {
+            continue;
+          }
+
+          const dataLine = line.slice(5).trim();
+          if (!dataLine || dataLine === '[DONE]') {
+            continue;
+          }
+
+          try {
+            const parsed = JSON.parse(dataLine);
+            const token = parsed.choices?.[0]?.delta?.content;
+            if (!token) {
+              continue;
+            }
+
+            fullReply += token;
+            onToken(token);
+          } catch {
+            // Ignore malformed provider chunks and keep streaming.
+          }
+        }
+      }
+
+      const trailing = decoder.decode();
+      if (trailing) {
+        buffer += trailing;
+      }
+
+      return fullReply.trim() || 'I could not generate a response this time.';
     }
 
     const data = await response.json();
@@ -263,6 +318,7 @@ async function handlePortfolioChat(req, res) {
 
   const body = await readJsonBody(req);
   const message = typeof body.message === 'string' ? body.message.trim() : '';
+  const wantsStream = body.stream !== false;
 
   if (!message) {
     usageStats.failedRequests += 1;
@@ -281,6 +337,17 @@ async function handlePortfolioChat(req, res) {
   if (cached) {
     usageStats.cacheHits += 1;
     usageStats.successfulRequests += 1;
+
+    if (wantsStream) {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      res.write(cached);
+      res.end();
+      return;
+    }
+
     sendJson(res, 200, { reply: cached, cached: true });
     return;
   }
@@ -289,6 +356,23 @@ async function handlePortfolioChat(req, res) {
 
   try {
     const history = trimHistory(body.history);
+
+    if (wantsStream) {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+
+      const reply = await callLlm(message, history, lang, (token) => {
+        res.write(token);
+      });
+
+      setCachedAnswer(message, reply, lang);
+      usageStats.successfulRequests += 1;
+      res.end();
+      return;
+    }
+
     const reply = await callLlm(message, history, lang);
     setCachedAnswer(message, reply, lang);
     usageStats.successfulRequests += 1;
@@ -308,6 +392,23 @@ async function handlePortfolioChat(req, res) {
       sendJson(res, 401, {
         error: 'Invalid LLM_API_KEY. Update your .env and restart the dev server.',
       });
+      return;
+    }
+
+    if (wantsStream) {
+      const streamErrorMessage =
+        messageText === 'LLM_QUOTA_EXCEEDED'
+          ? 'OpenAI quota exceeded. Please check your plan and billing, then try again.'
+          : messageText === 'LLM_INVALID_API_KEY'
+            ? 'Invalid LLM_API_KEY. Update your .env and restart the dev server.'
+            : 'AI assistant is currently unavailable. Please try again later.';
+
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      res.write(streamErrorMessage);
+      res.end();
       return;
     }
 

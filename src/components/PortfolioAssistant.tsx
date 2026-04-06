@@ -168,6 +168,42 @@ function getWelcomeMessage(language: 'en' | 'fr' | 'ar'): string {
   return 'Hi, I can answer questions about Abdellatif\'s projects, skills, and background.';
 }
 
+async function readTextStream(
+  response: Response,
+  onChunk: (partial: string) => void,
+): Promise<string> {
+  if (!response.body) {
+    throw new Error('STREAM_UNAVAILABLE');
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let fullText = '';
+
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) {
+      break;
+    }
+
+    const chunk = decoder.decode(value, { stream: true });
+    if (!chunk) {
+      continue;
+    }
+
+    fullText += chunk;
+    onChunk(fullText);
+  }
+
+  const trailing = decoder.decode();
+  if (trailing) {
+    fullText += trailing;
+    onChunk(fullText);
+  }
+
+  return fullText;
+}
+
 export const PortfolioAssistant = () => {
   const { language } = useLanguage();
   const [open, setOpen] = useState(false);
@@ -287,8 +323,12 @@ export const PortfolioAssistant = () => {
     }
 
     const userMessage: UiMessage = { id: crypto.randomUUID(), role: 'user', content: next };
+    const assistantMessageId = crypto.randomUUID();
     const nextMessages = [...messages, userMessage];
-    setMessages(nextMessages);
+    setMessages([
+      ...nextMessages,
+      { id: assistantMessageId, role: 'assistant', content: '' },
+    ]);
     setInput('');
     setIsLoading(true);
     setLastSentAt(new Date().toISOString());
@@ -301,45 +341,70 @@ export const PortfolioAssistant = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: next, history, lang: language }),
+        body: JSON.stringify({ message: next, history, lang: language, stream: true }),
       });
 
-      const data = (await response.json()) as ApiResponse;
-      if (!response.ok || !data.reply) {
-        if (!response.ok && response.status >= 500) {
-          const content = getFallbackAnswer(next, language);
-          setMessages((prev) => [
-            ...prev,
-            { id: crypto.randomUUID(), role: 'assistant', content },
-          ]);
+      const contentType = response.headers.get('content-type') || '';
+      const isJsonResponse = contentType.includes('application/json');
+
+      if (isJsonResponse) {
+        const data = (await response.json()) as ApiResponse;
+        if (!response.ok || !data.reply) {
+          if (!response.ok && response.status >= 500) {
+            const content = getFallbackAnswer(next, language);
+            setMessages((prev) =>
+              prev.map((message) =>
+                message.id === assistantMessageId ? { ...message, content } : message,
+              ),
+            );
+            return;
+          }
+
+          const content = data.error || getFallbackAnswer(next, language);
+          setMessages((prev) =>
+            prev.map((message) =>
+              message.id === assistantMessageId ? { ...message, content } : message,
+            ),
+          );
           return;
         }
 
-        const content = data.error || getFallbackAnswer(next, language);
-        setMessages((prev) => [
-          ...prev,
-          { id: crypto.randomUUID(), role: 'assistant', content },
-        ]);
+        const content = data.cached ? `${data.reply}\n\n(cached answer)` : data.reply;
+        setMessages((prev) =>
+          prev.map((message) =>
+            message.id === assistantMessageId ? { ...message, content } : message,
+          ),
+        );
         return;
       }
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          role: 'assistant',
-          content: data.cached ? `${data.reply}\n\n(cached answer)` : data.reply,
-        },
-      ]);
+      if (!response.ok) {
+        throw new Error(`STREAM_HTTP_${response.status}`);
+      }
+
+      const streamed = await readTextStream(response, (partial) => {
+        setMessages((prev) =>
+          prev.map((message) =>
+            message.id === assistantMessageId ? { ...message, content: partial } : message,
+          ),
+        );
+      });
+
+      if (!streamed.trim()) {
+        const content = getFallbackAnswer(next, language);
+        setMessages((prev) =>
+          prev.map((message) =>
+            message.id === assistantMessageId ? { ...message, content } : message,
+          ),
+        );
+      }
     } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          role: 'assistant',
-          content: getFallbackAnswer(next, language),
-        },
-      ]);
+      const content = getFallbackAnswer(next, language);
+      setMessages((prev) =>
+        prev.map((message) =>
+          message.id === assistantMessageId ? { ...message, content } : message,
+        ),
+      );
     } finally {
       setIsLoading(false);
     }

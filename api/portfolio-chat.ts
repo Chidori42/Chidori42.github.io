@@ -12,6 +12,7 @@ type ChatRequestBody = {
   message?: string;
   history?: ChatMessage[];
   lang?: Lang;
+  stream?: boolean;
 };
 
 type VercelRequest = {
@@ -26,6 +27,13 @@ type VercelResponse = {
   status: (code: number) => VercelResponse;
   json: (body: unknown) => void;
   setHeader: (name: string, value: string) => void;
+  write?: (chunk: string) => void;
+  end?: () => void;
+};
+
+type StreamingResponse = VercelResponse & {
+  write: (chunk: string) => void;
+  end: () => void;
 };
 
 type RateBucket = {
@@ -223,7 +231,16 @@ function setCachedAnswer(question: string, value: string, lang: Lang): void {
   });
 }
 
-async function callLlm(message: string, history: ChatMessage[], lang: Lang): Promise<string> {
+function supportsStreaming(res: VercelResponse): res is StreamingResponse {
+  return typeof res.write === 'function' && typeof res.end === 'function';
+}
+
+async function callLlm(
+  message: string,
+  history: ChatMessage[],
+  lang: Lang,
+  onToken?: (token: string) => void,
+): Promise<string> {
   const apiUrl = process.env.LLM_API_URL ?? 'https://api.openai.com/v1/chat/completions';
   const model = process.env.LLM_MODEL ?? 'gpt-4o-mini';
   const apiKey = process.env.LLM_API_KEY;
@@ -240,6 +257,7 @@ async function callLlm(message: string, history: ChatMessage[], lang: Lang): Pro
       model,
       temperature: 0.2,
       max_tokens: MAX_OUTPUT_TOKENS,
+      stream: Boolean(onToken),
       messages: [
         { role: 'system', content: buildSystemPrompt(lang).slice(0, SYSTEM_PROMPT_MAX_CHARS) },
         ...history,
@@ -271,6 +289,62 @@ async function callLlm(message: string, history: ChatMessage[], lang: Lang): Pro
       throw new Error(`LLM_HTTP_${response.status}: ${errText.slice(0, 500)}`);
     }
 
+    if (onToken) {
+      if (!response.body) {
+        throw new Error('LLM_EMPTY_STREAM');
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let fullReply = '';
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) {
+          break;
+        }
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
+
+        for (const rawLine of lines) {
+          const line = rawLine.trim();
+          if (!line.startsWith('data:')) {
+            continue;
+          }
+
+          const dataLine = line.slice(5).trim();
+          if (!dataLine || dataLine === '[DONE]') {
+            continue;
+          }
+
+          try {
+            const parsed = JSON.parse(dataLine) as {
+              choices?: Array<{ delta?: { content?: string } }>;
+            };
+            const token = parsed.choices?.[0]?.delta?.content;
+            if (!token) {
+              continue;
+            }
+
+            fullReply += token;
+            onToken(token);
+          } catch {
+            // Ignore malformed provider chunks and keep streaming.
+          }
+        }
+      }
+
+      const trailing = decoder.decode();
+      if (trailing) {
+        buffer += trailing;
+      }
+
+      return fullReply.trim() || 'I could not generate a response this time.';
+    }
+
     const data = (await response.json()) as {
       choices?: Array<{ message?: { content?: string } }>;
     };
@@ -282,7 +356,6 @@ async function callLlm(message: string, history: ChatMessage[], lang: Lang): Pro
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
-  res.setHeader('Content-Type', 'application/json');
   res.setHeader('Cache-Control', 'no-store');
 
   if (req.method === 'GET') {
@@ -327,6 +400,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
 
   const body = (req.body ?? {}) as ChatRequestBody;
   const message = typeof body.message === 'string' ? body.message.trim() : '';
+  const wantsStream = body.stream !== false;
 
   if (!message) {
     usageStats.failedRequests += 1;
@@ -346,6 +420,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   if (cached) {
     usageStats.cacheHits += 1;
     usageStats.successfulRequests += 1;
+
+    if (wantsStream && supportsStreaming(res)) {
+      res.status(200);
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      res.write(cached);
+      res.end();
+      return;
+    }
+
     res.status(200).json({ reply: cached, cached: true });
     return;
   }
@@ -354,6 +438,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
 
   try {
     const history = trimHistory(body.history);
+
+    if (wantsStream && supportsStreaming(res)) {
+      res.status(200);
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+
+      const reply = await callLlm(message, history, lang, (token) => {
+        res.write(token);
+      });
+
+      setCachedAnswer(message, reply, lang);
+      usageStats.successfulRequests += 1;
+      res.end();
+      return;
+    }
+
     const reply = await callLlm(message, history, lang);
     setCachedAnswer(message, reply, lang);
     usageStats.successfulRequests += 1;
@@ -373,6 +473,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
       res.status(401).json({
         error: 'Invalid LLM_API_KEY. Update your .env and restart the dev server.',
       });
+      return;
+    }
+
+    if (wantsStream && supportsStreaming(res)) {
+      const streamErrorMessage =
+        messageText === 'LLM_QUOTA_EXCEEDED'
+          ? 'OpenAI quota exceeded. Please check your plan and billing, then try again.'
+          : messageText === 'LLM_INVALID_API_KEY'
+            ? 'Invalid LLM_API_KEY. Update your .env and restart the dev server.'
+            : 'AI assistant is currently unavailable. Please try again later.';
+
+      res.status(200);
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      res.write(streamErrorMessage);
+      res.end();
       return;
     }
 
