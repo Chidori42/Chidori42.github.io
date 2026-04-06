@@ -48,7 +48,7 @@ const featuredProjects = [
     description: {
       en: 'A fundamental exercise in understanding and implementing a basic Unix shell with modern features.',
       fr: 'Un exercice fondamental pour comprendre et implémenter un shell Unix de base avec des fonctionnalités modernes.',
-      ar: 'مشروع أساسي لفهم وتنفيذ shell يونكس بسيط مع ميزات حديثة.',
+      ar: 'مشروع أساسي لفهم  وتنفيذ أوامر shell  بسيطة مع ميزات حديثة.',
     } as LocalizedDescription,
     team: [
       {profilePng:'/team/bramzil.jpg', name:'Amzil Brahim', githubUrl:'https://github.com/bramzil'},
