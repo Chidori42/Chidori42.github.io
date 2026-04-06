@@ -9,6 +9,7 @@ import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
 import { SideDecoration } from '@/components/SideDecoration';
 import { CustomCursor } from '@/components/CustomCursor';
+import { PortfolioAssistant } from '@/components/PortfolioAssistant';
 import { motion } from 'framer-motion';
 import { pageFade } from '@/lib/motion';
 
@@ -27,6 +28,7 @@ const Index = () => {
         <FunFactsSection />
         <ContactSection />
       </motion.main>
+      <PortfolioAssistant />
       <Footer />
     </motion.div>
   );

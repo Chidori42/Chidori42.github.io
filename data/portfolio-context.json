@@ -1,0 +1,60 @@
+{
+  "profile": {
+    "name": "Abdellatif El Fagrouch",
+    "location": "Morocco",
+    "role": "Web Developer from 1337 Coding School"
+  },
+  "about": [
+    "Passionate full-stack developer focused on modern web experiences.",
+    "Training at 1337 Coding School (Nov 2023 - Dec 2026).",
+    "Previous studies: Faculty of Law in Agadir (DEUG, Jan 2020 - Jun 2022)."
+  ],
+  "skills": {
+    "languages": ["C", "C++", "JavaScript", "TypeScript"],
+    "frameworks": ["React", "Express.js", "Node.js", "Fastify.js"],
+    "tools": ["Docker", "Git", "VSCode", "Figma", "Linux", "Vim", "Prisma"],
+    "databases": ["SQLite", "MongoDB", "MariaDB"]
+  },
+  "projects": [
+    {
+      "name": "Hirefy",
+      "summary": "Smart applicant tracking system",
+      "stack": ["React", "Express", "MySQL", "TypeScript", "JavaScript"]
+    },
+    {
+      "name": "UX/UI Design",
+      "summary": "Figma design and prototyping project",
+      "stack": ["Figma", "Design", "Prototyping"]
+    },
+    {
+      "name": "SimpleShell",
+      "summary": "Unix shell implementation",
+      "stack": ["C", "Unix Shell"]
+    },
+    {
+      "name": "IRC Server",
+      "summary": "RFC 2812 compatible IRC server",
+      "stack": ["C++", "Networking"]
+    },
+    {
+      "name": "RayFlow Engine",
+      "summary": "Retro-inspired 3D raycasting engine",
+      "stack": ["C", "Graphics", "Game Dev"]
+    },
+    {
+      "name": "Path Finding Visualizer",
+      "summary": "Interactive algorithm visualizer",
+      "stack": ["C++", "Algorithms"]
+    }
+  ],
+  "contact": {
+    "email": "elfagrouch9@gmail.com",
+    "available": "Open to new opportunities and collaborations"
+  },
+  "rules": [
+    "Only answer using the portfolio context.",
+    "If unknown, say you do not have that info.",
+    "Keep responses concise and practical.",
+    "Never invent experience, credentials, or links."
+  ]
+}

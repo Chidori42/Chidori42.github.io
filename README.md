@@ -1,1 +1,76 @@
 # MyPortfolio
+
+Portfolio built with Vite + React + TypeScript.
+
+## AI Assistant Integration (With Limits)
+
+This project now includes a constrained portfolio assistant:
+
+- UI: floating chat widget on the home page.
+- API: serverless endpoint at `/api/portfolio-chat`.
+- Language-aware replies (EN/FR/AR) based on current site language.
+- Portfolio knowledge source file: `data/portfolio-context.json`.
+- Safety and cost limits:
+	- input length cap
+	- output token cap
+	- per-IP hourly rate limit
+	- global daily cap
+	- request timeout
+	- response cache for repeated questions
+	- fallback answers when API is unavailable
+
+	## Portfolio Knowledge Source
+
+	Update `data/portfolio-context.json` to modify assistant knowledge without editing API code.
+
+	## Admin Usage Panel
+
+	- Open the assistant and click the shield icon.
+	- Enter `CHAT_ADMIN_KEY` and press `Load`.
+	- The panel shows:
+		- total/success/failed requests
+		- rate-limit and daily-cap hits
+		- cache hits/misses and cache size
+		- limit status (hourly limit, daily used, daily remaining)
+
+## Configuration
+
+1. Copy environment template and fill values:
+
+```bash
+cp .env.example .env
+```
+
+2. Set at least:
+
+- `LLM_API_KEY`
+- `LLM_MODEL`
+- `LLM_API_URL`
+
+3. Optional limit tuning:
+
+- `CHAT_RATE_LIMIT_PER_HOUR`
+- `CHAT_DAILY_CAP`
+- `CHAT_MAX_INPUT_CHARS`
+- `CHAT_MAX_OUTPUT_TOKENS`
+- `CHAT_TIMEOUT_MS`
+- `CHAT_CACHE_TTL_MS`
+- `CHAT_ADMIN_KEY`
+
+Client-side (UX-only) controls:
+
+- `VITE_CHAT_MAX_INPUT_CHARS`
+- `VITE_CHAT_COOLDOWN_MS`
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+Note: The app will run with fallback mode even if `/api/portfolio-chat` is not available in local Vite-only runs.
+
+## Deployment
+
+For full AI functionality, deploy with a platform that supports serverless API routes (for example Vercel with the `api/` directory).
