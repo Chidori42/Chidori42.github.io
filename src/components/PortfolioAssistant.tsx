@@ -193,6 +193,26 @@ export const PortfolioAssistant = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    setMessages((prev) => {
+      if (prev.length === 0) {
+        return prev;
+      }
+
+      const [first, ...rest] = prev;
+      if (first.role !== 'assistant') {
+        return prev;
+      }
+
+      const nextContent = getWelcomeMessage(language);
+      if (first.content === nextContent) {
+        return prev;
+      }
+
+      return [{ ...first, content: nextContent }, ...rest];
+    });
+  }, [language]);
+
   const cooldownRemaining = useMemo(() => {
     if (!lastSentAt) {
       return 0;
