@@ -317,14 +317,14 @@ export const PortfolioAssistant = () => {
   const replyModeLabel =
     language === 'fr'
       ? replyMode === 'live'
-        ? 'LLM en direct'
+        ? 'direct'
         : 'Secours'
       : language === 'ar'
         ? replyMode === 'live'
-          ? 'نموذج مباشر'
+          ? 'مباشر'
           : 'احتياطي'
         : replyMode === 'live'
-          ? 'Live LLM'
+          ? 'Live'
           : 'Fallback';
 
   const replyModeTitle =
