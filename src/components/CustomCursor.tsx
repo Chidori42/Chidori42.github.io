@@ -43,12 +43,12 @@ export const CustomCursor = ({ hideDefaultCursor = true }: CustomCursorProps) =>
     window.addEventListener('mouseleave', handleLeave);
 
     if (hideDefaultCursor) {
-      document.documentElement.style.cursor = 'none';
+      document.documentElement.classList.add('custom-cursor-hide-native');
     }
 
     return () => {
       if (hideDefaultCursor) {
-        document.documentElement.style.cursor = 'auto';
+        document.documentElement.classList.remove('custom-cursor-hide-native');
       }
       finePointer.removeEventListener('change', updatePointerMode);
       reducedMotion.removeEventListener('change', updatePointerMode);
@@ -63,7 +63,7 @@ export const CustomCursor = ({ hideDefaultCursor = true }: CustomCursorProps) =>
 
   return (
     <motion.div
-      className="pointer-events-none fixed left-0 top-0 z-[9999] hidden lg:block"
+      className="pointer-events-none fixed left-0 top-0 z-[9999]"
       style={{ x: springX, y: springY }}
       animate={isVisible ? 'visible' : 'hidden'}
       variants={{

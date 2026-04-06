@@ -87,13 +87,13 @@
   }
 
   @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    body,
-    a,
-    button,
-    input,
-    textarea,
-    select,
-    [role="button"] {
+    .custom-cursor-hide-native body,
+    .custom-cursor-hide-native a,
+    .custom-cursor-hide-native button,
+    .custom-cursor-hide-native input,
+    .custom-cursor-hide-native textarea,
+    .custom-cursor-hide-native select,
+    .custom-cursor-hide-native [role="button"] {
       cursor: none;
     }
   }
