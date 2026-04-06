@@ -13,6 +13,7 @@ type UiMessage = {
 type ApiResponse = {
   reply?: string;
   error?: string;
+  details?: string;
   cached?: boolean;
 };
 
@@ -219,18 +220,32 @@ export const PortfolioAssistant = () => {
   async function loadAdminStats() {
     setAdminLoading(true);
     setAdminError(null);
+    setAdminStats(null);
+
+    const normalizedAdminKey = adminKey.trim();
+
+    if (!normalizedAdminKey) {
+      setAdminError('Please enter an admin key.');
+      setAdminLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch('/api/portfolio-chat', {
         method: 'GET',
         headers: {
-          'x-admin-key': adminKey,
+          'x-admin-key': normalizedAdminKey,
         },
       });
 
       const data = (await response.json()) as AdminResponse;
       if (!response.ok || !data.stats || !data.limits) {
         setAdminStats(null);
+        if (response.status === 401) {
+          setAdminError(data.error || 'Invalid admin key. Set CHAT_ADMIN_KEY on the server and enter the same value here.');
+          return;
+        }
+
         setAdminError(data.error || 'Unable to load usage stats.');
         return;
       }
@@ -238,7 +253,7 @@ export const PortfolioAssistant = () => {
       setAdminStats(data);
     } catch {
       setAdminStats(null);
-      setAdminError('Network error while loading admin stats.');
+      setAdminError('Admin stats are not reachable right now. Make sure the local dev server is running with `npm run dev` and that CHAT_ADMIN_KEY is set.');
     } finally {
       setAdminLoading(false);
     }
@@ -271,6 +286,19 @@ export const PortfolioAssistant = () => {
 
       const data = (await response.json()) as ApiResponse;
       if (!response.ok || !data.reply) {
+        if (!response.ok && response.status >= 500) {
+          if (data.details) {
+            console.error('AI backend details:', data.details);
+          }
+
+          const content = getFallbackAnswer(next, language);
+          setMessages((prev) => [
+            ...prev,
+            { id: crypto.randomUUID(), role: 'assistant', content },
+          ]);
+          return;
+        }
+
         const content = data.error || getFallbackAnswer(next, language);
         setMessages((prev) => [
           ...prev,
@@ -356,9 +384,16 @@ export const PortfolioAssistant = () => {
               <div className="flex items-center gap-2">
                 <input
                   value={adminKey}
-                  onChange={(event) => setAdminKey(event.target.value)}
+                  onChange={(event) => {
+                    setAdminKey(event.target.value);
+                    if (adminError) {
+                      setAdminError(null);
+                    }
+                  }}
                   placeholder="Admin key"
-                  className="h-8 flex-1 rounded-sm border border-border bg-background px-2 outline-none focus:border-primary"
+                  className={`h-8 flex-1 rounded-sm border bg-background px-2 outline-none focus:border-primary ${
+                    adminError ? 'border-destructive' : 'border-border'
+                  }`}
                 />
                 <button
                   type="button"
@@ -366,10 +401,11 @@ export const PortfolioAssistant = () => {
                   disabled={adminLoading || !adminKey.trim()}
                   className="h-8 rounded-sm bg-primary px-3 text-primary-foreground disabled:opacity-50"
                 >
-                  {adminLoading ? '...' : 'Load'}
+                  {adminLoading ? 'Loading...' : 'Load'}
                 </button>
               </div>
 
+              {adminLoading && <p className="text-muted-foreground">Checking admin stats...</p>}
               {adminError && <p className="text-destructive">{adminError}</p>}
 
               {adminStats?.stats && adminStats?.limits && (

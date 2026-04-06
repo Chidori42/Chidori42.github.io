@@ -33,6 +33,8 @@ This project now includes a constrained portfolio assistant:
 		- cache hits/misses and cache size
 		- limit status (hourly limit, daily used, daily remaining)
 
+	Note: the admin panel only works when `/api/portfolio-chat` is actually deployed or proxied. A plain Vite dev server does not expose that route by itself.
+
 ## Configuration
 
 1. Copy environment template and fill values:
@@ -46,6 +48,12 @@ cp .env.example .env
 - `LLM_API_KEY`
 - `LLM_MODEL`
 - `LLM_API_URL`
+
+### OpenAI setup
+
+- Go to the OpenAI dashboard and create an API key.
+- Paste that value into `LLM_API_KEY` in [`.env`](.env).
+- Keep `LLM_MODEL=gpt-4o-mini` and `LLM_API_URL=https://api.openai.com/v1/chat/completions` unless you want a different model or provider.
 
 3. Optional limit tuning:
 

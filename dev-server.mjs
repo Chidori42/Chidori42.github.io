@@ -1,52 +1,13 @@
-import portfolioContext from '../data/portfolio-context.json';
+import http from 'http';
+import { fileURLToPath } from 'url';
+import { createServer as createViteServer, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import portfolioContext from './data/portfolio-context.json' with { type: 'json' };
 
-type ChatRole = 'user' | 'assistant';
-type Lang = 'en' | 'fr' | 'ar';
+const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
-type ChatMessage = {
-  role: ChatRole;
-  content: string;
-};
-
-type ChatRequestBody = {
-  message?: string;
-  history?: ChatMessage[];
-  lang?: Lang;
-};
-
-type VercelRequest = {
-  method?: string;
-  headers: Record<string, string | string[] | undefined>;
-  socket?: { remoteAddress?: string };
-  body?: unknown;
-  url?: string;
-};
-
-type VercelResponse = {
-  status: (code: number) => VercelResponse;
-  json: (body: unknown) => void;
-  setHeader: (name: string, value: string) => void;
-};
-
-type RateBucket = {
-  count: number;
-  resetAt: number;
-};
-
-type CacheEntry = {
-  value: string;
-  expiresAt: number;
-};
-
-type UsageStats = {
-  totalRequests: number;
-  successfulRequests: number;
-  failedRequests: number;
-  rateLimitedRequests: number;
-  dailyCapHits: number;
-  cacheHits: number;
-  cacheMisses: number;
-};
+Object.assign(process.env, loadEnv('development', rootDir, ''));
 
 const LIMIT_WINDOW_MS = 60 * 60 * 1000;
 const LIMIT_REQUESTS_PER_WINDOW = Number(process.env.CHAT_RATE_LIMIT_PER_HOUR ?? 10);
@@ -58,11 +19,11 @@ const CACHE_TTL_MS = Number(process.env.CHAT_CACHE_TTL_MS ?? 6 * 60 * 60 * 1000)
 const SYSTEM_PROMPT_MAX_CHARS = 3500;
 const ADMIN_KEY = process.env.CHAT_ADMIN_KEY ?? '';
 
-const IP_BUCKETS = new Map<string, RateBucket>();
-const QUESTION_CACHE = new Map<string, CacheEntry>();
+const IP_BUCKETS = new Map();
+const QUESTION_CACHE = new Map();
 let dayKey = new Date().toISOString().slice(0, 10);
 let dayCount = 0;
-const usageStats: UsageStats = {
+const usageStats = {
   totalRequests: 0,
   successfulRequests: 0,
   failedRequests: 0,
@@ -72,27 +33,18 @@ const usageStats: UsageStats = {
   cacheMisses: 0,
 };
 
-function normalizeLang(input: unknown): Lang {
-  if (input === 'fr' || input === 'ar') {
-    return input;
-  }
-
+function normalizeLang(input) {
+  if (input === 'fr' || input === 'ar') return input;
   return 'en';
 }
 
-function getLanguageInstruction(lang: Lang): string {
-  if (lang === 'fr') {
-    return 'Respond in French.';
-  }
-
-  if (lang === 'ar') {
-    return 'Respond in Arabic.';
-  }
-
+function getLanguageInstruction(lang) {
+  if (lang === 'fr') return 'Respond in French.';
+  if (lang === 'ar') return 'Respond in Arabic.';
   return 'Respond in English.';
 }
 
-function buildSystemPrompt(lang: Lang): string {
+function buildSystemPrompt(lang) {
   const projectLines = portfolioContext.projects
     .map((project) => `- ${project.name}: ${project.summary} (${project.stack.join(', ')})`)
     .join('\n');
@@ -124,34 +76,31 @@ ${portfolioContext.rules.map((rule) => `- ${rule}`).join('\n')}
 `.trim();
 }
 
-function getClientIp(req: VercelRequest): string {
+function getClientIp(req) {
   const xff = req.headers['x-forwarded-for'];
   const raw = Array.isArray(xff) ? xff[0] : xff;
-  if (raw && typeof raw === 'string') {
-    return raw.split(',')[0].trim();
-  }
-
+  if (raw && typeof raw === 'string') return raw.split(',')[0].trim();
   return req.socket?.remoteAddress || 'unknown';
 }
 
-function isAuthorizedAdmin(req: VercelRequest): boolean {
+function isAuthorizedAdmin(req) {
   const normalizedServerKey = ADMIN_KEY.trim();
-  if (!normalizedServerKey) {
-    return false;
-  }
-
+  if (!normalizedServerKey) return false;
   const header = req.headers['x-admin-key'];
   const key = (Array.isArray(header) ? header[0] : header)?.trim();
   return key === normalizedServerKey;
 }
 
-function getLimitStatus() {
+function refreshDailyBucket() {
   const currentDay = new Date().toISOString().slice(0, 10);
   if (currentDay !== dayKey) {
     dayKey = currentDay;
     dayCount = 0;
   }
+}
 
+function getLimitStatus() {
+  refreshDailyBucket();
   return {
     rateLimitPerHour: LIMIT_REQUESTS_PER_WINDOW,
     dailyCap: DAILY_CAP,
@@ -161,14 +110,14 @@ function getLimitStatus() {
   };
 }
 
-function trimHistory(history: ChatMessage[] = []): ChatMessage[] {
+function trimHistory(history = []) {
   return history
     .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
     .slice(-6)
     .map((m) => ({ role: m.role, content: m.content.slice(0, 400) }));
 }
 
-function isRateLimited(ip: string): boolean {
+function isRateLimited(ip) {
   const now = Date.now();
   const bucket = IP_BUCKETS.get(ip);
 
@@ -177,53 +126,36 @@ function isRateLimited(ip: string): boolean {
     return false;
   }
 
-  if (bucket.count >= LIMIT_REQUESTS_PER_WINDOW) {
-    return true;
-  }
+  if (bucket.count >= LIMIT_REQUESTS_PER_WINDOW) return true;
 
   bucket.count += 1;
   return false;
 }
 
-function isDailyCapReached(): boolean {
-  const currentDay = new Date().toISOString().slice(0, 10);
-  if (currentDay !== dayKey) {
-    dayKey = currentDay;
-    dayCount = 0;
-  }
-
-  if (dayCount >= DAILY_CAP) {
-    return true;
-  }
-
+function isDailyCapReached() {
+  refreshDailyBucket();
+  if (dayCount >= DAILY_CAP) return true;
   dayCount += 1;
   return false;
 }
 
-function getCachedAnswer(question: string, lang: Lang): string | null {
+function getCachedAnswer(question, lang) {
   const key = `${lang}::${question.trim().toLowerCase()}`;
   const item = QUESTION_CACHE.get(key);
-  if (!item) {
-    return null;
-  }
-
+  if (!item) return null;
   if (Date.now() > item.expiresAt) {
     QUESTION_CACHE.delete(key);
     return null;
   }
-
   return item.value;
 }
 
-function setCachedAnswer(question: string, value: string, lang: Lang): void {
+function setCachedAnswer(question, value, lang) {
   const key = `${lang}::${question.trim().toLowerCase()}`;
-  QUESTION_CACHE.set(key, {
-    value,
-    expiresAt: Date.now() + CACHE_TTL_MS,
-  });
+  QUESTION_CACHE.set(key, { value, expiresAt: Date.now() + CACHE_TTL_MS });
 }
 
-async function callLlm(message: string, history: ChatMessage[], lang: Lang): Promise<string> {
+async function callLlm(message, history, lang) {
   const apiUrl = process.env.LLM_API_URL ?? 'https://api.openai.com/v1/chat/completions';
   const model = process.env.LLM_MODEL ?? 'gpt-4o-mini';
   const apiKey = process.env.LLM_API_KEY;
@@ -262,23 +194,31 @@ async function callLlm(message: string, history: ChatMessage[], lang: Lang): Pro
       throw new Error(`LLM error ${response.status}: ${errText.slice(0, 500)}`);
     }
 
-    const data = (await response.json()) as {
-      choices?: Array<{ message?: { content?: string } }>;
-    };
-
+    const data = await response.json();
     return data.choices?.[0]?.message?.content?.trim() || 'I could not generate a response this time.';
   } finally {
     clearTimeout(timeout);
   }
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
+async function readJsonBody(req) {
+  const chunks = [];
+  for await (const chunk of req) chunks.push(chunk);
+  const raw = Buffer.concat(chunks).toString('utf8');
+  return raw ? JSON.parse(raw) : {};
+}
+
+function sendJson(res, statusCode, body) {
+  res.statusCode = statusCode;
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Cache-Control', 'no-store');
+  res.end(JSON.stringify(body));
+}
 
+async function handlePortfolioChat(req, res) {
   if (req.method === 'GET') {
     if (!isAuthorizedAdmin(req)) {
-      res.status(401).json({
+      sendJson(res, 401, {
         error: ADMIN_KEY.trim()
           ? 'Invalid admin key. Enter the same value as CHAT_ADMIN_KEY on the server.'
           : 'CHAT_ADMIN_KEY is not configured on the server.',
@@ -286,16 +226,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
       return;
     }
 
-    res.status(200).json({
-      stats: usageStats,
-      limits: getLimitStatus(),
-      hasAdminKey: Boolean(ADMIN_KEY),
-    });
+    sendJson(res, 200, { stats: usageStats, limits: getLimitStatus(), hasAdminKey: Boolean(ADMIN_KEY) });
     return;
   }
 
   if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method not allowed' });
+    sendJson(res, 405, { error: 'Method not allowed' });
     return;
   }
 
@@ -305,39 +241,38 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   if (isRateLimited(ip)) {
     usageStats.rateLimitedRequests += 1;
     usageStats.failedRequests += 1;
-    res.status(429).json({ error: 'Rate limit reached. Try again later.' });
+    sendJson(res, 429, { error: 'Rate limit reached. Try again later.' });
     return;
   }
 
   if (isDailyCapReached()) {
     usageStats.dailyCapHits += 1;
     usageStats.failedRequests += 1;
-    res.status(503).json({ error: 'AI assistant is at its daily limit. Please try tomorrow.' });
+    sendJson(res, 503, { error: 'AI assistant is at its daily limit. Please try tomorrow.' });
     return;
   }
 
-  const body = (req.body ?? {}) as ChatRequestBody;
+  const body = await readJsonBody(req);
   const message = typeof body.message === 'string' ? body.message.trim() : '';
 
   if (!message) {
     usageStats.failedRequests += 1;
-    res.status(400).json({ error: 'Message is required.' });
+    sendJson(res, 400, { error: 'Message is required.' });
     return;
   }
 
   if (message.length > MAX_INPUT_CHARS) {
     usageStats.failedRequests += 1;
-    res.status(400).json({ error: `Message too long. Max ${MAX_INPUT_CHARS} chars.` });
+    sendJson(res, 400, { error: `Message too long. Max ${MAX_INPUT_CHARS} chars.` });
     return;
   }
 
   const lang = normalizeLang(body.lang);
-
   const cached = getCachedAnswer(message, lang);
   if (cached) {
     usageStats.cacheHits += 1;
     usageStats.successfulRequests += 1;
-    res.status(200).json({ reply: cached, cached: true });
+    sendJson(res, 200, { reply: cached, cached: true });
     return;
   }
 
@@ -348,13 +283,41 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     const reply = await callLlm(message, history, lang);
     setCachedAnswer(message, reply, lang);
     usageStats.successfulRequests += 1;
-    res.status(200).json({ reply, cached: false });
+    sendJson(res, 200, { reply, cached: false });
   } catch (error) {
-    const messageText = error instanceof Error ? error.message : 'Unknown AI error';
     usageStats.failedRequests += 1;
-    res.status(500).json({
-      error: 'AI assistant is currently unavailable. Please try again later.',
-      details: process.env.NODE_ENV === 'development' ? messageText : undefined,
-    });
+    const messageText = error instanceof Error ? error.message : 'Unknown AI error';
+    sendJson(res, 500, { error: 'AI assistant is currently unavailable. Please try again later.', details: process.env.NODE_ENV === 'development' ? messageText : undefined });
   }
 }
+
+const vite = await createViteServer({
+  configFile: false,
+  plugins: [react()],
+  server: { middlewareMode: true },
+  appType: 'spa',
+  resolve: {
+    alias: {
+      '@': path.resolve(rootDir, './src'),
+    },
+  },
+});
+
+const server = http.createServer(async (req, res) => {
+  const requestUrl = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
+  const { pathname } = requestUrl;
+
+  if (pathname === '/api/portfolio-chat') {
+    await handlePortfolioChat(req, res);
+    return;
+  }
+
+  vite.middlewares(req, res, async () => {
+    // Fall through to Vite's HTML handling.
+  });
+});
+
+const port = Number(process.env.PORT ?? 5173);
+server.listen(port, () => {
+  console.log(`Dev server running at http://localhost:${port}`);
+});
