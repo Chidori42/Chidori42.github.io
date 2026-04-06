@@ -128,10 +128,11 @@ const onSubmit = async (data: ContactFormData) => {
           <motion.div className={direction === 'rtl' ? 'lg:order-1' : ''} initial={{ opacity: 0, x: direction === 'rtl' ? 30 : -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.7 }}>
             <motion.form onSubmit={handleSubmit(onSubmit)} className="space-y-4" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
               <motion.div variants={staggerItem}>
-                <label className="block text-muted-foreground font-mono text-sm mb-2">
+                <label htmlFor="contact-name" className="block text-muted-foreground font-mono text-sm mb-2">
                   {t.contacts.form.name}
                 </label>
                 <input
+                  id="contact-name"
                   {...register('name')}
                   className="w-full px-4 py-3 bg-card border border-border font-mono text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors"
                   dir={direction}
@@ -145,10 +146,11 @@ const onSubmit = async (data: ContactFormData) => {
               </motion.div>
 
               <motion.div variants={staggerItem}>
-                <label className="block text-muted-foreground font-mono text-sm mb-2">
+                <label htmlFor="contact-email" className="block text-muted-foreground font-mono text-sm mb-2">
                   {t.contacts.form.email}
                 </label>
                 <input
+                  id="contact-email"
                   {...register('email')}
                   type="email"
                   className="w-full px-4 py-3 bg-card border border-border font-mono text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors"
@@ -163,10 +165,11 @@ const onSubmit = async (data: ContactFormData) => {
               </motion.div>
 
               <motion.div variants={staggerItem}>
-                <label className="block text-muted-foreground font-mono text-sm mb-2">
+                <label htmlFor="contact-message" className="block text-muted-foreground font-mono text-sm mb-2">
                   {t.contacts.form.message}
                 </label>
                 <textarea
+                  id="contact-message"
                   {...register('message')}
                   rows={6}
                   className="w-full px-4 py-3 bg-card border border-border font-mono text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors resize-none"

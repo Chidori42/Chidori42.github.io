@@ -11,7 +11,7 @@ export const HeroSection = () => {
     <motion.section
       id="home"
       className="min-h-screen pt-24 pb-16 relative overflow-hidden"
-      initial="hidden"
+      initial={false}
       animate="visible"
       variants={pageFade}
     >
@@ -35,7 +35,7 @@ export const HeroSection = () => {
           <motion.div
             className={`space-y-6 ${direction === 'rtl' ? 'lg:order-2' : ''}`}
             variants={staggerContainer}
-            initial="hidden"
+            initial={false}
             animate="visible"
           >
             <motion.p className="text-muted-foreground font-mono text-lg" variants={heroItem}>
@@ -79,9 +79,9 @@ export const HeroSection = () => {
           {/* Hero Image Area */}
           <motion.div
             className={`relative ${direction === 'rtl' ? 'lg:order-1' : ''}`}
-            initial={{ opacity: 0, x: direction === 'rtl' ? -40 : 40 }}
+            initial={{ opacity: 1, x: 0 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
           >
             <motion.div className="relative w-full aspect-square max-w-md mx-auto" animate={{ y: [0, -8, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}>
               {/* Background geometric shapes */}
@@ -94,7 +94,7 @@ export const HeroSection = () => {
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.div className="w-56 h-72 bg-gradient-to-b from-primary/20 to-transparent border border-border rounded-sm overflow-hidden" whileHover={{ scale: 1.02, rotate: -1 }} transition={{ duration: 0.3 }}>
                   <div className="w-full h-full bg-secondary/50 flex items-center justify-center">
-                    <img src='/assets/ael-fagr.png' className='w-full h-full object-cover object-center'/>
+                    <img src='/assets/ael-fagr.png' alt='Portrait of Abdellatif El Fagrouch' className='w-full h-full object-cover object-center'/>
                   </div>
                 </motion.div>
               </div>

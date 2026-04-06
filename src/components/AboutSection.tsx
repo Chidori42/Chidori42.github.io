@@ -44,7 +44,7 @@ export const AboutSection = () => {
               {/* Image placeholder */}
               <motion.div className="relative z-10 aspect-square bg-gradient-to-br from-primary/20 to-secondary border border-border" whileHover={isMobile ? undefined : { scale: 1.02, rotate: -1 }} transition={{ duration: 0.3 }}>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <img src='/assets/ael-fagr.png' className='w-full h-full object-cover object-center'/>
+                  <img src='/assets/ael-fagr.png' alt='Portrait of Abdellatif El Fagrouch' className='w-full h-full object-cover object-center'/>
                 </div>
               </motion.div>
 
