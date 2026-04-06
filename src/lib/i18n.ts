@@ -222,12 +222,6 @@ export const translations = {
           location: 'Agadir',
           description: 'Diplôme de droit (DEUG) avec une compréhension approfondie des principes juridiques.',
         },
-        {
-          period: 'Nov 2018 - Juin 2019',
-          school: 'Baccalauréat en Sciences Humaines',
-          location: 'Tata',
-          description: 'Baccalauréat offrant une large compréhension de diverses disciplines.',
-        },
       ],
     },
     funFacts: {
@@ -357,12 +351,6 @@ export const translations = {
           school: 'كلية القانون',
           location: 'أكادير',
           description: 'حصلت على شهادة القانون (DEUG) مع فهم شامل للمبادئ القانونية.',
-        },
-        {
-          period: 'نوفمبر 2018 - يونيو 2019',
-          school: 'البكالوريوس في العلوم الإنسانية',
-          location: 'مدينة طاطا',
-          description: 'حصلت على البكالوريوس مما وفر فهماً واسعاً لمختلف التخصصات.',
         },
       ],
     },
