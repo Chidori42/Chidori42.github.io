@@ -33,6 +33,18 @@ const usageStats = {
   cacheMisses: 0,
 };
 
+function toSseData(text) {
+  return `data: ${text.replace(/\r?\n/g, '\ndata: ')}\n\n`;
+}
+
+function startSse(res) {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
+}
+
 function normalizeLang(input) {
   if (input === 'fr' || input === 'ar') return input;
   return 'en';
@@ -339,11 +351,9 @@ async function handlePortfolioChat(req, res) {
     usageStats.successfulRequests += 1;
 
     if (wantsStream) {
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-      res.setHeader('Cache-Control', 'no-store');
-      res.setHeader('X-Content-Type-Options', 'nosniff');
-      res.write(cached);
+      startSse(res);
+      res.write(toSseData(cached));
+      res.write('event: done\ndata: [DONE]\n\n');
       res.end();
       return;
     }
@@ -358,17 +368,15 @@ async function handlePortfolioChat(req, res) {
     const history = trimHistory(body.history);
 
     if (wantsStream) {
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-      res.setHeader('Cache-Control', 'no-store');
-      res.setHeader('X-Content-Type-Options', 'nosniff');
+      startSse(res);
 
       const reply = await callLlm(message, history, lang, (token) => {
-        res.write(token);
+        res.write(toSseData(token));
       });
 
       setCachedAnswer(message, reply, lang);
       usageStats.successfulRequests += 1;
+      res.write('event: done\ndata: [DONE]\n\n');
       res.end();
       return;
     }
@@ -403,11 +411,10 @@ async function handlePortfolioChat(req, res) {
             ? 'Invalid LLM_API_KEY. Update your .env and restart the dev server.'
             : 'AI assistant is currently unavailable. Please try again later.';
 
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-      res.setHeader('Cache-Control', 'no-store');
-      res.setHeader('X-Content-Type-Options', 'nosniff');
-      res.write(streamErrorMessage);
+      startSse(res);
+      res.write('event: error\n');
+      res.write(toSseData(streamErrorMessage));
+      res.write('event: done\ndata: [DONE]\n\n');
       res.end();
       return;
     }

@@ -36,6 +36,18 @@ type StreamingResponse = VercelResponse & {
   end: () => void;
 };
 
+function toSseData(text: string): string {
+  return `data: ${text.replace(/\r?\n/g, '\ndata: ')}\n\n`;
+}
+
+function startSse(res: StreamingResponse): void {
+  res.status(200);
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
+}
+
 type RateBucket = {
   count: number;
   resetAt: number;
@@ -422,10 +434,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     usageStats.successfulRequests += 1;
 
     if (wantsStream && supportsStreaming(res)) {
-      res.status(200);
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-      res.setHeader('X-Content-Type-Options', 'nosniff');
-      res.write(cached);
+      startSse(res);
+      res.write(toSseData(cached));
+      res.write('event: done\ndata: [DONE]\n\n');
       res.end();
       return;
     }
@@ -440,16 +451,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     const history = trimHistory(body.history);
 
     if (wantsStream && supportsStreaming(res)) {
-      res.status(200);
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-      res.setHeader('X-Content-Type-Options', 'nosniff');
+      startSse(res);
 
       const reply = await callLlm(message, history, lang, (token) => {
-        res.write(token);
+        res.write(toSseData(token));
       });
 
       setCachedAnswer(message, reply, lang);
       usageStats.successfulRequests += 1;
+      res.write('event: done\ndata: [DONE]\n\n');
       res.end();
       return;
     }
@@ -484,10 +494,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
             ? 'Invalid LLM_API_KEY. Update your .env and restart the dev server.'
             : 'AI assistant is currently unavailable. Please try again later.';
 
-      res.status(200);
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-      res.setHeader('X-Content-Type-Options', 'nosniff');
-      res.write(streamErrorMessage);
+      startSse(res);
+      res.write('event: error\n');
+      res.write(toSseData(streamErrorMessage));
+      res.write('event: done\ndata: [DONE]\n\n');
       res.end();
       return;
     }

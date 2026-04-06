@@ -17,6 +17,8 @@ type ApiResponse = {
   cached?: boolean;
 };
 
+type ReplyMode = 'live' | 'fallback';
+
 type AdminResponse = {
   stats?: {
     totalRequests: number;
@@ -131,9 +133,25 @@ const FALLBACK_KNOWLEDGE = {
 };
 
 function getFallbackAnswer(question: string, language: 'en' | 'fr' | 'ar'): string {
-  const found = FALLBACK_KNOWLEDGE[language].find((entry) => entry.match.test(question));
-  if (found) {
-    return found.answer;
+  const normalized = question.trim();
+  const matchedAnswers = FALLBACK_KNOWLEDGE[language]
+    .filter((entry) => entry.match.test(normalized))
+    .map((entry) => entry.answer);
+
+  if (matchedAnswers.length > 0) {
+    return [...new Set(matchedAnswers)].join('\n\n');
+  }
+
+  if (language === 'fr' && /(nom|qui es-tu|qui etes-vous)/i.test(normalized)) {
+    return 'Je suis l\'assistant portfolio de Abdellatif El Fagrouch.';
+  }
+
+  if (language === 'ar' && /(اسمك|من انت|من أنت)/i.test(normalized)) {
+    return 'أنا مساعد بورتفوليو لعبداللطيف الفاگروش.';
+  }
+
+  if (language === 'en' && /(name|who are you)/i.test(normalized)) {
+    return 'I am Abdellatif El Fagrouch\'s portfolio assistant.';
   }
 
   if (language === 'fr') {
@@ -204,6 +222,41 @@ async function readTextStream(
   return fullText;
 }
 
+function parseSsePayload(raw: string): { content: string; hasErrorEvent: boolean } {
+  const blocks = raw.split('\n\n');
+  let content = '';
+  let hasErrorEvent = false;
+
+  for (const block of blocks) {
+    const lines = block.split('\n').map((line) => line.trim()).filter(Boolean);
+    if (lines.length === 0) {
+      continue;
+    }
+
+    const eventLine = lines.find((line) => line.startsWith('event:'));
+    const eventName = eventLine ? eventLine.slice(6).trim() : '';
+    const dataLines = lines
+      .filter((line) => line.startsWith('data:'))
+      .map((line) => line.slice(5).trim());
+
+    if (dataLines.length === 0) {
+      continue;
+    }
+
+    if (eventName === 'error') {
+      hasErrorEvent = true;
+    }
+
+    if (eventName === 'done' || dataLines.some((line) => line === '[DONE]')) {
+      continue;
+    }
+
+    content += dataLines.join('\n');
+  }
+
+  return { content, hasErrorEvent };
+}
+
 export const PortfolioAssistant = () => {
   const { language } = useLanguage();
   const [open, setOpen] = useState(false);
@@ -223,6 +276,7 @@ export const PortfolioAssistant = () => {
   ]);
   const [lastSentAt, setLastSentAt] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [replyMode, setReplyMode] = useState<ReplyMode>('live');
 
   useEffect(() => {
     const interval = setInterval(() => setNow(Date.now()), 1000);
@@ -260,6 +314,32 @@ export const PortfolioAssistant = () => {
 
   const canSend = !isLoading && input.trim().length > 0 && input.trim().length <= MAX_INPUT_CHARS && cooldownRemaining === 0;
 
+  const replyModeLabel =
+    language === 'fr'
+      ? replyMode === 'live'
+        ? 'LLM en direct'
+        : 'Secours'
+      : language === 'ar'
+        ? replyMode === 'live'
+          ? 'نموذج مباشر'
+          : 'احتياطي'
+        : replyMode === 'live'
+          ? 'Live LLM'
+          : 'Fallback';
+
+  const replyModeTitle =
+    language === 'fr'
+      ? replyMode === 'live'
+        ? 'Réponse provenant du pipeline LLM'
+        : 'Réponse de secours (LLM indisponible)'
+      : language === 'ar'
+        ? replyMode === 'live'
+          ? 'الرد صادر من مسار النموذج'
+          : 'رد احتياطي (النموذج غير متاح)'
+        : replyMode === 'live'
+          ? 'Answer from LLM pipeline'
+          : 'Fallback response (LLM unavailable)';
+
   function clearChat() {
     setMessages([
       {
@@ -271,6 +351,7 @@ export const PortfolioAssistant = () => {
     setInput('');
     setLastSentAt(null);
     setIsLoading(false);
+    setReplyMode('live');
   }
 
   async function loadAdminStats() {
@@ -346,12 +427,14 @@ export const PortfolioAssistant = () => {
 
       const contentType = response.headers.get('content-type') || '';
       const isJsonResponse = contentType.includes('application/json');
+      const isSseResponse = contentType.includes('text/event-stream');
 
       if (isJsonResponse) {
         const data = (await response.json()) as ApiResponse;
         if (!response.ok || !data.reply) {
           if (!response.ok && response.status >= 500) {
             const content = getFallbackAnswer(next, language);
+            setReplyMode('fallback');
             setMessages((prev) =>
               prev.map((message) =>
                 message.id === assistantMessageId ? { ...message, content } : message,
@@ -361,6 +444,7 @@ export const PortfolioAssistant = () => {
           }
 
           const content = data.error || getFallbackAnswer(next, language);
+          setReplyMode(data.error ? 'live' : 'fallback');
           setMessages((prev) =>
             prev.map((message) =>
               message.id === assistantMessageId ? { ...message, content } : message,
@@ -370,6 +454,7 @@ export const PortfolioAssistant = () => {
         }
 
         const content = data.cached ? `${data.reply}\n\n(cached answer)` : data.reply;
+        setReplyMode('live');
         setMessages((prev) =>
           prev.map((message) =>
             message.id === assistantMessageId ? { ...message, content } : message,
@@ -383,23 +468,31 @@ export const PortfolioAssistant = () => {
       }
 
       const streamed = await readTextStream(response, (partial) => {
+        const nextContent = isSseResponse ? parseSsePayload(partial).content : partial;
         setMessages((prev) =>
           prev.map((message) =>
-            message.id === assistantMessageId ? { ...message, content: partial } : message,
+            message.id === assistantMessageId ? { ...message, content: nextContent } : message,
           ),
         );
       });
 
-      if (!streamed.trim()) {
+      const parsed = isSseResponse ? parseSsePayload(streamed) : { content: streamed, hasErrorEvent: false };
+      const finalStreamText = parsed.content;
+
+      if (!finalStreamText.trim()) {
         const content = getFallbackAnswer(next, language);
+        setReplyMode('fallback');
         setMessages((prev) =>
           prev.map((message) =>
             message.id === assistantMessageId ? { ...message, content } : message,
           ),
         );
+      } else {
+        setReplyMode(parsed.hasErrorEvent ? 'fallback' : 'live');
       }
     } catch {
       const content = getFallbackAnswer(next, language);
+      setReplyMode('fallback');
       setMessages((prev) =>
         prev.map((message) =>
           message.id === assistantMessageId ? { ...message, content } : message,
@@ -430,6 +523,16 @@ export const PortfolioAssistant = () => {
             <div className="flex items-center gap-2 font-mono text-sm text-foreground">
               <Bot className="h-4 w-4 text-primary" />
               Portfolio Assistant
+              <span
+                className={`rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wide ${
+                  replyMode === 'live'
+                    ? 'border-primary/40 bg-primary/10 text-primary'
+                    : 'border-amber-500/40 bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                }`}
+                title={replyModeTitle}
+              >
+                {replyModeLabel}
+              </span>
             </div>
             <div className="flex items-center gap-1">
               <button
