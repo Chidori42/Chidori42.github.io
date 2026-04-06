@@ -6,7 +6,7 @@ import { sectionTitle, staggerContainer, staggerItem } from '@/lib/motion';
 
 const onProgress = [
   {
-    title: 'hirify',
+    title: 'Hirify',
     abbrev: '/assets/hirify.png',
     description: 'Smart Applicant Tracking System A modern hiring platform designed to bridge the gap between recruiters and candidates',
     team: [

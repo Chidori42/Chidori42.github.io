@@ -431,13 +431,13 @@ export const PortfolioAssistant = () => {
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={message.role === 'user' ? 'ml-8' : 'mr-8'}
+                className={message.role === 'user' ? 'ml-8 min-w-0 max-w-full' : 'mr-8 min-w-0 max-w-full'}
               >
                 <div
                   className={
                     message.role === 'user'
-                      ? 'rounded-sm border border-primary/30 bg-primary/10 px-3 py-2 text-sm font-mono text-foreground'
-                      : 'rounded-sm border border-border bg-card px-3 py-2 text-sm font-mono text-muted-foreground'
+                      ? 'max-w-full whitespace-pre-wrap break-words [overflow-wrap:anywhere] rounded-sm border border-primary/30 bg-primary/10 px-3 py-2 text-sm font-mono text-foreground'
+                      : 'max-w-full whitespace-pre-wrap break-words [overflow-wrap:anywhere] rounded-sm border border-border bg-card px-3 py-2 text-sm font-mono text-muted-foreground'
                   }
                 >
                   {message.content}
