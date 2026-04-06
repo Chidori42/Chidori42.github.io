@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
-import { Bot, Loader2, MessageSquare, Send, Shield, Trash2, X } from 'lucide-react';
+import { Bot, MessageSquare, Send, Shield, Trash2, X } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 type ChatRole = 'user' | 'assistant';
@@ -483,10 +483,10 @@ export const PortfolioAssistant = () => {
 
             {isLoading && (
               <div className="mr-8 rounded-sm border border-border bg-card px-3 py-2 text-sm font-mono text-muted-foreground">
-                <span className="inline-flex items-center gap-2">
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                  Thinking...
-                </span>
+                <div className="inline-flex items-center gap-2">
+                  <div className="loader loader-chat" style={{ width: '26px' }} aria-label="Generating response" role="status" />
+                  <span>Thinking...</span>
+                </div>
               </div>
             )}
           </div>

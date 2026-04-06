@@ -15,12 +15,27 @@ import { motion } from 'framer-motion';
 import { pageFade } from '@/lib/motion';
 
 const Index = () => {
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const [showAssistant, setShowAssistant] = useState(false);
 
   useEffect(() => {
+    const introTimer = window.setTimeout(() => setIsPageLoading(false), 1800);
     const timer = window.setTimeout(() => setShowAssistant(true), 1800);
-    return () => window.clearTimeout(timer);
+    return () => {
+      window.clearTimeout(introTimer);
+      window.clearTimeout(timer);
+    };
   }, []);
+
+  if (isPageLoading) {
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background">
+        <div className="pointer-events-none absolute inset-0 dot-grid opacity-25" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/10 via-background/20 to-background" aria-hidden="true" />
+        <div className="loader loader-intro" aria-label="Loading portfolio" role="status" />
+      </div>
+    );
+  }
 
   return (
     <motion.div className="min-h-screen bg-background duration-500" initial="hidden" animate="visible" variants={pageFade}>
