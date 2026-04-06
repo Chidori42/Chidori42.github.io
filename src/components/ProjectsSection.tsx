@@ -6,8 +6,8 @@ import { sectionTitle, staggerContainer, staggerItem } from '@/lib/motion';
 
 const onProgress = [
   {
-    title: 'Hirefy',
-    abbrev: '/assets/Hirefy.png',
+    title: 'hirify',
+    abbrev: '/assets/hirify.png',
     description: 'Smart Applicant Tracking System A modern hiring platform designed to bridge the gap between recruiters and candidates',
     team: [
       {profilePng:'/team/eaboudi.jpg', name:'EL HOUSSAINE ABOUDI', githubUrl:'https://github.com/eaboudi'},

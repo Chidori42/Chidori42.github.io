@@ -17,7 +17,7 @@
   },
   "projects": [
     {
-      "name": "Hirefy",
+      "name": "hirify",
       "summary": "Smart applicant tracking system",
       "stack": ["React", "Express", "MySQL", "TypeScript", "JavaScript"]
     },
