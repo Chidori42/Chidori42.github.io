@@ -44,6 +44,15 @@ export const ProjectCard = ({
   figmaLabel,
   motionProps,
 }: ProjectCardProps) => {
+  const getGithubHandle = (url: string) => {
+    try {
+      const pathname = new URL(url).pathname.replace(/^\/+|\/+$/g, '');
+      return pathname.split('/')[0] || '';
+    } catch {
+      return '';
+    }
+  };
+
   return (
     <motion.div
       className="project-card group border border-border p-4 hover:border-primary transition-all flex flex-col h-full"
@@ -108,7 +117,14 @@ export const ProjectCard = ({
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {/* <span className="text-[11px] font-mono whitespace-nowrap">{member.name}</span> */}
+                <div className="flex flex-col leading-none">
+                  <span className="text-[11px] font-mono text-foreground whitespace-nowrap max-w-[120px] truncate">
+                    {member.name}
+                  </span>
+                  <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">
+                    @{getGithubHandle(member.githubUrl)}
+                  </span>
+                </div>
               </a>
             ))}
           </div>

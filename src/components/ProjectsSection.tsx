@@ -39,6 +39,9 @@ const featuredProjects = [
       fr: 'Conception d\'une interface claire et responsive sur Figma, axée sur l\'utilisabilité, un rendu moderne et une navigation intuitive.',
       ar: 'تصميم واجهة نظيفة ومتجاوبة على Figma مع التركيز على سهولة الاستخدام والمظهر الحديث والتنقل الواضح.',
     } as LocalizedDescription,
+    team: [
+      {profilePng:'https://github.com/Chidori42.png?size=80', name:'Abdellatif El Fagrouch', githubUrl:'https://github.com/Chidori42'},
+    ],
     tags: ['Figma', 'Design', 'Prototyping'],
     figmaUrl: 'https://www.figma.com/design/uENBWm0X7VeAsydvQnV25A/ft_trancendance--Copy-?m=auto&t=WnjTdGSlO6i3vwVD-1',
   },
@@ -83,6 +86,9 @@ const otherProjects = [
       ar: 'محرك ألعاب ثلاثي الأبعاد بطابع كلاسيكي يستعرض raycasting والرسم والمنظور من منظور الشخص الأول.',
     } as LocalizedDescription,
     githubUrl: "https://github.com/Chidori42/Cube_3d ",
+    team: [
+      {profilePng:'https://github.com/Chidori42.png?size=80', name:'Abdellatif El Fagrouch', githubUrl:'https://github.com/Chidori42'},
+    ],
     tags: ['C', 'Graphics', 'Game Dev'],
   },
   {
@@ -94,6 +100,9 @@ const otherProjects = [
       ar: 'محاكاة بصرية لخوارزميات إيجاد المسار (floodfill و BFS) مع عروض تفاعلية.',
     } as LocalizedDescription,
     githubUrl: "https://github.com/Chidori42/Floodfill",
+    team: [
+      {profilePng:'https://github.com/Chidori42.png?size=80', name:'Abdellatif El Fagrouch', githubUrl:'https://github.com/Chidori42'},
+    ],
     tags: ['C++', 'Algorithms'],
   },
 ];
@@ -131,6 +140,7 @@ export const ProjectsSection = () => {
                 key={index}
                 title={project.title}
                 description={project.description[language]}
+                team={project.team}
                 tags={project.tags}
                 abbrev={project.abbrev}
                 githubUrl={project.githubUrl}
@@ -156,6 +166,7 @@ export const ProjectsSection = () => {
                 key={index}
                 title={project.title}
                 description={project.description[language]}
+                team={project.team}
                 tags={project.tags}
                 abbrev={project.abbrev}
                 githubUrl={project.githubUrl}
@@ -182,6 +193,7 @@ export const ProjectsSection = () => {
                 key={index}
                 title={project.title}
                 description={project.description[language]}
+                team={project.team}
                 tags={project.tags}
                 abbrev={project.abbrev}
                 githubUrl={project.githubUrl}
