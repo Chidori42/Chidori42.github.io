@@ -70,6 +70,36 @@ Client-side (UX-only) controls:
 - `VITE_CHAT_MAX_INPUT_CHARS`
 - `VITE_CHAT_COOLDOWN_MS`
 
+Analytics (optional):
+
+- `VITE_GA_MEASUREMENT_ID` (Google Analytics 4, format: `G-XXXXXXXXXX`)
+
+## Visitor Analytics Setup (GA4)
+
+1. Create a GA4 property and a Web Data Stream in Google Analytics.
+2. Copy the Measurement ID (looks like `G-XXXXXXXXXX`).
+3. Put it in [`.env`](.env):
+
+```bash
+VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+4. Restart dev server.
+5. Open your portfolio and check Realtime in GA4 to confirm page views.
+
+Notes:
+
+- Route changes in this SPA are tracked as `page_view` events.
+- If `VITE_GA_MEASUREMENT_ID` is empty, analytics is disabled automatically.
+
+Custom GA events emitted by the app:
+
+- `assistant_opened`
+- `assistant_message_sent`
+- `contact_form_submit_attempt`
+- `contact_form_submit_success`
+- `contact_form_submit_error`
+
 ## Local Development
 
 ```bash

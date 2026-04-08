@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { Bot, MessageSquare, Send, Shield, Trash2, X } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { trackAnalyticsEvent } from '@/lib/analytics';
 
 type ChatRole = 'user' | 'assistant';
 
@@ -637,6 +638,11 @@ export const PortfolioAssistant = () => {
     }
 
     const userMessage: UiMessage = { id: crypto.randomUUID(), role: 'user', content: next };
+    trackAnalyticsEvent('assistant_message_sent', {
+      message_length: next.length,
+      language,
+    });
+
     const assistantMessageId = crypto.randomUUID();
     const nextMessages = [...messages, userMessage];
     setMessages([
@@ -747,7 +753,10 @@ export const PortfolioAssistant = () => {
       {!open && (
         <button
           type="button"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            trackAnalyticsEvent('assistant_opened', { source: 'floating_button' });
+            setOpen(true);
+          }}
           className="group flex items-center gap-2 rounded-full border border-border bg-card px-4 py-3 font-mono text-sm text-foreground shadow-lg transition-colors hover:border-primary"
           aria-label="Open AI assistant"
         >

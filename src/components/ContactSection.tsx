@@ -8,6 +8,7 @@ import emailjs from '@emailjs/browser';
 import { Mail, MapPin, Send, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { sectionTitle, staggerContainer, staggerItem } from '@/lib/motion';
+import { trackAnalyticsEvent } from '@/lib/analytics';
 
 const contactSchema = z.object({
   name: z.string()
@@ -39,6 +40,12 @@ export const ContactSection = () => {
 
 const onSubmit = async (data: ContactFormData) => {
   setIsSubmitting(true);
+  trackAnalyticsEvent('contact_form_submit_attempt', {
+    has_name: Boolean(data.name.trim()),
+    has_email: Boolean(data.email.trim()),
+    message_length: data.message.trim().length,
+  });
+
   try {
     await emailjs.send(
       'service_qysmzrp', 
@@ -53,10 +60,12 @@ const onSubmit = async (data: ContactFormData) => {
     );
 
     setSubmitStatus('success');
+    trackAnalyticsEvent('contact_form_submit_success');
     reset();
     setTimeout(() => setSubmitStatus('idle'), 5000);
   } catch {
     setSubmitStatus('error');
+    trackAnalyticsEvent('contact_form_submit_error');
   } finally {
     setIsSubmitting(false);
   }
