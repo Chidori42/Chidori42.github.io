@@ -86,6 +86,7 @@ const CACHE_TTL_MS = Number(process.env.CHAT_CACHE_TTL_MS ?? 6 * 60 * 60 * 1000)
 const SYSTEM_PROMPT_MAX_CHARS = 3500;
 const RELEVANT_CHUNK_LIMIT = 6;
 const ADMIN_KEY = process.env.CHAT_ADMIN_KEY ?? '';
+const MAX_DYNAMIC_OUTPUT_TOKENS = Number(process.env.CHAT_MAX_DYNAMIC_OUTPUT_TOKENS ?? 700);
 
 const IP_BUCKETS = new Map<string, RateBucket>();
 const QUESTION_CACHE = new Map<string, CacheEntry>();
@@ -288,8 +289,21 @@ Rules:
 ${portfolioContext.rules.map((rule) => `- ${rule}`).join('\n')}
 - If relevant evidence exists, synthesize the answer from it instead of guessing.
 - If the evidence is incomplete, say what is missing.
+- If the user asks multiple questions in one prompt, answer all of them in the same reply.
+- For multiple questions, structure the response as a numbered list (one item per question) and keep each item concise.
 - ${getLanguageInstruction(lang)}
 `.trim();
+}
+
+function estimateOutputTokens(message: string): number {
+  const lines = message.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  const questionMarkCount = (message.match(/[?؟]/g) ?? []).length;
+  const listLikeCount = lines.filter((line) => /^(-|\*|\d+[.)])\s+/.test(line)).length;
+
+  const inferredQuestions = Math.max(questionMarkCount, listLikeCount, lines.length > 1 ? lines.length : 1);
+  const dynamic = MAX_OUTPUT_TOKENS + Math.max(0, inferredQuestions - 1) * 90;
+
+  return Math.min(MAX_DYNAMIC_OUTPUT_TOKENS, Math.max(MAX_OUTPUT_TOKENS, dynamic));
 }
 
 function getClientIp(req: VercelRequest): string {
@@ -416,7 +430,7 @@ async function callLlm(
     const payload = {
       model,
       temperature: 0.2,
-      max_tokens: MAX_OUTPUT_TOKENS,
+      max_tokens: estimateOutputTokens(message),
       stream: Boolean(onToken),
       messages: [
         { role: 'system', content: buildSystemPrompt(lang, message, history).slice(0, SYSTEM_PROMPT_MAX_CHARS) },
