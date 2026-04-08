@@ -39,7 +39,7 @@ type AdminResponse = {
   error?: string;
 };
 
-type FallbackTopic = 'skills' | 'projects' | 'education' | 'contact';
+type FallbackTopic = 'about' | 'skills' | 'projects' | 'education' | 'contact' | 'location';
 
 type FallbackEntry = {
   topic: FallbackTopic;
@@ -95,6 +95,18 @@ const THINKING_PHASES = {
 const FALLBACK_KNOWLEDGE: Record<'en' | 'fr' | 'ar', FallbackEntry[]> = {
   en: [
     {
+      topic: 'about',
+      match: /about|who is|who are|abdellatif|profile|background summary|introduce/i,
+      answer:
+        'Abdellatif El Fagrouch is a web developer from 1337 Coding School, based in Morocco, focused on modern full-stack web experiences.',
+    },
+    {
+      topic: 'location',
+      match: /country|city|location|where|based|live|from|morocco/i,
+      answer:
+        'Abdellatif is based in Morocco. The portfolio context provides country-level location, but does not specify a city.',
+    },
+    {
       topic: 'skills',
       match: /skill|tech|stack|language|framework/i,
       answer:
@@ -121,6 +133,18 @@ const FALLBACK_KNOWLEDGE: Record<'en' | 'fr' | 'ar', FallbackEntry[]> = {
   ],
   fr: [
     {
+      topic: 'about',
+      match: /[àa] propos|qui est|abdellatif|profil|pr[ée]sentation|bio/i,
+      answer:
+        'Abdellatif El Fagrouch est un developpeur web de 1337 Coding School, base au Maroc, specialise dans des experiences web full-stack modernes.',
+    },
+    {
+      topic: 'location',
+      match: /pays|ville|localisation|ou|où|bas[ée]|maroc|habite|r[ée]side/i,
+      answer:
+        'Abdellatif est base au Maroc. Le contexte du portfolio donne le pays, mais ne precise pas la ville.',
+    },
+    {
       topic: 'skills',
       match: /comp[ée]tence|tech|stack|langage|framework/i,
       answer:
@@ -146,6 +170,18 @@ const FALLBACK_KNOWLEDGE: Record<'en' | 'fr' | 'ar', FallbackEntry[]> = {
     },
   ],
   ar: [
+    {
+      topic: 'about',
+      match: /عن|من هو|عبداللطيف|نبذة|تعريف|ملف شخصي/i,
+      answer:
+        'عبداللطيف الفاگروش مطور ويب من مدرسة 1337 في المغرب، ويركز على بناء تجارب ويب حديثة متكاملة.',
+    },
+    {
+      topic: 'location',
+      match: /بلد|دولة|مدينة|اين|أين|الموقع|موقع|المغرب|يسكن|يقيم/i,
+      answer:
+        'عبداللطيف مقيم في المغرب. بيانات البورتفوليو تذكر البلد فقط ولا تحدد المدينة.',
+    },
     {
       topic: 'skills',
       match: /مهار|تقني|stack|framework|لغة/i,
@@ -184,13 +220,14 @@ function extractFallbackTopicOrder(question: string, language: 'en' | 'fr' | 'ar
     .filter(Boolean);
 
   for (const segment of segments) {
-    const matched = entries.find((entry) => entry.match.test(segment));
-    if (!matched || seen.has(matched.topic)) {
-      continue;
-    }
+    for (const entry of entries) {
+      if (!entry.match.test(segment) || seen.has(entry.topic)) {
+        continue;
+      }
 
-    seen.add(matched.topic);
-    topicOrder.push(matched.topic);
+      seen.add(entry.topic);
+      topicOrder.push(entry.topic);
+    }
   }
 
   if (topicOrder.length > 0) {
@@ -209,8 +246,102 @@ function extractFallbackTopicOrder(question: string, language: 'en' | 'fr' | 'ar
   return topicOrder;
 }
 
+function getAdvancedFallbackAnswer(question: string, language: 'en' | 'fr' | 'ar'): string | null {
+  const normalized = question.toLowerCase();
+
+  if (language !== 'en') {
+    return null;
+  }
+
+  const asksTechnicalProfile =
+    /(technical profile|concise profile|about abdellatif|strongest stack|currently studying|where .*stud(y|ies)|cs fundamentals)/i.test(normalized);
+
+  if (asksTechnicalProfile) {
+    return [
+      '1. Abdellatif El Fagrouch is a full-stack web developer from 1337 Coding School in Morocco.',
+      '2. Strongest stack: C, C++, JavaScript, TypeScript, React, Express.js, Node.js, Fastify.js, SQL/NoSQL databases (SQLite, MariaDB, MongoDB), plus Docker and Linux tooling.',
+      '3. CS fundamentals demonstrated: systems programming (SimpleShell), networking protocols (IRC Server), algorithmic problem solving (Path Finding Visualizer), and graphics/rendering concepts (RayFlow Engine).',
+      '4. Current studies: 1337 Coding School (2023-2026), with previous DEUG studies from the Faculty of Law in Agadir.',
+    ].join('\n\n');
+  }
+
+  const asksTopProjectComparison =
+    /(compare|top\s*3|best\s*3).*(project|portfolio)|domain.*technolog|engineering challenge/i.test(normalized);
+
+  if (asksTopProjectComparison) {
+    return [
+      '1. hirefy',
+      '- Domain: HR Tech / Applicant Tracking System',
+      '- Core technologies: React, Express, MySQL, TypeScript, JavaScript',
+      '- Main engineering challenge: connecting recruiter and candidate workflows with reliable CRUD flows and practical full-stack coordination.',
+      '2. IRC Server',
+      '- Domain: Real-time networking / communication systems',
+      '- Core technologies: C++ and networking concepts',
+      '- Main engineering challenge: implementing RFC 2812-compatible server behavior for multiple concurrent clients and real-time message flow.',
+      '3. RayFlow Engine',
+      '- Domain: Graphics / game engine programming',
+      '- Core technologies: C and rendering fundamentals',
+      '- Main engineering challenge: building retro-style raycasting logic and performant first-person rendering behavior.',
+    ].join('\n');
+  }
+
+  const asksHiringAssessment =
+    /(hire|hiring|backend-focused|backend role|why he fits|fit for|limitations|available data|contact details)/i.test(normalized);
+
+  if (asksHiringAssessment) {
+    return [
+      '1. Why he fits a backend-focused role:',
+      '- Experience with Node.js, Express.js, Fastify.js and multiple databases (SQLite, MariaDB, MongoDB).',
+      '- Solid low-level base from C/C++ projects that show systems and performance-oriented thinking.',
+      '- Practical experience shipping full-stack projects where backend design and integration are central.',
+      '2. Limitations in available data:',
+      '- Public portfolio context summarizes projects and stack, but does not include production-scale metrics, team size details, or deep architecture docs.',
+      '- A deeper interview or code walkthrough would be needed for final seniority assessment.',
+      '3. Contact:',
+      '- Email: elfagrouch9@gmail.com',
+      '- Status: Open to new opportunities and collaborations.',
+    ].join('\n');
+  }
+
+  const asksCsEvidence =
+    /(computer science perspective|algorithmic thinking|systems knowledge|networking experience|evidence)/i.test(normalized);
+
+  if (asksCsEvidence) {
+    return [
+      '1. Algorithmic thinking evidence:',
+      '- Path Finding Visualizer demonstrates algorithm-oriented reasoning (floodfill, BFS) and interactive simulation.',
+      '- RayFlow Engine reflects geometric and rendering logic used in raycasting pipelines.',
+      '2. Systems knowledge evidence:',
+      '- SimpleShell demonstrates process and command execution fundamentals in a Unix-like environment.',
+      '- C/C++ project portfolio indicates comfort with low-level memory-conscious programming models.',
+      '3. Networking evidence:',
+      '- IRC Server explicitly targets RFC 2812 behavior with multi-client real-time communication patterns.',
+      '- This indicates understanding of protocol-driven communication and concurrent connection handling basics.',
+    ].join('\n');
+  }
+
+  return null;
+}
+
 function getFallbackAnswer(question: string, language: 'en' | 'fr' | 'ar'): string {
   const normalized = question.trim();
+  const advancedAnswer = getAdvancedFallbackAnswer(normalized, language);
+  if (advancedAnswer) {
+    return advancedAnswer;
+  }
+
+  if (language === 'en' && /(city|which city|what city)/i.test(normalized)) {
+    return 'The portfolio only specifies Morocco as location and does not include a city.';
+  }
+
+  if (language === 'fr' && /(ville|quelle ville|dans quelle ville)/i.test(normalized)) {
+    return 'Le portfolio indique le Maroc comme localisation, mais ne précise pas la ville.';
+  }
+
+  if (language === 'ar' && /(مدينة|اي مدينة|أية مدينة)/i.test(normalized)) {
+    return 'البورتفوليو يذكر المغرب كموقع فقط، بدون تحديد المدينة.';
+  }
+
   const orderedTopics = extractFallbackTopicOrder(normalized, language);
   const topicToAnswer = new Map(FALLBACK_KNOWLEDGE[language].map((entry) => [entry.topic, entry.answer]));
   const matchedAnswers = orderedTopics
@@ -551,6 +682,13 @@ export const PortfolioAssistant = () => {
       if (isJsonResponse) {
         const data = (await response.json()) as ApiResponse;
         if (!response.ok || !data.reply) {
+          if (response.status === 429 || response.status === 503) {
+            const fallbackContent = getFallbackAnswer(next, language);
+            setReplyMode('fallback');
+            await applyContentWithClientStreaming(fallbackContent);
+            return;
+          }
+
           if (!response.ok && response.status >= 500) {
             const content = getFallbackAnswer(next, language);
             setReplyMode('fallback');

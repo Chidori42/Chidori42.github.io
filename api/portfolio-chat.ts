@@ -83,6 +83,7 @@ const MAX_INPUT_CHARS = Number(process.env.CHAT_MAX_INPUT_CHARS ?? 500);
 const MAX_OUTPUT_TOKENS = Number(process.env.CHAT_MAX_OUTPUT_TOKENS ?? 250);
 const REQUEST_TIMEOUT_MS = Number(process.env.CHAT_TIMEOUT_MS ?? 10_000);
 const CACHE_TTL_MS = Number(process.env.CHAT_CACHE_TTL_MS ?? 6 * 60 * 60 * 1000);
+const CACHE_SCHEMA_VERSION = 'v2';
 const SYSTEM_PROMPT_MAX_CHARS = 3500;
 const RELEVANT_CHUNK_LIMIT = 6;
 const ADMIN_KEY = process.env.CHAT_ADMIN_KEY ?? '';
@@ -290,6 +291,7 @@ ${portfolioContext.rules.map((rule) => `- ${rule}`).join('\n')}
 - If relevant evidence exists, synthesize the answer from it instead of guessing.
 - If the evidence is incomplete, say what is missing.
 - If the user asks multiple questions in one prompt, answer all of them in the same reply.
+- If the user asks a compound request in one sentence (for example joined with "and"), cover every requested aspect.
 - For multiple questions, structure the response as a numbered list (one item per question) and keep each item concise.
 - ${getLanguageInstruction(lang)}
 `.trim();
@@ -383,7 +385,7 @@ function isDailyCapReached(): boolean {
 }
 
 function getCachedAnswer(question: string, lang: Lang): string | null {
-  const key = `${lang}::${question.trim().toLowerCase()}`;
+  const key = `${CACHE_SCHEMA_VERSION}::${lang}::${question.trim().toLowerCase()}`;
   const item = QUESTION_CACHE.get(key);
   if (!item) {
     return null;
@@ -398,7 +400,7 @@ function getCachedAnswer(question: string, lang: Lang): string | null {
 }
 
 function setCachedAnswer(question: string, value: string, lang: Lang): void {
-  const key = `${lang}::${question.trim().toLowerCase()}`;
+  const key = `${CACHE_SCHEMA_VERSION}::${lang}::${question.trim().toLowerCase()}`;
   QUESTION_CACHE.set(key, {
     value,
     expiresAt: Date.now() + CACHE_TTL_MS,
