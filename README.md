@@ -87,6 +87,12 @@ VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 4. Restart dev server.
 5. Open your portfolio and check Realtime in GA4 to confirm page views.
 
+If you deploy with GitHub Pages Actions, also set repository variable `VITE_GA_MEASUREMENT_ID`:
+
+1. GitHub repo -> Settings -> Secrets and variables -> Actions -> Variables.
+2. Create `VITE_GA_MEASUREMENT_ID` with value `G-XXXXXXXXXX`.
+3. Redeploy so the build includes analytics.
+
 Notes:
 
 - Route changes in this SPA are tracked as `page_view` events.
