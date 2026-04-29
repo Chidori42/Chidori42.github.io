@@ -187,6 +187,8 @@ function buildSystemPrompt(lang, message, history) {
     .map((chunk) => `- ${chunk.title}: ${chunk.text}`)
     .join('\n');
 
+  const projectLines = portfolioContext.projects.map((p) => `- ${p.name}: ${p.summary}`).join('\n');
+
   return `
 Name: ${portfolioContext.profile.name}
 Location: ${portfolioContext.profile.location}
@@ -581,4 +583,6 @@ const server = http.createServer(async (req, res) => {
 });
 
 const port = Number(process.env.PORT ?? 5173);
-server.listen(port);
+server.listen(port, () => {
+  console.log(`> Portfolio dev server running at http://localhost:${port}`);
+});

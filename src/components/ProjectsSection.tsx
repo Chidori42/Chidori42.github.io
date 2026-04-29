@@ -20,13 +20,26 @@ const onProgress = [
       ar: 'نظام ذكي لتتبع طلبات التوظيف. منصة حديثة تربط بين مسؤولي التوظيف والمرشحين.',
     } as LocalizedDescription,
     team: [
-      {profilePng:'/team/eaboudi.jpg', name:'EL HOUSSAINE ABOUDI', githubUrl:'https://github.com/eaboudi'},
-      {profilePng:'/team/sessarhi.jpg', name:'سفيان الصغير', githubUrl:'https://github.com/soufianeessarhir'},
-      {profilePng:'/team/ibes-sed.jpg', name:'Ibrahim Es.seddyq', githubUrl:'https://github.com/ibrahimesseddyq'},
-      {profilePng:'/team/aachalla.jpg', name:'Abdelmajid Achallah', githubUrl:'https://github.com/AM9-push'},
+      { profilePng: '/team/eaboudi.jpg', name: 'EL HOUSSAINE ABOUDI', githubUrl: 'https://github.com/eaboudi' },
+      { profilePng: '/team/sessarhi.jpg', name: 'سفيان الصغير', githubUrl: 'https://github.com/soufianeessarhir' },
+      { profilePng: '/team/ibes-sed.jpg', name: 'Ibrahim Es.seddyq', githubUrl: 'https://github.com/ibrahimesseddyq' },
+      { profilePng: '/team/aachalla.jpg', name: 'Abdelmajid Achallah', githubUrl: 'https://github.com/AM9-push' },
     ],
     tags: ['React', 'Express.js', 'Mysql', 'JavaScript', 'TypeScript'],
     githubUrl: "https://github.com/ibrahimesseddyq/ft_transcendance",
+  }, {
+    title: 'AnimeHub',
+    abbrev: '/assets/animehub.png',
+    description: {
+      en: 'A full-stack anime platform with watch rooms, real-time sync, AI assistant, collectibles, auctions, and a gamified community experience.',
+      fr: 'Une plateforme anime complète avec salles de visionnage, synchronisation en temps réel, assistant IA, objets de collection, enchères et une expérience communautaire gamifiée.',
+      ar: 'منصة أنمي متكاملة تتضمن غرف المشاهدة المتزامنة، ومساعداً ذكياً، ومقتنيات، ومزادات، وتجربة مجتمعية تفاعلية.',
+    } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+    ],
+    tags: ['Next.js', 'TypeScript', 'Socket.IO', 'Prisma', 'PostgreSQL', 'Express.js', 'Video.js'],
+    liveUrl: 'https://animehub.studio/',
   },
 ];
 
@@ -40,7 +53,7 @@ const featuredProjects = [
       ar: 'تصميم واجهة نظيفة ومتجاوبة على Figma مع التركيز على سهولة الاستخدام والمظهر الحديث والتنقل الواضح.',
     } as LocalizedDescription,
     team: [
-      {profilePng:'https://github.com/Chidori42.png?size=80', name:'Abdellatif El Fagrouch', githubUrl:'https://github.com/Chidori42'},
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
     ],
     tags: ['Figma', 'Design', 'Prototyping'],
     figmaUrl: 'https://www.figma.com/design/uENBWm0X7VeAsydvQnV25A/ft_trancendance--Copy-?m=auto&t=WnjTdGSlO6i3vwVD-1',
@@ -54,7 +67,7 @@ const featuredProjects = [
       ar: 'مشروع أساسي لفهم  وتنفيذ أوامر shell  بسيطة مع ميزات حديثة.',
     } as LocalizedDescription,
     team: [
-      {profilePng:'/team/bramzil.jpg', name:'Amzil Brahim', githubUrl:'https://github.com/bramzil'},
+      { profilePng: '/team/bramzil.jpg', name: 'Amzil Brahim', githubUrl: 'https://github.com/bramzil' },
     ],
     tags: ['C', 'Unix Shell'],
     githubUrl: "https://github.com/Chidori42/Minishell",
@@ -72,8 +85,8 @@ const otherProjects = [
     } as LocalizedDescription,
     githubUrl: "https://github.com/Chidori42/Irc",
     team: [
-      {profilePng:'/team/yakazdao.jpg', name:'Younes Akazdaou', githubUrl:'https://github.com/Younes-AK'},
-      {profilePng:'/team/ezahiri.jpg', name:'El Mustapha Zahiri', githubUrl:'https://github.com/ezahiri10'},
+      { profilePng: '/team/yakazdao.jpg', name: 'Younes Akazdaou', githubUrl: 'https://github.com/Younes-AK' },
+      { profilePng: '/team/ezahiri.jpg', name: 'El Mustapha Zahiri', githubUrl: 'https://github.com/ezahiri10' },
     ],
     tags: ['C++', 'Networking'],
   },
@@ -87,7 +100,7 @@ const otherProjects = [
     } as LocalizedDescription,
     githubUrl: "https://github.com/Chidori42/Cube_3d ",
     team: [
-      {profilePng:'https://github.com/Chidori42.png?size=80', name:'Abdellatif El Fagrouch', githubUrl:'https://github.com/Chidori42'},
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
     ],
     tags: ['C', 'Graphics', 'Game Dev'],
   },
@@ -101,7 +114,7 @@ const otherProjects = [
     } as LocalizedDescription,
     githubUrl: "https://github.com/Chidori42/Floodfill",
     team: [
-      {profilePng:'https://github.com/Chidori42.png?size=80', name:'Abdellatif El Fagrouch', githubUrl:'https://github.com/Chidori42'},
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
     ],
     tags: ['C++', 'Algorithms'],
   },
@@ -145,6 +158,7 @@ export const ProjectsSection = () => {
                 abbrev={project.abbrev}
                 githubUrl={project.githubUrl}
                 liveLabel={t.projects.live}
+                liveUrl={project.liveUrl}
                 cachedLabel={t.projects.cached}
                 githubLabel={t.projects.github}
                 figmaLabel={t.projects.figma}
