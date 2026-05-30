@@ -45,6 +45,21 @@ const onProgress = [
 
 const featuredProjects = [
   {
+    title: 'ZakatCalc',
+    abbrev: '/assets/zakat-calc.png',
+    description: {
+      en: 'A premium, scholarly-grounded platform for accurate Zakat calculation and management, featuring historical ledger tracking and trilingual support.',
+      fr: 'Une plateforme premium basée sur des principes académiques pour le calcul précis et la gestion de la Zakat, incluant un suivi historique et un support trilingue.',
+      ar: 'منصة متطورة مبنية على أسس شرعية لحساب وإدارة الزكاة بدقة، مع خاصية تتبع السجل التاريخي ودعم لثلاث لغات.',
+    } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+    ],
+    tags: ['Next.js', 'Prisma', 'MongoDB', 'Tailwind CSS', 'i18n'],
+    liveUrl: 'https://zakat-calc-ten.vercel.app/',
+  },
+
+  {
     title: 'UX/UI Design',
     abbrev: '/assets/ux_ui.jpg',
     description: {
@@ -186,6 +201,7 @@ export const ProjectsSection = () => {
                 githubUrl={project.githubUrl}
                 figmaUrl={project.figmaUrl}
                 liveLabel={t.projects.live}
+                liveUrl={project.liveUrl}
                 cachedLabel={t.projects.cached}
                 githubLabel={t.projects.github}
                 figmaLabel={t.projects.figma}
