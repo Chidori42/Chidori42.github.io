@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { hoverLift } from '@/lib/motion';
 
-interface TeamMember {
+export interface TeamMember {
   name: string;
   profilePng: string;
   githubUrl: string;
@@ -19,10 +19,12 @@ interface ProjectCardProps {
   githubUrl?: string;
   figmaUrl?: string;
   cached?: boolean;
+  comingSoon?: boolean;
   liveLabel: string;
   cachedLabel: string;
   githubLabel: string;
   figmaLabel: string;
+  comingSoonLabel?: string;
   motionProps?: {
     variants?: Variants;
   };
@@ -38,10 +40,12 @@ export const ProjectCard = ({
   githubUrl,
   figmaUrl,
   cached,
+  comingSoon,
   liveLabel,
   cachedLabel,
   githubLabel,
   figmaLabel,
+  comingSoonLabel,
   motionProps,
 }: ProjectCardProps) => {
   const getGithubHandle = (url: string) => {
@@ -133,6 +137,11 @@ export const ProjectCard = ({
 
       {/* Links */}
       <div className="flex flex-wrap gap-3 mt-auto pt-2">
+        {comingSoon && (
+          <span className="inline-flex items-center gap-1 px-3 py-1.5 border border-primary text-sm font-mono text-primary bg-primary/10">
+            {comingSoonLabel}
+          </span>
+        )}
         {githubUrl && (
           <a
             href={githubUrl}

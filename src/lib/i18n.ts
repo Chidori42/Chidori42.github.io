@@ -34,6 +34,7 @@ export const translations = {
       cached: 'View >',
       github: 'Code ↗',
       figma: 'Design ↗',
+      comingSoon: 'Coming Soon',
     },
     skills: {
       title: '#skills',
@@ -164,6 +165,7 @@ export const translations = {
       cached: 'Voir >',
       github: 'Code ↗',
       figma: 'Design ↗',
+      comingSoon: 'Bientôt disponible',
     },
     skills: {
       title: '#compétences',
@@ -294,6 +296,7 @@ export const translations = {
       cached: '< مشاهدة',
       github: '↗ الكود',
       figma: '↗ التصميم',
+      comingSoon: 'قريباً',
     },
     skills: {
       title: '#المهارات',

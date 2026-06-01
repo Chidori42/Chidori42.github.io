@@ -1,5 +1,5 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ProjectCard } from './ProjectCard';
+import { ProjectCard, type TeamMember } from './ProjectCard';
 import { DotGrid } from './DotGrid';
 import { motion } from 'framer-motion';
 import { sectionTitle, staggerContainer, staggerItem } from '@/lib/motion';
@@ -10,7 +10,34 @@ type LocalizedDescription = {
   ar: string;
 };
 
-const onProgress = [
+type Project = {
+  title: string;
+  abbrev?: string;
+  description: LocalizedDescription;
+  team?: TeamMember[];
+  tags: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  figmaUrl?: string;
+  cached?: boolean;
+  comingSoon?: boolean;
+};
+
+const onProgress: Project[] = [
+  {
+    title: 'Minarah',
+    abbrev: '/assets/minarah.png',
+    description: {
+      en: 'A comprehensive full-stack web application for Muslim community engagement featuring real-time chat, Quran reading, Hadith collection, Qurra directory, and Q&A system.',
+      fr: 'Une application web full-stack complète pour l\'engagement de la communauté musulmane avec chat en temps réel, lecture du Coran, collection de hadiths, annuaire des Qurra et système Q&R.',
+      ar: 'تطبيق ويب متكامل للمنصة المجتمعية للمسلمين يتضمن دردشة لحظية، وقراءة القرآن، ومجموعة الأحاديث، ودليل القراء، ونظام الأسئلة والأجوبة.',
+    } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+    ],
+    tags: ['Next.js', 'Express.js', 'MongoDB', 'Socket.io', 'Prisma', 'i18n'],
+    comingSoon: true,
+  },
   {
     title: 'Hirefy',
     abbrev: '/assets/hirefy.png',
@@ -167,23 +194,25 @@ export const ProjectsSection = () => {
             <span className="text-foreground">{t.projects.onProgress.replace('#', '')}</span>
           </motion.h3>
           <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-            {onProgress.map((project, index) => (
-              <ProjectCard
-                key={index}
-                title={project.title}
-                description={project.description[language]}
-                team={project.team}
-                tags={project.tags}
-                abbrev={project.abbrev}
-                githubUrl={project.githubUrl}
-                liveLabel={t.projects.live}
-                liveUrl={project.liveUrl}
-                cachedLabel={t.projects.cached}
-                githubLabel={t.projects.github}
-                figmaLabel={t.projects.figma}
-                motionProps={{ variants: staggerItem }}
-              />
-            ))}
+{onProgress.map((project, index) => (
+               <ProjectCard
+                 key={index}
+                 title={project.title}
+                 description={project.description[language]}
+                 team={project.team}
+                 tags={project.tags}
+                 abbrev={project.abbrev}
+                 githubUrl={project.githubUrl}
+                 liveLabel={t.projects.live}
+                 liveUrl={project.liveUrl}
+                 cachedLabel={t.projects.cached}
+                 githubLabel={t.projects.github}
+                 figmaLabel={t.projects.figma}
+                 comingSoon={project.comingSoon}
+                 comingSoonLabel={t.projects.comingSoon}
+                 motionProps={{ variants: staggerItem }}
+               />
+             ))}
           </motion.div>
         </div>
 
