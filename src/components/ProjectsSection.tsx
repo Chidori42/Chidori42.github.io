@@ -20,6 +20,7 @@ const onProgress = [
       ar: 'نظام ذكي لتتبع طلبات التوظيف. منصة حديثة تربط بين مسؤولي التوظيف والمرشحين.',
     } as LocalizedDescription,
     team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
       { profilePng: '/team/eaboudi.jpg', name: 'EL HOUSSAINE ABOUDI', githubUrl: 'https://github.com/eaboudi' },
       { profilePng: '/team/sessarhi.jpg', name: 'سفيان الصغير', githubUrl: 'https://github.com/soufianeessarhir' },
       { profilePng: '/team/ibes-sed.jpg', name: 'Ibrahim Es.seddyq', githubUrl: 'https://github.com/ibrahimesseddyq' },
@@ -82,6 +83,7 @@ const featuredProjects = [
       ar: 'مشروع أساسي لفهم  وتنفيذ أوامر shell  بسيطة مع ميزات حديثة.',
     } as LocalizedDescription,
     team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
       { profilePng: '/team/bramzil.jpg', name: 'Amzil Brahim', githubUrl: 'https://github.com/bramzil' },
     ],
     tags: ['C', 'Unix Shell'],
@@ -100,6 +102,7 @@ const otherProjects = [
     } as LocalizedDescription,
     githubUrl: "https://github.com/Chidori42/Irc",
     team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
       { profilePng: '/team/yakazdao.jpg', name: 'Younes Akazdaou', githubUrl: 'https://github.com/Younes-AK' },
       { profilePng: '/team/ezahiri.jpg', name: 'El Mustapha Zahiri', githubUrl: 'https://github.com/ezahiri10' },
     ],
@@ -116,6 +119,7 @@ const otherProjects = [
     githubUrl: "https://github.com/Chidori42/Cube_3d ",
     team: [
       { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+      { profilePng: '/team/yakazdao.jpg', name: 'Younes Akazdaou', githubUrl: 'https://github.com/Younes-AK' }
     ],
     tags: ['C', 'Graphics', 'Game Dev'],
   },
