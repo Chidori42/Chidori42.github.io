@@ -27,7 +27,7 @@ const onProgress = [
       { profilePng: '/team/aachalla.jpg', name: 'Abdelmajid Achallah', githubUrl: 'https://github.com/AM9-push' },
     ],
     tags: ['React', 'Express.js', 'Mysql', 'JavaScript', 'TypeScript'],
-    githubUrl: "https://github.com/ibrahimesseddyq/ft_transcendance",
+    githubUrl: "https://github.com/Chidori42/Hirefy",
   }, {
     title: 'AnimeHub',
     abbrev: '/assets/animehub.png',
