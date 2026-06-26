@@ -9,7 +9,6 @@ import { FunFactsSection } from '@/components/FunFactsSection';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
 import { SideDecoration } from '@/components/SideDecoration';
-import { CustomCursor } from '@/components/CustomCursor';
 import { PortfolioAssistant } from '@/components/PortfolioAssistant';
 import { motion } from 'framer-motion';
 import { pageFade } from '@/lib/motion';
@@ -101,7 +100,6 @@ const Index = () => {
 
       {!isPageLoading && (
         <motion.div className="min-h-screen bg-background duration-500" initial="hidden" animate="visible" variants={pageFade}>
-          {!showLoader && <CustomCursor hideDefaultCursor={false} />}
           <Header />
           <SideDecoration />
           <motion.main className="duration-1000" variants={pageFade}>
