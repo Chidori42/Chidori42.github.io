@@ -1,0 +1,275 @@
+import { useLanguage } from '@/contexts/LanguageContext';
+import { ProjectCard, type TeamMember } from './ProjectCard';
+import { DotGrid } from './DotGrid';
+import { motion } from 'framer-motion';
+import { sectionTitle, staggerContainer, staggerItem } from '@/lib/motion';
+
+type LocalizedDescription = {
+  en: string;
+  fr: string;
+  ar: string;
+};
+
+type Project = {
+  title: string;
+  abbrev?: string;
+  description: LocalizedDescription;
+  team?: TeamMember[];
+  tags: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  figmaUrl?: string;
+  cached?: boolean;
+  comingSoon?: boolean;
+};
+
+const onProgress: Project[] = [
+  {
+    title: 'Minarah',
+    abbrev: '/assets/minarah.png',
+    description: {
+      en: 'A comprehensive full-stack web application for Muslim community engagement featuring real-time chat, Quran reading, Hadith collection, Qurra directory, and Q&A system.',
+      fr: 'Une application web full-stack complète pour l\'engagement de la communauté musulmane avec chat en temps réel, lecture du Coran, collection de hadiths, annuaire des Qurra et système Q&R.',
+      ar: 'تطبيق ويب متكامل للمنصة المجتمعية للمسلمين يتضمن دردشة لحظية، وقراءة القرآن، ومجموعة الأحاديث، ودليل القراء، ونظام الأسئلة والأجوبة.',
+    } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+    ],
+    tags: ['Next.js', 'Express.js', 'MongoDB', 'Socket.io', 'Prisma', 'i18n'],
+    comingSoon: true,
+  },
+  {
+    title: 'Hirefy',
+    abbrev: '/assets/hirefy.png',
+    description: {
+      en: 'Smart Applicant Tracking System. A modern hiring platform designed to bridge the gap between recruiters and candidates.',
+      fr: 'Système intelligent de suivi des candidatures. Une plateforme moderne de recrutement qui relie recruteurs et candidats.',
+      ar: 'نظام ذكي لتتبع طلبات التوظيف. منصة حديثة تربط بين مسؤولي التوظيف والمرشحين.',
+    } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+      { profilePng: '/team/eaboudi.jpg', name: 'EL HOUSSAINE ABOUDI', githubUrl: 'https://github.com/eaboudi' },
+      { profilePng: '/team/sessarhi.jpg', name: 'سفيان الصغير', githubUrl: 'https://github.com/soufianeessarhir' },
+      { profilePng: '/team/ibes-sed.jpg', name: 'Ibrahim Es.seddyq', githubUrl: 'https://github.com/ibrahimesseddyq' },
+      { profilePng: '/team/aachalla.jpg', name: 'Abdelmajid Achallah', githubUrl: 'https://github.com/AM9-push' },
+    ],
+    tags: ['React', 'Express.js', 'Mysql', 'JavaScript', 'TypeScript'],
+    githubUrl: "https://github.com/Chidori42/Hirefy",
+  }, {
+    title: 'AnimeHub',
+    abbrev: '/assets/animehub.png',
+    description: {
+      en: 'A full-stack anime platform with watch rooms, real-time sync, AI assistant, collectibles, auctions, and a gamified community experience.',
+      fr: 'Une plateforme anime complète avec salles de visionnage, synchronisation en temps réel, assistant IA, objets de collection, enchères et une expérience communautaire gamifiée.',
+      ar: 'منصة أنمي متكاملة تتضمن غرف المشاهدة المتزامنة، ومساعداً ذكياً، ومقتنيات، ومزادات، وتجربة مجتمعية تفاعلية.',
+    } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+    ],
+    tags: ['Next.js', 'TypeScript', 'Socket.IO', 'Prisma', 'PostgreSQL', 'Express.js', 'Video.js'],
+    liveUrl: 'https://animehub.studio/',
+  },
+];
+
+const featuredProjects = [
+  {
+    title: 'ZakatCalc',
+    abbrev: '/assets/zakat-calc.png',
+    description: {
+      en: 'A premium, scholarly-grounded platform for accurate Zakat calculation and management, featuring historical ledger tracking and trilingual support.',
+      fr: 'Une plateforme premium basée sur des principes académiques pour le calcul précis et la gestion de la Zakat, incluant un suivi historique et un support trilingue.',
+      ar: 'منصة متطورة مبنية على أسس شرعية لحساب وإدارة الزكاة بدقة، مع خاصية تتبع السجل التاريخي ودعم لثلاث لغات.',
+    } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+    ],
+    tags: ['Next.js', 'Prisma', 'MongoDB', 'Tailwind CSS', 'i18n'],
+    liveUrl: 'https://zakat-calc-ten.vercel.app/',
+  },
+
+  {
+    title: 'UX/UI Design',
+    abbrev: '/assets/ux_ui.jpg',
+    description: {
+      en: 'Designed a clean, responsive interface in Figma with a focus on usability, modern visuals, and intuitive navigation.',
+      fr: 'Conception d\'une interface claire et responsive sur Figma, axée sur l\'utilisabilité, un rendu moderne et une navigation intuitive.',
+      ar: 'تصميم واجهة نظيفة ومتجاوبة على Figma مع التركيز على سهولة الاستخدام والمظهر الحديث والتنقل الواضح.',
+    } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+    ],
+    tags: ['Figma', 'Design', 'Prototyping'],
+    figmaUrl: 'https://www.figma.com/design/uENBWm0X7VeAsydvQnV25A/ft_trancendance--Copy-?m=auto&t=WnjTdGSlO6i3vwVD-1',
+  },
+  {
+    title: 'SimpleShell',
+    abbrev: '/assets/Bash-Script.jpg',
+    description: {
+      en: 'A fundamental exercise in understanding and implementing a basic Unix shell with modern features.',
+      fr: 'Un exercice fondamental pour comprendre et implémenter un shell Unix de base avec des fonctionnalités modernes.',
+      ar: 'مشروع أساسي لفهم  وتنفيذ أوامر shell  بسيطة مع ميزات حديثة.',
+    } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+      { profilePng: '/team/bramzil.jpg', name: 'Amzil Brahim', githubUrl: 'https://github.com/bramzil' },
+    ],
+    tags: ['C', 'Unix Shell'],
+    githubUrl: "https://github.com/Chidori42/Minishell",
+  },
+];
+
+const otherProjects = [
+  {
+    title: 'IRC Server',
+    abbrev: '/assets/irc-server.png',
+    description: {
+      en: 'Developed a basic IRC server in C++ adhering to RFC 2812, supporting multiple client connections and real-time communication.',
+      fr: 'Développement d\'un serveur IRC en C++ conforme à la RFC 2812, avec connexions multiples et communication en temps réel.',
+      ar: 'تطوير خادم IRC أساسي بلغة ++C مطابق لمعيار RFC 2812 ويدعم اتصالات متعددة وتواصلا لحظيا.',
+    } as LocalizedDescription,
+    githubUrl: "https://github.com/Chidori42/Irc",
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+      { profilePng: '/team/yakazdao.jpg', name: 'Younes Akazdaou', githubUrl: 'https://github.com/Younes-AK' },
+      { profilePng: '/team/ezahiri.jpg', name: 'El Mustapha Zahiri', githubUrl: 'https://github.com/ezahiri10' },
+    ],
+    tags: ['C++', 'Networking'],
+  },
+  {
+    title: 'RayFlow Engine',
+    abbrev: '/assets/3dgame.png',
+    description: {
+      en: 'A retro-inspired 3D game engine showcasing raycasting, graphics rendering, and first-person perspective.',
+      fr: 'Un moteur de jeu 3D inspiré du rétro, mettant en avant le raycasting, le rendu graphique et la vue à la première personne.',
+      ar: 'محرك ألعاب ثلاثي الأبعاد بطابع كلاسيكي يستعرض raycasting والرسم والمنظور من منظور الشخص الأول.',
+    } as LocalizedDescription,
+    githubUrl: "https://github.com/Chidori42/Cube_3d ",
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+      { profilePng: '/team/yakazdao.jpg', name: 'Younes Akazdaou', githubUrl: 'https://github.com/Younes-AK' }
+    ],
+    tags: ['C', 'Graphics', 'Game Dev'],
+  },
+  {
+    title: 'Path Finding Visualizer',
+    abbrev: '/assets/path-finding.png',
+    description: {
+      en: 'A visual simulation of pathfinding algorithms (floodfill, BFS) with interactive demonstrations.',
+      fr: 'Une simulation visuelle des algorithmes de recherche de chemin (floodfill, BFS) avec démonstrations interactives.',
+      ar: 'محاكاة بصرية لخوارزميات إيجاد المسار (floodfill و BFS) مع عروض تفاعلية.',
+    } as LocalizedDescription,
+    githubUrl: "https://github.com/Chidori42/Floodfill",
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+    ],
+    tags: ['C++', 'Algorithms'],
+  },
+];
+
+export const ProjectsSection = () => {
+  const { t, language } = useLanguage();
+
+  return (
+    <section id="projects" className="py-20 relative">
+      <motion.div className="absolute top-20 right-8 opacity-30" animate={{ y: [0, -6, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}>
+        <DotGrid rows={5} cols={5} />
+      </motion.div>
+
+      <div className="container mx-auto px-4">
+        {/* Section Header */}
+        <motion.div className="flex items-center justify-between mb-12" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} variants={staggerContainer}>
+          <motion.h2 className="text-3xl font-mono" variants={sectionTitle}>
+            <span className="text-primary">#</span>
+            <span className="text-foreground">{t.projects.title.replace('#', '')}</span>
+          </motion.h2>
+          <motion.a href="https://github.com/Chidori42" className="text-muted-foreground hover:text-[#171d8baa] font-mono text-sm transition-colors" variants={sectionTitle} whileHover={{ y: -2 }}>
+            {t.projects.viewAll}
+          </motion.a>
+        </motion.div>
+
+        {/* OnProgress Projects */}
+        <div className="mb-16">
+          <motion.h3 className="text-xl font-mono mb-8" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5 }}>
+            <span className="text-primary">#</span>
+            <span className="text-foreground">{t.projects.onProgress.replace('#', '')}</span>
+          </motion.h3>
+          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+{onProgress.map((project, index) => (
+               <ProjectCard
+                 key={index}
+                 title={project.title}
+                 description={project.description[language]}
+                 team={project.team}
+                 tags={project.tags}
+                 abbrev={project.abbrev}
+                 githubUrl={project.githubUrl}
+                 liveLabel={t.projects.live}
+                 liveUrl={project.liveUrl}
+                 cachedLabel={t.projects.cached}
+                 githubLabel={t.projects.github}
+                 figmaLabel={t.projects.figma}
+                 comingSoon={project.comingSoon}
+                 comingSoonLabel={t.projects.comingSoon}
+                 motionProps={{ variants: staggerItem }}
+               />
+             ))}
+          </motion.div>
+        </div>
+
+        {/* Featured Projects */}
+        <div className="mb-16">
+          <motion.h3 className="text-xl font-mono mb-8" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5 }}>
+            <span className="text-primary">#</span>
+            <span className="text-foreground">{t.projects.completeApps.replace('#', '')}</span>
+          </motion.h3>
+          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+            {featuredProjects.map((project, index) => (
+              <ProjectCard
+                key={index}
+                title={project.title}
+                description={project.description[language]}
+                team={project.team}
+                tags={project.tags}
+                abbrev={project.abbrev}
+                githubUrl={project.githubUrl}
+                figmaUrl={project.figmaUrl}
+                liveLabel={t.projects.live}
+                liveUrl={project.liveUrl}
+                cachedLabel={t.projects.cached}
+                githubLabel={t.projects.github}
+                figmaLabel={t.projects.figma}
+                motionProps={{ variants: staggerItem }}
+              />
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Small Projects */}
+        <div>
+          <motion.h3 className="text-xl font-mono mb-8" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5 }}>
+            <span className="text-primary">#</span>
+            <span className="text-foreground">{t.projects.smallProjects.replace('#', '')}</span>
+          </motion.h3>
+          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+            {otherProjects.map((project, index) => (
+              <ProjectCard
+                key={index}
+                title={project.title}
+                description={project.description[language]}
+                team={project.team}
+                tags={project.tags}
+                abbrev={project.abbrev}
+                githubUrl={project.githubUrl}
+                liveLabel={t.projects.live}
+                cachedLabel={t.projects.cached}
+                githubLabel={t.projects.github}
+                figmaLabel={t.projects.figma}
+                motionProps={{ variants: staggerItem }}
+              />
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
