@@ -10,41 +10,111 @@
     "Previous studies: Faculty of Law in Agadir (DEUG, Jan 2020 - Jun 2022)."
   ],
   "skills": {
-    "languages": ["C", "C++", "JavaScript", "TypeScript"],
-    "frameworks": ["React", "Express.js", "Node.js", "Fastify.js"],
-    "tools": ["Docker", "Git", "VSCode", "Figma", "Linux", "Vim", "Prisma"],
-    "databases": ["SQLite", "MongoDB", "MariaDB"]
+    "languages": [
+      "C",
+      "C++",
+      "JavaScript",
+      "TypeScript"
+    ],
+    "frameworks": [
+      "React",
+      "Express.js",
+      "Node.js",
+      "Fastify.js"
+    ],
+    "tools": [
+      "Docker",
+      "Git",
+      "VSCode",
+      "Figma",
+      "Linux",
+      "Vim",
+      "Prisma"
+    ],
+    "databases": [
+      "SQLite",
+      "MongoDB",
+      "MariaDB"
+    ]
   },
   "projects": [
     {
       "name": "hirefy",
       "summary": "Smart applicant tracking system",
-      "stack": ["React", "Express", "MySQL", "TypeScript", "JavaScript"]
+      "stack": [
+        "React",
+        "Express",
+        "MySQL",
+        "TypeScript",
+        "JavaScript"
+      ]
+    },
+    {
+      "name": "DakkanPro",
+      "summary": "Offline-ready point-of-sale and shop-management app for small retailers, covering sales, inventory, customer credit, cash register, reports, and backups.",
+      "stack": [
+        "React Native",
+        "Expo",
+        "TypeScript",
+        "SQLite"
+      ],
+      "live": "https://dakkanpro.run.place/"
+    },
+    {
+      "name": "ApplyPilot",
+      "summary": "Local-first job-search platform with a seven-stage application tracker, CV and cover-letter library, recruiter email discovery, scheduled outreach campaigns, and reply tracking.",
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "PostgreSQL",
+        "Prisma",
+        "Nodemailer",
+        "IMAP"
+      ],
+      "live": "https://apply-pilot-ten.vercel.app"
     },
     {
       "name": "UX/UI Design",
       "summary": "Figma design and prototyping project",
-      "stack": ["Figma", "Design", "Prototyping"]
+      "stack": [
+        "Figma",
+        "Design",
+        "Prototyping"
+      ]
     },
     {
       "name": "SimpleShell",
       "summary": "Unix shell implementation",
-      "stack": ["C", "Unix Shell"]
+      "stack": [
+        "C",
+        "Unix Shell"
+      ]
     },
     {
       "name": "IRC Server",
       "summary": "RFC 2812 compatible IRC server",
-      "stack": ["C++", "Networking"]
+      "stack": [
+        "C++",
+        "Networking"
+      ]
     },
     {
       "name": "RayFlow Engine",
       "summary": "Retro-inspired 3D raycasting engine",
-      "stack": ["C", "Graphics", "Game Dev"]
+      "stack": [
+        "C",
+        "Graphics",
+        "Game Dev"
+      ]
     },
     {
       "name": "Path Finding Visualizer",
       "summary": "Interactive algorithm visualizer",
-      "stack": ["C++", "Algorithms"]
+      "stack": [
+        "C++",
+        "Algorithms"
+      ]
     }
   ],
   "contact": {
@@ -56,5 +126,27 @@
     "If unknown, say you do not have that info.",
     "Keep responses concise and practical.",
     "Never invent experience, credentials, or links."
+  ],
+  "experience": [
+    {
+      "role": "Full-Stack Developer Intern (PFE)",
+      "company": "Somayar",
+      "period": "2025 - Present",
+      "project": "ETICKETPRO, an e-ticketing platform for a BRT transit network",
+      "stack": [
+        "NestJS",
+        "Next.js 14",
+        "PostgreSQL",
+        "Prisma",
+        "Docker",
+        "Socket.IO"
+      ],
+      "highlights": [
+        "Designed a four-zone fare engine with runtime configuration validation.",
+        "Integrated GTFS data for 288 stops into six Prisma models.",
+        "Built real-time vehicle tracking with Redis, Socket.IO, and Leaflet.",
+        "Improved map and stop-search accessibility with keyboard navigation and ARIA."
+      ]
+    }
   ]
 }

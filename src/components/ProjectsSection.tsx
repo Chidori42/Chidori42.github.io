@@ -55,23 +55,32 @@ const onProgress: Project[] = [
     ],
     tags: ['React', 'Express.js', 'Mysql', 'JavaScript', 'TypeScript'],
     githubUrl: "https://github.com/Chidori42/Hirefy",
-  }, {
-    title: 'AnimeHub',
-    abbrev: '/assets/animehub.png',
-    description: {
-      en: 'A full-stack anime platform with watch rooms, real-time sync, AI assistant, collectibles, auctions, and a gamified community experience.',
-      fr: 'Une plateforme anime complète avec salles de visionnage, synchronisation en temps réel, assistant IA, objets de collection, enchères et une expérience communautaire gamifiée.',
-      ar: 'منصة أنمي متكاملة تتضمن غرف المشاهدة المتزامنة، ومساعداً ذكياً، ومقتنيات، ومزادات، وتجربة مجتمعية تفاعلية.',
-    } as LocalizedDescription,
-    team: [
-      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
-    ],
-    tags: ['Next.js', 'TypeScript', 'Socket.IO', 'Prisma', 'PostgreSQL', 'Express.js', 'Video.js'],
-    liveUrl: 'https://animehub.studio/',
   },
 ];
 
 const featuredProjects = [
+  {
+    title: 'DakkanPro',
+    abbrev: '/assets/dakkanpro-feature.webp',
+    description: {
+      en: 'An offline-ready point-of-sale and shop-management app for small retailers, with sales, inventory, customer credit, cash register, reports, and backups.',
+      fr: 'Une application de caisse et de gestion de boutique pour les petits commerçants, avec ventes, stock, crédit client, caisse, rapports et sauvegardes, utilisable hors ligne.',
+      ar: 'تطبيق لإدارة المتاجر الصغيرة ونقاط البيع، يشمل المبيعات والمخزون وائتمان العملاء والصندوق والتقارير والنسخ الاحتياطي، مع دعم العمل دون اتصال.',
+    } as LocalizedDescription,
+    tags: ['React Native', 'Expo', 'TypeScript', 'SQLite'],
+    liveUrl: 'https://dakkanpro.run.place/',
+  },
+  {
+    title: 'ApplyPilot',
+    abbrev: '/assets/applypilot-hero.webp',
+    description: {
+      en: 'A local-first job-search platform with a seven-stage application tracker, CV and cover-letter library, recruiter email discovery, scheduled outreach campaigns, and reply tracking.',
+      fr: 'Une plateforme locale de recherche d’emploi avec suivi des candidatures en sept étapes, bibliothèque de CV et lettres de motivation, recherche de contacts recruteurs, campagnes programmées et suivi des réponses.',
+      ar: 'منصة محلية للبحث عن عمل، مع تتبع الطلبات عبر سبع مراحل، ومكتبة للسير الذاتية ورسائل التقديم، واكتشاف عناوين مسؤولي التوظيف، وجدولة حملات التواصل ومتابعة الردود.',
+    } as LocalizedDescription,
+    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Prisma'],
+    liveUrl: 'https://apply-pilot-ten.vercel.app',
+  },
   {
     title: 'ZakatCalc',
     abbrev: '/assets/zakat-calc.png',
