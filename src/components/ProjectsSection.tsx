@@ -67,6 +67,9 @@ const featuredProjects = [
       fr: 'Une application de caisse et de gestion de boutique pour les petits commerçants, avec ventes, stock, crédit client, caisse, rapports et sauvegardes, utilisable hors ligne.',
       ar: 'تطبيق لإدارة المتاجر الصغيرة ونقاط البيع، يشمل المبيعات والمخزون وائتمان العملاء والصندوق والتقارير والنسخ الاحتياطي، مع دعم العمل دون اتصال.',
     } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+    ],
     tags: ['React Native', 'Expo', 'TypeScript', 'SQLite'],
     liveUrl: 'https://dakkanpro.run.place/',
   },
@@ -78,6 +81,9 @@ const featuredProjects = [
       fr: 'Une plateforme locale de recherche d’emploi avec suivi des candidatures en sept étapes, bibliothèque de CV et lettres de motivation, recherche de contacts recruteurs, campagnes programmées et suivi des réponses.',
       ar: 'منصة محلية للبحث عن عمل، مع تتبع الطلبات عبر سبع مراحل، ومكتبة للسير الذاتية ورسائل التقديم، واكتشاف عناوين مسؤولي التوظيف، وجدولة حملات التواصل ومتابعة الردود.',
     } as LocalizedDescription,
+    team: [
+      { profilePng: 'https://github.com/Chidori42.png?size=80', name: 'Abdellatif El Fagrouch', githubUrl: 'https://github.com/Chidori42' },
+    ],
     tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Prisma'],
     liveUrl: 'https://apply-pilot-ten.vercel.app',
   },

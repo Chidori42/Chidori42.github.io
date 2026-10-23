@@ -14,10 +14,20 @@ export default {
     },
     extend: {
       fontFamily: {
-        mono: ["Fira Code", "monospace"],
-        sans: ["Inter", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
+        sans: ["Plus Jakarta Sans", "Inter", "sans-serif"],
       },
       colors: {
+        canvas: {
+          light: "#EFECE6",
+          dark: "#121316",
+        },
+        forest: {
+          DEFAULT: "#2D4939",
+          dark: "#1E3327",
+          light: "#3D5E4B",
+          mint: "#E6F2EB",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -9,22 +9,19 @@ import { Mail, MapPin, Send, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { sectionTitle, staggerContainer, staggerItem } from '@/lib/motion';
 import { trackAnalyticsEvent } from '@/lib/analytics';
+import { translations } from '@/lib/i18n';
 
-const contactSchema = z.object({
-  name: z.string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(50, 'Name must be less than 50 characters'),
-  email: z.string()
-    .email('Please enter a valid email'),
-  message: z.string()
-    .min(10, 'Message must be at least 10 characters')
-    .max(1000, 'Message must be less than 1000 characters'),
+const createContactSchema = (messages: typeof translations.en.contacts.form.validation) => z.object({
+  name: z.string().min(2, messages.nameMin).max(50, messages.nameMax),
+  email: z.string().email(messages.email),
+  message: z.string().min(10, messages.messageMin).max(1000, messages.messageMax),
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+type ContactFormData = z.infer<ReturnType<typeof createContactSchema>>;
 
 export const ContactSection = () => {
  const { t, direction } = useLanguage();
+  const contactSchema = useMemo(() => createContactSchema(t.contacts.form.validation), [t]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -102,7 +99,7 @@ const onSubmit = async (data: ContactFormData) => {
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-muted-foreground font-mono text-sm">Email</p>
+                    <p className="text-muted-foreground font-mono text-sm">{t.contacts.emailLabel}</p>
                     <p className="text-foreground font-mono">elfagrouch9@gmail.com</p>
                   </div>
                 </motion.div>
@@ -111,8 +108,8 @@ const onSubmit = async (data: ContactFormData) => {
                     <MapPin className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-muted-foreground font-mono text-sm">Location</p>
-                    <p className="text-foreground font-mono">Morocco</p>
+                    <p className="text-muted-foreground font-mono text-sm">{t.contacts.locationLabel}</p>
+                    <p className="text-foreground font-mono">{t.contacts.location}</p>
                   </div>
                 </motion.div>
               </div>
@@ -202,7 +199,7 @@ const onSubmit = async (data: ContactFormData) => {
                 {isSubmitting ? (
                   <>
                     <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
-                    Sending...
+                    {t.contacts.form.sending}
                   </>
                 ) : (
                   <>
@@ -215,13 +212,13 @@ const onSubmit = async (data: ContactFormData) => {
               {submitStatus === 'success' && (
                 <motion.p className="text-terminal-green flex items-center gap-2 font-mono" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
                   <CheckCircle2 className="w-4 h-4" />
-                  Message sent successfully!
+                  {t.contacts.form.success}
                 </motion.p>
               )}
               {submitStatus === 'error' && (
                 <motion.p className="text-destructive flex items-center gap-2 font-mono" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
                   <AlertCircle className="w-4 h-4" />
-                  Failed to send message. Please try again.
+                  {t.contacts.form.error}
                 </motion.p>
               )}
             </motion.form>

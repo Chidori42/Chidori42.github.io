@@ -8,7 +8,7 @@ export const EducationSection = () => {
   const { t, direction } = useLanguage();
 
   return (
-    <section className="py-20 relative">
+    <section id="education" className="py-20 relative section-anchor">
       <motion.div className="absolute top-10 left-8 opacity-30" animate={{ y: [0, -6, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}>
         <DotGrid rows={4} cols={4} />
       </motion.div>

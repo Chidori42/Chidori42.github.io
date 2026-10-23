@@ -59,7 +59,7 @@ export const ProjectCard = ({
 
   return (
     <motion.div
-      className="project-card group border border-border p-4 hover:border-primary transition-all flex flex-col h-full"
+      className="project-card bento-card group border border-border p-4 hover:border-primary transition-all flex flex-col h-full"
       variants={motionProps?.variants}
       whileHover={hoverLift}
     >
