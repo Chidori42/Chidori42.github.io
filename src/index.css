@@ -1,5 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Arabic:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
+@font-face {
+  font-family: 'Open Sauce Sans';
+  src: url('/fonts/OpenSauceSans-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sauce Sans';
+  src: url('/fonts/OpenSauceSans-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sauce Sans';
+  src: url('/fonts/OpenSauceSans-SemiBold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sauce Sans';
+  src: url('/fonts/OpenSauceSans-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -84,7 +116,7 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Plus Jakarta Sans', Inter, sans-serif;
+    font-family: 'Open Sauce Sans', 'Plus Jakarta Sans', Inter, sans-serif;
   }
 
 
@@ -108,12 +140,12 @@
 
   /* RTL support */
   [dir="rtl"] {
-    font-family: 'Noto Sans Arabic', 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Noto Sans Arabic', 'Open Sauce Sans', 'Plus Jakarta Sans', sans-serif;
   }
 }
 
 html[lang="ar"] .font-mono {
-  font-family: 'Noto Sans Arabic', 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Noto Sans Arabic', 'Open Sauce Sans', 'Plus Jakarta Sans', sans-serif;
 }
 
 @layer components {
@@ -881,16 +913,16 @@ html[lang="ar"] .font-mono {
 
 .portfolio-main { grid-column: 2; grid-row: 2; min-width: 0; }
 .portfolio-main .container { width: 100%; max-width: none; padding-inline: 0; }
-.portfolio-main .font-mono { font-family: 'Plus Jakarta Sans', Inter, sans-serif; letter-spacing: normal; }
+.portfolio-main .font-mono { font-family: 'Open Sauce Sans', 'Plus Jakarta Sans', Inter, sans-serif; letter-spacing: normal; }
 .portfolio-main section:not(#home) { padding-block: 58px; border-bottom: 1px solid hsl(var(--border) / .75); scroll-margin-top: 24px; }
 .portfolio-main section:not(#home) > .container > h2,
-.portfolio-main section:not(#home) > .container > div > h2 { margin-bottom: 8px; font-family: 'Plus Jakarta Sans', Inter, sans-serif; font-size: clamp(24px, 2.4vw, 30px); font-weight: 750; letter-spacing: -.045em; }
+.portfolio-main section:not(#home) > .container > div > h2 { margin-bottom: 8px; font-family: 'Open Sauce Sans', 'Plus Jakarta Sans', Inter, sans-serif; font-size: clamp(24px, 2.4vw, 30px); font-weight: 750; letter-spacing: -.045em; }
 .portfolio-main section:not(#home) h2 span:first-child { margin-right: 9px; color: hsl(var(--primary)); font-family: 'JetBrains Mono', monospace; font-size: .77em; }
-.portfolio-main section:not(#home) h3 { font-family: 'Plus Jakarta Sans', Inter, sans-serif; letter-spacing: -.025em; }
+.portfolio-main section:not(#home) h3 { font-family: 'Open Sauce Sans', 'Plus Jakarta Sans', Inter, sans-serif; letter-spacing: -.025em; }
 .portfolio-main .dot-grid, .portfolio-main .geometric-decoration { opacity: .08 !important; }
 .portfolio-footer { grid-column: 2; grid-row: 3; min-width: 0; }
 .portfolio-footer footer { padding: 24px 0 10px; border-color: hsl(var(--border) / .72); }
-.portfolio-footer footer .font-mono { font-family: 'Plus Jakarta Sans', Inter, sans-serif; }
+.portfolio-footer footer .font-mono { font-family: 'Open Sauce Sans', 'Plus Jakarta Sans', Inter, sans-serif; }
 
 .section-anchor { scroll-margin-top: 24px; }
 .bento-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border) / .55); border-radius: 24px; box-shadow: 0 8px 28px -4px hsl(240 6% 10% / .04), 0 2px 6px -1px hsl(240 6% 10% / .02); transition: transform .25s cubic-bezier(.22, 1, .36, 1), box-shadow .25s ease, border-color .25s ease, background-color .3s ease; }
@@ -972,9 +1004,10 @@ html[lang="ar"] .font-mono {
 .approach-route { position: relative; height: 190px; margin: 1px 0 0; color: hsl(var(--primary)); }
 .approach-curve-desktop { display: block; width: 100%; height: 100%; overflow: visible; }
 .approach-curve-mobile { display: none; }
-.approach-curve-path { fill: none; stroke: url(#approach-line-gradient); stroke-width: 1.5px; stroke-linecap: round; stroke-dasharray: 1; }
-.approach-curve-mobile .approach-curve-path { stroke: hsl(var(--primary) / .55); }
-.approach-curve-stems { fill: none; stroke: hsl(var(--primary) / .28); stroke-width: 1px; stroke-linecap: round; stroke-dasharray: 1; }
+.approach-curve-glow { fill: none; stroke: hsl(var(--primary) / .2); stroke-width: 9px; stroke-linecap: round; stroke-dasharray: 1; filter: blur(3px); }
+.approach-curve-path { fill: none; stroke: url(#approach-line-gradient); stroke-width: 1.8px; stroke-linecap: round; stroke-dasharray: 1; }
+.approach-curve-mobile .approach-curve-path { stroke: hsl(var(--primary) / .66); }
+.approach-curve-stems { fill: none; stroke: hsl(var(--primary) / .28); stroke-width: 1px; stroke-linecap: round; stroke-dasharray: 3 5; }
 .approach-node-halo { fill: hsl(var(--card)); stroke: hsl(var(--primary) / .27); stroke-width: 1px; }
 .approach-node { fill: hsl(var(--primary)); }
 .approach-traveler { fill: hsl(var(--primary)); filter: drop-shadow(0 0 5px hsl(var(--primary) / .7)); }
@@ -1052,10 +1085,8 @@ html[lang="ar"] .font-mono {
   .approach-orb { grid-column: 2; grid-row: 1 / span 2; width: 47px; height: 47px; margin-top: 12px; }
   .approach-orb-core { width: 25px; height: 25px; }
   .approach-orb-ring { inset: 2px; }
-  .approach-route { position: absolute; z-index: 0; top: 185px; bottom: 54px; left: 8px; width: 38px; height: auto; margin: 0; pointer-events: none; }
-  .approach-curve-desktop { display: none; }
-  .approach-curve-mobile { display: block; width: 100%; height: 100%; overflow: visible; color: hsl(var(--primary)); }
-  .approach-cards { position: relative; z-index: 1; grid-template-columns: 1fr; gap: 12px; margin: 28px 0 0 35px; }
+  .approach-route { display: none; }
+  .approach-cards { position: relative; z-index: 1; grid-template-columns: 1fr; gap: 12px; margin: 28px 0 0; }
   .approach-card { min-height: 180px; padding: 17px 18px 18px; }
   .approach-card-label { margin-top: 14px; }
 }

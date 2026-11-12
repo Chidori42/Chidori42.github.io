@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         mono: ["JetBrains Mono", "monospace"],
-        sans: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+        sans: ["Open Sauce Sans", "Plus Jakarta Sans", "Inter", "sans-serif"],
       },
       colors: {
         canvas: {

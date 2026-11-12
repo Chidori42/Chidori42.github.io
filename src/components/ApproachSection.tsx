@@ -59,8 +59,16 @@ export const ApproachSection = () => {
             </linearGradient>
           </defs>
           <motion.path
+            className="approach-curve-glow"
+            d="M 0 118 H 166 C 234 118 265 82 333 82 C 401 82 432 118 500 118 C 568 118 599 82 667 82 C 735 82 766 118 834 118 H 1000"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true, amount: 0.7 }}
+            transition={{ duration: 1.65, ease: [0.22, 1, 0.36, 1] }}
+          />
+          <motion.path
             className="approach-curve-path"
-          d="M 166 138 C 290 138 300 44 500 44 C 700 44 710 138 834 138"
+            d="M 0 118 H 166 C 234 118 265 82 333 82 C 401 82 432 118 500 118 C 568 118 599 82 667 82 C 735 82 766 118 834 118 H 1000"
             initial={{ pathLength: 0 }}
             whileInView={{ pathLength: 1 }}
             viewport={{ once: true, amount: 0.7 }}
@@ -68,13 +76,13 @@ export const ApproachSection = () => {
           />
           <motion.path
             className="approach-curve-stems"
-            d="M 166 138 L 166 190 M 500 44 L 500 190 M 834 138 L 834 190"
+            d="M 166 118 L 166 190 M 500 118 L 500 190 M 834 118 L 834 190"
             initial={{ pathLength: 0, opacity: 0 }}
             whileInView={{ pathLength: 1, opacity: 1 }}
             viewport={{ once: true, amount: 0.7 }}
             transition={{ duration: .65, delay: .7, ease: 'easeOut' }}
           />
-          {[{ cx: 166, cy: 138 }, { cx: 500, cy: 44 }, { cx: 834, cy: 138 }].map((point, index) => (
+          {[{ cx: 166, cy: 118 }, { cx: 500, cy: 118 }, { cx: 834, cy: 118 }].map((point, index) => (
             <motion.g key={point.cx} initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true, amount: 0.7 }} transition={{ delay: 0.45 + index * 0.2, type: 'spring', stiffness: 230, damping: 18 }} style={{ transformOrigin: `${point.cx}px ${point.cy}px` }}>
               <circle className="approach-node-halo" cx={point.cx} cy={point.cy} r="11" />
               <circle className="approach-node" cx={point.cx} cy={point.cy} r="4" />
@@ -84,15 +92,27 @@ export const ApproachSection = () => {
             className="approach-traveler"
             r="4"
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: [0, 1, 1, 0], cx: [166, 500, 834], cy: [138, 44, 138] }}
+            whileInView={{
+              opacity: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+              cx: [0, 166, 250, 333, 416, 500, 584, 667, 750, 834, 1000],
+              cy: [118, 118, 100, 82, 100, 118, 100, 82, 100, 118, 118],
+            }}
             viewport={{ once: true, amount: 0.7 }}
-            transition={{ duration: 2.4, delay: 1.05, ease: 'easeInOut' }}
+            transition={{ duration: 3.6, delay: 1.05, ease: 'linear' }}
           />
         </svg>
         <svg className="approach-curve-mobile" viewBox="0 0 120 620" preserveAspectRatio="none">
           <motion.path
+            className="approach-curve-glow"
+            d="M 48 0 C 48 34 48 68 48 100 C 48 176 83 196 83 244 C 83 292 60 310 60 350 C 60 400 42 419 42 466 C 42 514 50 540 50 585 C 50 599 58 611 68 620"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+          />
+          <motion.path
             className="approach-curve-path"
-            d="M 48 12 C 104 70 92 126 48 194 C 12 252 20 302 70 342 C 112 390 96 440 48 492 C 18 530 28 572 68 608"
+            d="M 48 0 C 48 34 48 68 48 100 C 48 176 83 196 83 244 C 83 292 60 310 60 350 C 60 400 42 419 42 466 C 42 514 50 540 50 585 C 50 599 58 611 68 620"
             initial={{ pathLength: 0 }}
             whileInView={{ pathLength: 1 }}
             viewport={{ once: true, amount: 0.45 }}
@@ -104,7 +124,7 @@ export const ApproachSection = () => {
               <circle className="approach-node" cx={point.cx} cy={point.cy} r="3.5" />
             </motion.g>
           ))}
-          <motion.circle className="approach-traveler" r="4" initial={{ opacity: 0 }} whileInView={{ opacity: [0, 1, 1, 0], cy: [12, 194, 342, 608], cx: [48, 48, 70, 68] }} viewport={{ once: true, amount: 0.45 }} transition={{ duration: 2.8, delay: .6, ease: 'easeInOut' }} />
+          <motion.circle className="approach-traveler" r="4" initial={{ opacity: 0 }} whileInView={{ opacity: [0, 1, 1, 1, 1, 1, 0], cy: [0, 100, 244, 350, 466, 585, 620], cx: [48, 48, 83, 60, 42, 50, 68] }} viewport={{ once: true, amount: 0.45 }} transition={{ duration: 3.2, delay: .6, ease: 'linear' }} />
         </svg>
       </div>
 
